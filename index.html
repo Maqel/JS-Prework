@@ -7,7 +7,21 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <main class="main">
+  <section class="intro">
+    <button class="intro__playBtn btn" type="button">play game</button>
+    <button class="intro__startGameBtn btn" type="button">start game</button>
+    <button class="intro__faqBtn btn" type="button">how to play</button>
+  </section>
+  <section id="faq">
+    <div class="faq__faqContainer">
+      <h1>How to play Rock Paper Scissors?</h1>
+      <p>Rock beats scissors and loses to paper. <br>To throw a stone, select the clenched fist buttons on the left side of the game window</p>
+      <p>Paper beats rock, but loses to scissors. <br>To throw the paper, select the open hand buttons in the center of the game window</p>
+      <p>Scissors beat paper but loses to rock. <br>To throw scissors, select the button with a clenched fist and two fingers extended on the right side of the game window</p>
+      <button id="backButton" type="button" href="#faq">Back to Menu</button>
+    </div>
+  </section>
+  <main class="mainGameWindow">
     <h1 class="title">Rock paper scissors</h1>
     <div class="buttons">
       <button class="selectedRock" type="button"></button>
@@ -15,8 +29,8 @@
       <button class="SelectedScissors" type="button"></button>
     </div>
     <div class="imgContainer">
-      <img src="" alt="computer movement view" class="imgContainer__computerMove">
-      <img src="" alt="player movement view" class="imgContainer__playerMove">
+      <img src="./images/rock/rock_left.png" alt="computer movement view" class="imgContainer__computerMove">
+      <img src="./images/rock/rock_right.png" alt="player movement view" class="imgContainer__playerMove">
     </div>
     <div class="messages">
       <h2 class="announcement">Ready to play</h2>
