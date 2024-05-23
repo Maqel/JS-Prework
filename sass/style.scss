@@ -1,0 +1,60 @@
+/* VARIABLES */
+$font-frontal: "Monoton", cursive;
+
+/* GLOBAL */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  font-family: $font-frontal;
+  margin: 0 auto;
+}
+
+/* MIXINS */
+@mixin grid-width {
+  display: grid;
+  width: 100vh;
+}
+
+@mixin letter-spacing($spacing) {
+  letter-spacing: $spacing;
+}
+
+.header {
+  //display: grid;
+
+  .header__title {
+    @include letter-spacing(3vh);
+  }
+}
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  
+}
+/* MAIN */
+.mainGameWindow {
+  display: grid;
+  height: 100vh;
+  border: 20px solid #150402;
+}
+
+.mainGameWindow__imgContainer {
+  @include grid-width;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.mainGameWindow__buttons { 
+  @include grid-width;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.mainGameWindow__announcement {
+  @include letter-spacing(1vh);
+}
+
+section {
+  display: none;
+}
+

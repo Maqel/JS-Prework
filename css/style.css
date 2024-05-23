@@ -1,3 +1,49 @@
+/* VARIABLES */
+/* GLOBAL */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  font-family: "Monoton", cursive;
+  margin: 0 auto;
+}
 
+/* MIXINS */
+.header .header__title {
+  letter-spacing: 3vh;
+}
 
-/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzdHlsZS5jc3MifQ== */
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* MAIN */
+.mainGameWindow {
+  display: grid;
+  height: 100vh;
+  border: 20px solid #150402;
+}
+
+.mainGameWindow__imgContainer {
+  display: grid;
+  width: 100vh;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.mainGameWindow__buttons {
+  display: grid;
+  width: 100vh;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.mainGameWindow__announcement {
+  letter-spacing: 1vh;
+}
+
+section {
+  display: none;
+}
+
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3Nhc3Mvc3R5bGUuc2NzcyIsInN0eWxlLmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSxjQUFBO0FBR0EsV0FBQTtBQUNBOzs7RUFHRSxzQkFBQTtFQUNBLCtCQVBhO0VBUWIsY0FBQTtBQ0RGOztBRElBLFdBQUE7QUFhRTtFQU5BLG1CQU8wQjtBQ2I1Qjs7QURnQkE7RUFDRSxhQUFBO0VBQ0Esc0JBQUE7RUFDQSxhQUFBO0FDYkY7O0FEZ0JBLFNBQUE7QUFDQTtFQUNFLGFBQUE7RUFDQSxhQUFBO0VBQ0EsMEJBQUE7QUNiRjs7QURnQkE7RUE1QkUsYUFBQTtFQUNBLFlBQUE7RUE2QkEscUNBQUE7QUNaRjs7QURlQTtFQWpDRSxhQUFBO0VBQ0EsWUFBQTtFQWtDQSxxQ0FBQTtBQ1hGOztBRGNBO0VBakNFLG1CQWtDd0I7QUNYMUI7O0FEY0E7RUFDRSxhQUFBO0FDWEYiLCJmaWxlIjoic3R5bGUuY3NzIn0= */
