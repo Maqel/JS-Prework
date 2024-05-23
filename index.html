@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rock paper scissors</title>
+  <title>Rock Paper Scissors</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Monoton&display=swap" rel="stylesheet">
@@ -11,59 +11,60 @@
 </head>
 <body>
   <header class="header">
-    <h1 class="header__title">Rock paper scissors</h1>
+    <h1 class="header__title">Rock Paper Scissors</h1>
   </header>
+
   <section class="intro">
-    <button class="intro__playBtn intro__btn" type="button">play game</button>
-    <button class="intro__startGameBtn intro__btn" type="button">start game</button>
-    <button class="intro__faqBtn intro__btn" type="button">how to play</button>
+    <button class="intro__btn intro__btn--play" type="button">play game</button>
+    <button class="intro__btn intro__btn--how" type="button">how to play</button>
   </section>
-  <section id="faq">
-    <div class="faq__faqContainer">
-      <h1>How to play Rock Paper Scissors?</h1>
-      <p>Rock beats scissors and loses to paper. <br>To throw a stone, select the clenched fist buttons on the left side of the game window</p>
-      <p>Paper beats rock, but loses to scissors. <br>To throw the paper, select the open hand buttons in the center of the game window</p>
-      <p>Scissors beat paper but loses to rock. <br>To throw scissors, select the button with a clenched fist and two fingers extended on the right side of the game window</p>
-      <button id="faq__backButton" type="button" href="#faq">Back to Menu</button>
+
+  <section id="faq" class="faq">
+    <div class="faq__container">
+      <h1 class="faq__title">How to play Rock Paper Scissors?</h1>
+      <p class="faq__text">Rock beats scissors and loses to paper.</p>
+      <p class="faq__text">To throw a stone, select the clenched fist buttons on the left side of the game window</p>
+      <p class="faq__text">Paper beats rock, but loses to scissors.</p>
+      <p class="faq__text">To throw the paper, select the open hand buttons in the center of the game window</p>
+      <p class="faq__text">Scissors beat paper but loses to rock.</p>
+      <p class="faq__text">To throw scissors, select the button with a clenched fist and two fingers extended on the right side of the game window</p>
+      <button id="faq__backButton" class="faq__btn" type="button">Back to Menu</button>
     </div>
   </section>
+
   <main class="mainGameWindow">
-    <div id="mainGameWindow__MusicContainer">
-      <div id="mainGameWindow__musicButton"></div>
-      <img id="mainGameWindow__musicIcon" src="./vendor/icon/play.png" alt="music start and pause icon">
-    </div>
     <div class="mainGameWindow__imgContainer">
       <img src="./images/rock/rock_left.png" alt="computer movement view" class="mainGameWindow__computerMove">
       <img src="./images/rock/rock_right.png" alt="player movement view" class="mainGameWindow__playerMove">
     </div>
     <div class="mainGameWindow__messages">
-      <h2 class="mainGameWindow__announcement">Ready to play</h2>
+      <h2 class="mainGameWindow__announcement">Ready to play?</h2>
     </div>
-    <div id="mainGameWindow__matchResult"></div>
     <div class="mainGameWindow__buttons">
-      <button class="mainGameWindow__selectedRock" type="button">rock</button>
-      <button class="mainGameWindow__selectedPaper" type="button">paper</button>
-      <button class="mainGameWindow__SelectedScissors" type="button">scissors</button>
+      <button class="mainGameWindow__buttons--rock" type="button">rock</button>
+      <button class="mainGameWindow__buttons--paper" type="button">paper</button>
+      <button class="mainGameWindow__buttons--scissors" type="button">scissors</button>
     </div>
     <div class="mainGameWindow__scoreContainer">
-      <div class="mainGameWindow__playerPoints mainGameWindow__points">
+      <div class="mainGameWindow__points mainGameWindow__points--playerPoints">
         <h3 id="mainGameWindow__player">player</h3>
         <p id="mainGameWindow__playerScore">0</p>
       </div>
-      <div class="mainGameWindow__cpuPoints mainGameWindow__points">
+      <div class="mainGameWindow__points mainGameWindow__points--cpuPoints">
         <h3 id="mainGameWindow__computer">computer</h3>
         <p id="mainGameWindow__computerScore">0</p>
       </div>
-      <div class="mainGameWindow__drawPoints mainGameWindow__points">
+      <div class="mainGameWindow__points mainGameWindow__points--drawPoints">
         <h3 id="mainGameWindow__draw">draw</h3>
         <p id="mainGameWindow__drawScore">0</p>
       </div>
     </div>
   </main>
-  <script scr="js/functions.js"></script>
-  <script scr="js/script.js"></script>
+  
+  <script src="js/functions.js"></script>
+  <script src="js/script.js"></script>
   <audio id="themeSong">
-    <source src="./vendor/sounds/retro.mp3" type="audio/mp3">
+    <source src="../vendor/sounds/retro.mp3" type="audio/mp3">
   </audio>
 </body>
 </html>

@@ -7,54 +7,114 @@ $font-frontal: "Monoton", cursive;
 *::after {
   box-sizing: border-box;
   font-family: $font-frontal;
-  margin: 0 auto;
+  margin: 0;
+  padding: 0;
 }
 
 /* MIXINS */
 @mixin grid-width {
   display: grid;
-  width: 100vh;
+  width: 100vw;
 }
 
 @mixin letter-spacing($spacing) {
   letter-spacing: $spacing;
 }
 
-.header {
-  //display: grid;
-
-  .header__title {
-    @include letter-spacing(3vh);
-  }
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
+/* LAYOUT */
 body {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  
 }
-/* MAIN */
+
+.header {
+  &__title {
+    @include letter-spacing(3vh);
+  }
+}
+
 .mainGameWindow {
+  position: relative;
   display: grid;
-  height: 100vh;
+  height: 100%;
   border: 20px solid #150402;
-}
-
-.mainGameWindow__imgContainer {
-  @include grid-width;
-  grid-template-columns: repeat(2, 1fr);
-}
-
-.mainGameWindow__buttons { 
-  @include grid-width;
   grid-template-columns: repeat(3, 1fr);
-}
+  grid-template-rows: 2fr 1fr;
 
-.mainGameWindow__announcement {
-  @include letter-spacing(1vh);
+  &__imgContainer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    grid-column: 1 / -1;
+  }
+
+  &__messages {
+    grid-column: 1 / -1;
+    text-align: center;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    grid-column: 1 / -1;
+
+    > * {
+      background-repeat: no-repeat;
+      background-size: 100%;
+      border: none;
+      cursor: pointer;
+      color: transparent;
+      height: 150px;
+      width: 150px;
+    }
+
+    &--rock {
+      background: url(../images/rock/rock_button.png);
+    }
+
+    &--paper {
+      background: url(../images/paper/paper_button.png);
+    }
+
+    &--scissors {
+      background: url(../images/scissors/scissors_button.png);
+    }
+  }
+
+  &__announcement {
+    @include letter-spacing(1vh);
+  }
+
+  &__scoreContainer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    grid-column: 1 / -1;
+
+    &__points {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    &--playerPoints {
+      
+    }
+
+    &--cpuPoints {
+      
+    }
+  }
 }
 
 section {
   display: none;
 }
-
