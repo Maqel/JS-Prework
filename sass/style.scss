@@ -1,120 +1,192 @@
-/* VARIABLES */
-$font-frontal: "Monoton", cursive;
+@import "./parts/mixins-variables.scss";
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Monoton&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
 
-/* GLOBAL */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  font-family: $font-frontal;
-  margin: 0;
-  padding: 0;
-}
-
-/* MIXINS */
-@mixin grid-width {
-  display: grid;
-  width: 100vw;
-}
-
-@mixin letter-spacing($spacing) {
-  letter-spacing: $spacing;
-}
-
-@mixin flex-center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* LAYOUT */
 body {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
+  @include height-width(100vh, 100vw);
 }
 
+/* SECTION HEADER */
 .header {
+  @include height-width(10vh, 100vw);
+  @include grid (10vh, 1.5fr 1fr 0.4fr);
+  font-family: $font-frontal;
+  letter-spacing: 1px;
+  grid-area: 1 / 1 / 2 / 4;
+  overflow: hidden;
+
   &__title {
-    @include letter-spacing(3vh);
-  }
-}
-
-.mainGameWindow {
-  position: relative;
-  display: grid;
-  height: 100%;
-  border: 20px solid #150402;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: 2fr 1fr;
-
-  &__imgContainer {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    grid-column: 1 / -1;
+    @include height-width(10vh, 55vw);
+    @include margin-padding (0 2vw, 0 2vw);
+    @include flex (end, row);
+    grid-area: 1 / 1 / 2 / 2;
+    font-size: clamp(1.125rem, -1.5313rem + 8.5vw, 3.25rem);
   }
 
-  &__messages {
-    grid-column: 1 / -1;
-    text-align: center;
+  &__animation {
+    @include height-width(10vh, 30vw);
+    grid-area: 1 / 2 / 2 / 3;
+    animation: move 16s infinite;
   }
 
-  &__buttons {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    grid-column: 1 / -1;
-
-    > * {
-      background-repeat: no-repeat;
-      background-size: 100%;
-      border: none;
-      cursor: pointer;
-      color: transparent;
-      height: 150px;
-      width: 150px;
-    }
-
+  &__choice { 
+    @include height-width(10vh, 30vw);
+   @include position-top(relative, 11vh); // zrób media-query uwzględniając zmianę top vh dla mniejszych rozdzielczości 
+    // animation: white-out 6s infinite;
+    font-size: clamp(1.125rem, -1.5313rem + 8.5vw, 3.25rem);
     &--rock {
-      background: url(../images/rock/rock_button.png);
+      color: #fa8231;
     }
 
     &--paper {
-      background: url(../images/paper/paper_button.png);
+      color: rgb(255, 238, 0);
     }
 
     &--scissors {
-      background: url(../images/scissors/scissors_button.png);
+      color: #b951d9;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      height: 25vmin;
+      width: 40vmin;
+      transform: translate(-45vmin, -24.5vmin);
+    }
+    &::before {
+      content: "";
+      position: absolute;
+      height: 25vmin;
+      width: 40vmin;
+      transform: translate(-40vmin, 15vmin);
+    }
+    @keyframes move {
+      25% {
+        transform: translatey(-10vmin);
+        opacity: 1;
+      }
+      50% {
+        transform: translatey(-20vmin);
+      }
+      75% {
+        transform: translatey(-30vmin);
+      }
+    }
+  
+  }
+  &__musicButton {
+    grid-area: 1 / 3 / 2 / 4;
+  }
+}
+
+/* SECTION GAME WINDOW */
+.mainGameWindow {
+  //@include height-width(88%, 85vw);
+  display: grid; 
+  grid-template-columns: repeat(4, 1fr); 
+  grid-template-rows:repeat(3, 1fr); 
+  grid-area: 2 / 1 / 3 / 4; 
+  @include border-radius-background(
+    2px none $darkBackground,
+    30px,
+    $lightBackground
+  );
+
+  &__imgContainer {
+    grid-area: 1 / 1 / 3 / 5;
+  }
+
+  &__imgPlayerMove {
+    grid-area: 1 / 1 / 3 / 3;
+    img {
+      
     }
   }
 
-  &__announcement {
-    @include letter-spacing(1vh);
+  &__imgComputerMove {
+    grid-area: 1 / 3 / 3 / 5;
+    img {
+      background-color: #b951d9;
+    }
+  }
+
+/* SECTION game window - MESSAGES */
+  &__messagesContainer {
+
   }
 
   &__scoreContainer {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    grid-column: 1 / -1;
-
-    &__points {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+  
+  }
+  &__points {
 
     &--playerPoints {
-      
+
     }
 
     &--cpuPoints {
-      
+
+    }
+
+    &--drawPoints {
+
     }
   }
+
+  &__player {
+
+  }
+  &__computer {
+
+  }
+  &__draw {
+
+  }
+
+  &__playerScore {
+
+  }
+
+  &__computerScore {
+
+  }
+
+  &__drawScore {
+
+  }
+
+  &__messages {
+
+  }
+
+  &__announcement {
+
+  }
+  /* SECTION game window - GAME BUTTONS */
+
+  &__gameButtons {
+
+  }
+
+  &__button {
+
+    &--rock {
+
+    }
+
+    &--paper {
+
+    }
+
+    &--scissors {
+
+    }
+  }
+
 }
 
-section {
-  display: none;
-}
+
+
+/* SECTION INTRO */
+
+/* SECTION FAQ */
