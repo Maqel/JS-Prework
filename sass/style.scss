@@ -1,26 +1,35 @@
 @import "./parts/mixins-variables.scss";
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Monoton&display=swap');
+@import "./parts/keyframes.scss";
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Monoton&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+
+:root {
+  background-color: $darkBackground;
+}
 
 body {
   @include height-width(100vh, 100vw);
+
 }
 
 /* SECTION HEADER */
 .header {
   @include height-width(10vh, 100vw);
-  @include grid (10vh, 1.5fr 1fr 0.4fr);
+  @include grid(10vh, 1.5fr 1fr 0.4fr);
   font-family: $font-frontal;
   letter-spacing: 1px;
   grid-area: 1 / 1 / 2 / 4;
   overflow: hidden;
+  color: $lightBackground;
 
   &__title {
     @include height-width(10vh, 55vw);
-    @include margin-padding (0 2vw, 0 2vw);
-    @include flex (end, row);
+    @include margin-padding(0 2vw, 0 2vw);
+    @include flex(end, row);
+    // color: $lightBackground;
     grid-area: 1 / 1 / 2 / 2;
     font-size: clamp(1.125rem, -1.5313rem + 8.5vw, 3.25rem);
+    @include text-shadow;
   }
 
   &__animation {
@@ -29,21 +38,18 @@ body {
     animation: move 16s infinite;
   }
 
-  &__choice { 
+  &__choice {
     @include height-width(10vh, 30vw);
-   @include position-top(relative, 11vh); // zrób media-query uwzględniając zmianę top vh dla mniejszych rozdzielczości 
-    // animation: white-out 6s infinite;
+    @include position-top(
+      relative,
+      11vh
+    ); // zrób media-query uwzględniając zmianę top vh dla mniejszych rozdzielczości
     font-size: clamp(1.125rem, -1.5313rem + 8.5vw, 3.25rem);
-    &--rock {
-      color: #fa8231;
-    }
 
-    &--paper {
-      color: rgb(255, 238, 0);
-    }
-
+    &--rock,
+    &--paper,
     &--scissors {
-      color: #b951d9;
+      @include text-shadow;
     }
 
     &::after {
@@ -53,6 +59,7 @@ body {
       width: 40vmin;
       transform: translate(-45vmin, -24.5vmin);
     }
+
     &::before {
       content: "";
       position: absolute;
@@ -60,20 +67,8 @@ body {
       width: 40vmin;
       transform: translate(-40vmin, 15vmin);
     }
-    @keyframes move {
-      25% {
-        transform: translatey(-10vmin);
-        opacity: 1;
-      }
-      50% {
-        transform: translatey(-20vmin);
-      }
-      75% {
-        transform: translatey(-30vmin);
-      }
-    }
-  
   }
+
   &__musicButton {
     grid-area: 1 / 3 / 2 / 4;
   }
@@ -81,111 +76,149 @@ body {
 
 /* SECTION GAME WINDOW */
 .mainGameWindow {
-  //@include height-width(88%, 85vw);
-  display: grid; 
-  grid-template-columns: repeat(4, 1fr); 
-  grid-template-rows:repeat(3, 1fr); 
-  grid-area: 2 / 1 / 3 / 4; 
+  @include height-width(88%, 90vw);
+  @include margin-padding(0 3vw, 0 3vw);
+  @include grid(repeat(4, 1fr), repeat(4, 1fr));
+  grid-area: 2 / 1 / 3 / 4;
+  @include box-shadow;
   @include border-radius-background(
-    2px none $darkBackground,
+    2px solid $lightBackground,
     30px,
     $lightBackground
   );
+  font-family: $font-content;
+  letter-spacing: 1px;
 
   &__imgContainer {
     grid-area: 1 / 1 / 3 / 5;
+    @include grid-place;
+    overflow: hidden;
   }
 
   &__imgPlayerMove {
     grid-area: 1 / 1 / 3 / 3;
-    img {
-      
-    }
   }
 
   &__imgComputerMove {
     grid-area: 1 / 3 / 3 / 5;
-    img {
-      background-color: #b951d9;
-    }
   }
 
-/* SECTION game window - MESSAGES */
-  &__messagesContainer {
+  &__imgPlayerMove,
+  &__imgComputerMove {
+    @include box-shadow;
+    transform: scale(-1, 1);
+    // @include height-width(20vmax, 20vmax);
+    @include border-radius-background(
+      2px solid $lightBackground,
+      30px,
+      $darkBackground
+    );
+  }
 
+  /* SECTION game window - MESSAGES */
+  &__messagesContainer {
+    @include height-width(25vh, 50vw);
+    @include grid(0.2fr 1fr, repeat(3, 1fr));
+    @include box-shadow;
+    grid-area: 3 / 2 / 4 / 4; 
+    color: $lightBackground;
+    align-items: center;
+    @include border-radius-background(
+      5px solid $darkBackground,
+      30px,
+      $darkBackground);
+      
   }
 
   &__scoreContainer {
-  
+    display: grid;
+    grid-area: 1 / 1 / 2 / -1; 
+    @include grid(1fr, repeat(3, 1fr));
+    @include height-width(100%, 100%);
+    text-align: center;
+    place-items: center;
+    
   }
   &__points {
+    //grid-area: 1 / 1 / 2 / -1; 
+    @include height-width(100%, 100%);
 
     &--playerPoints {
-
+      grid-area: 1 / 1 / 2 / 2;
     }
 
     &--cpuPoints {
-
+      grid-area: 1 / 3 / 2 / 4; 
     }
 
     &--drawPoints {
-
+      grid-area: 1 / 2 / 2 / 3; 
     }
   }
 
-  &__player {
+  &__player, &__computer, &__draw {
+    font-size: clamp(0.75rem, -0.8125rem + 5vw, 2rem);
+    @include margin-padding(2px, 2px);  }
 
-  }
-  &__computer {
-
-  }
-  &__draw {
-
-  }
-
-  &__playerScore {
-
-  }
-
-  &__computerScore {
-
-  }
-
-  &__drawScore {
-
+  &__playerScore, &__computerScore, &__drawScore {
+    text-align: center;
+    font-size: clamp(0.75rem, -0.5rem + 4vw, 1.75rem);
   }
 
   &__messages {
-
+    @include height-width(max-content, 100%);
+    min-height: min-content;
+    @include grid(1fr, 1fr);
+    grid-area: 2 / 1 / 3 / -1; 
+    font-size: clamp(0.75rem, -2.0625rem + 9vw, 3rem);
+    text-align: center;
+    place-content: center;
   }
 
-  &__announcement {
-
-  }
+  // &__announcement {
+  // }
   /* SECTION game window - GAME BUTTONS */
 
   &__gameButtons {
+    @include height-width(30vh, 100%);
+    @include grid-place;
+    @include border-radius-background(
+      2px none $darkBackground,
+      2vmax,
+      $darkBackground
+    );
 
+    grid-area: 4 / 1 / 5 / -1;
+    grid-template-columns: repeat(3, 1fr);
   }
 
   &__button {
+    @include border-radius-background(
+        10px solid $lightBackground,
+        2vmax,
+        $darkBackground
+      );
+      @include position-top(relative, -3vh);
+      @include height-width(165px, 165px);
+      background-repeat: no-repeat;
+      background-size: 100%;
+      background-position: center;
+      cursor: pointer;
+      color: transparent;
 
     &--rock {
-
+      background: url(../images/rock/rock_button.png);
     }
 
     &--paper {
-
+      background: url(../images/paper/paper_button.png);
     }
 
     &--scissors {
-
+      background: url(../images/scissors/scissors_button.png);
     }
   }
-
 }
-
-
 
 /* SECTION INTRO */
 

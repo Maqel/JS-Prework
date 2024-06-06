@@ -3,6 +3,10 @@ $font-frontal: "Monoton", cursive;
 $font-content: "Bebas Neue", sans-serif;
 $darkBackground: #000000;
 $lightBackground: #f5f5f5;
+$purpleBackground: #b951d9;
+$orangeBackground: #fa8231;
+$yellowBackground: #ffee00;
+$greenBackground: #adff2f; //poszukaj w sieci innego sposonu nazaania stałych z kolorami
 
 /* GLOBAL */
 *,
@@ -14,9 +18,9 @@ $lightBackground: #f5f5f5;
 }
 
 /* MIXINS */
-@mixin grid-width {  // sprawdz czy nie występuje w cssach jeżeli tak to podmień i usuń mixin
+@mixin grid-place {  // sprawdz czy nie występuje w cssach jeżeli tak to podmień i usuń mixin
   display: grid;
-  width: 100vw;
+  place-items: center;
 }
 
 @mixin grid ($gt-rows, $gt-columns) {
@@ -63,4 +67,18 @@ $lightBackground: #f5f5f5;
 @mixin margin-padding($margin, $padding) {
   margin: $margin;
   padding: $padding;
+}
+
+@mixin text-shadow {
+  text-shadow:
+     -1px -1px 6px $lightBackground,
+     1px 1px 6px $lightBackground,
+     0 0 20px $lightBackground,
+}
+
+@mixin box-shadow {
+  box-shadow: 0 0 10px $lightBackground,
+    inset 0 0 10px $lightBackground,
+    0 0 10px 4px $lightBackground,
+    inset 0 0 10px 4px $darkBackground;
 }

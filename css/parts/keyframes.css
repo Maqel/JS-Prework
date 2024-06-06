@@ -1,0 +1,14 @@
+@keyframes move {
+  25% {
+    transform: translatey(-10vmin);
+    opacity: 1;
+  }
+  50% {
+    transform: translatey(-20vmin);
+  }
+  75% {
+    transform: translatey(-30vmin);
+  }
+}
+
+/*# sourceMappingURL=keyframes.css.map */
