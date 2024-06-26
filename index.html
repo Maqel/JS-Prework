@@ -7,48 +7,50 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <div class="header">
-    <h1 class="header__title">your choice:</h1>
-    <section class="header__animation">
-      <div class="header__choice header__choice--rock">rock</div>
-      <div class="header__choice header__choice--paper">paper</div>
-      <div class="header__choice header__choice--scissors">scissors</div>
-    </section>
-    <button class="header__musicButton" type="button">music</button>
-  </div>
-  <main class="mainGameWindow">
-    <section class="mainGameWindow__imgContainer">
-      <div class="mainGameWindow__imgPlayerMove">
-        <img src="./images/rock/rock_right.png" alt="player movement view" class="mainGameWindow__playerMove">
-      </div>
-      <div class="mainGameWindow__imgComputerMove">
-        <img src="./images/rock/rock_left.png" alt="computer movement view" class="mainGameWindow__computerMove">
-      </div>
-    </section>
-    <section class="mainGameWindow__messagesContainer">
-      <div class="mainGameWindow__scoreContainer">
+  <main class="flow">
+    <div class="header">
+      <h1 class="header__title">your choice:</h1>
+      <!-- <section class="header__animation">
+        <div class="header__choice header__choice--rock">rock</div>
+        <div class="header__choice header__choice--paper">paper</div>
+        <div class="header__choice header__choice--scissors">scissors</div>
+      </section> -->
+      <!-- <button class="header__musicButton" type="button">music</button> -->
+    </div>
+    <main class="mainGameWindow" container-type="inline-size">
+      <section class="mainGameWindow__imgContainer">
+        <div class="mainGameWindow__imgPlayerMove">
+          <img src="./images/rock/rock_right.png" alt="player movement view" class="mainGameWindow__playerMove">
+        </div>
+        <div class="mainGameWindow__imgComputerMove">
+          <img src="./images/rock/rock_left.png" alt="computer movement view" class="mainGameWindow__computerMove">
+        </div>
+      </section>
+      <section class="mainGameWindow__scoreContainer">
         <div class="mainGameWindow__points mainGameWindow__points--playerPoints">
           <h3 class="mainGameWindow__player">player</h3>
           <p class="mainGameWindow__playerScore">0</p>
         </div>
-        <div class="mainGameWindow__points mainGameWindow__points--drawPoints">
+        <!-- <div class="mainGameWindow__points mainGameWindow__points--drawPoints">
           <h3 class="mainGameWindow__draw">draw</h3>
           <p class="mainGameWindow__drawScore">0</p>
-        </div>
+        </div> -->
         <div class="mainGameWindow__points mainGameWindow__points--cpuPoints">
           <h3 class="mainGameWindow__computer">computer</h3>
           <p class="mainGameWindow__computerScore">0</p>
         </div>
-      </div>
-      <div class="mainGameWindow__messages">
-        <h2 class="mainGameWindow__announcement">Ready to play?</h2>
-      </div>
-    </section>
-    <section class="mainGameWindow__gameButtons">
-      <button class="mainGameWindow__button mainGameWindow__button--rock" type="button">rock</button>
-      <button class="mainGameWindow__button mainGameWindow__button--paper" type="button">paper</button>
-      <button class="mainGameWindow__button mainGameWindow__button--scissors" type="button">scissors</button>
-    </section>
+      </section>
+      <section class="mainGameWindow__messageContainer">
+        <div class="mainGameWindow__messages">
+          <div class="mainGameWindow__announcement">Ready to play?</div>
+        </div>
+      </section>
+      <section class="mainGameWindow__gameButtons">
+        <button class="mainGameWindow__button mainGameWindow__button--rock" type="button">rock</button>
+        <button class="mainGameWindow__button mainGameWindow__button--paper" type="button">paper</button>
+        <button class="mainGameWindow__button mainGameWindow__button--scissors" type="button">scissors</button>
+      </section>
+    </main>
   </main>
   <script src="js/functions.js"></script>
   <script src="js/script.js"></script>

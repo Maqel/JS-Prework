@@ -3,223 +3,241 @@
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Monoton&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
 
-:root {
-  background-color: $darkBackground;
-}
-
-body {
+.flow {
+  @include grid(repeat(10, 1fr), repeat(10, 1fr));
   @include height-width(100vh, 100vw);
-
+  background-color: rgba(108, 105, 111, 1);
+  background-image: linear-gradient(330deg, rgba(108, 105, 111, 1) 0%, rgba(0, 0, 0, 1) 85%);
 }
 
 /* SECTION HEADER */
 .header {
-  @include height-width(10vh, 100vw);
-  @include grid(10vh, 1.5fr 1fr 0.4fr);
+  @include grid(subgrid, subgrid);
   font-family: $font-frontal;
-  letter-spacing: 1px;
-  grid-area: 1 / 1 / 2 / 4;
+  word-spacing: 0.5em;
+  letter-spacing: 2px;
+  text-justify: auto;
+  grid-area: 1 / 1 / 2 / -1;
   overflow: hidden;
   color: $lightBackground;
-
   &__title {
-    @include height-width(10vh, 55vw);
-    @include margin-padding(0 2vw, 0 2vw);
-    @include flex(end, row);
-    // color: $lightBackground;
-    grid-area: 1 / 1 / 2 / 2;
-    font-size: clamp(1.125rem, -1.5313rem + 8.5vw, 3.25rem);
-    @include text-shadow;
-  }
-
-  &__animation {
-    @include height-width(10vh, 30vw);
-    grid-area: 1 / 2 / 2 / 3;
-    animation: move 16s infinite;
-  }
-
-  &__choice {
-    @include height-width(10vh, 30vw);
-    @include position-top(
-      relative,
-      11vh
-    ); // zrób media-query uwzględniając zmianę top vh dla mniejszych rozdzielczości
-    font-size: clamp(1.125rem, -1.5313rem + 8.5vw, 3.25rem);
-
-    &--rock,
-    &--paper,
-    &--scissors {
-      @include text-shadow;
-    }
-
-    &::after {
-      content: "";
-      position: absolute;
-      height: 25vmin;
-      width: 40vmin;
-      transform: translate(-45vmin, -24.5vmin);
-    }
-
-    &::before {
-      content: "";
-      position: absolute;
-      height: 25vmin;
-      width: 40vmin;
-      transform: translate(-40vmin, 15vmin);
-    }
-  }
-
-  &__musicButton {
-    grid-area: 1 / 3 / 2 / 4;
+    @include height-width(min-content, auto);
+    margin-inline: 1rem;
+    @include flex(center, row);
+    grid-area: 1 / 3 / 2 / 6;
+    font-size: clamp(0.75rem, 0.144rem + 2.769vi, 3rem);
+    text-shadow: 5px 5px 5px rgb(94, 93, 97);
   }
 }
 
-/* SECTION GAME WINDOW */
 .mainGameWindow {
-  @include height-width(88%, 90vw);
-  @include margin-padding(0 3vw, 0 3vw);
-  @include grid(repeat(4, 1fr), repeat(4, 1fr));
-  grid-area: 2 / 1 / 3 / 4;
-  @include box-shadow;
-  @include border-radius-background(
-    2px solid $lightBackground,
-    30px,
-    $lightBackground
-  );
+  @include grid(auto 1fr auto, 0.5fr 3fr 0.5fr);
+  grid-area: 2 / 2 / 10 / 10;
+  gap: 0.5em;
   font-family: $font-content;
-  letter-spacing: 1px;
+  font-size: clamp(0.75rem, 0.375rem + 1.333vw, 1.75rem);
+  text-shadow: 4px 4px 5px rgba(0, 0, 0, 1);
+  box-shadow: 0px 20px 24px 0px rgba(255, 255, 255, 1);
+  color: $lightBackground;
+  background-color: rgb(255, 255, 255, 0.1);
+  backdrop-filter: blur(100px);
+  border: solid 2px $lightBackground;
+  overflow: hidden;
+  
+  // @container
+  container-type: inline-size;
+  container-name: game-window;
 
   &__imgContainer {
-    grid-area: 1 / 1 / 3 / 5;
-    @include grid-place;
-    overflow: hidden;
-  }
-
-  &__imgPlayerMove {
-    grid-area: 1 / 1 / 3 / 3;
-  }
-
-  &__imgComputerMove {
-    grid-area: 1 / 3 / 3 / 5;
+    @include grid(1fr, 1fr 1fr); // zobacz czy właściwości typu Auto-fit Auto-fill tu coś poradz poucz się wcześniej o gridzie
+    // grid-template-rows: repeat(1, 1fr);
+    // @include height-width(100%, 100%);
+    // grid-template-columns: repeat(2, 1fr);
+    max-width: 100vw;
+    display: grid;
+    grid-area: 1 / 1 / 3 / 4;
+    align-items: center;
+    justify-items: center;
   }
 
   &__imgPlayerMove,
   &__imgComputerMove {
-    @include box-shadow;
     transform: scale(-1, 1);
-    // @include height-width(20vmax, 20vmax);
-    @include border-radius-background(
-      2px solid $lightBackground,
-      30px,
-      $darkBackground
-    );
+    @include flex(center, row);
+
+    img {
+      // @include height-width(45vmin, 45vmin);
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+    }
   }
 
-  /* SECTION game window - MESSAGES */
-  &__messagesContainer {
-    @include height-width(25vh, 50vw);
-    @include grid(0.2fr 1fr, repeat(3, 1fr));
-    @include box-shadow;
-    grid-area: 3 / 2 / 4 / 4; 
-    color: $lightBackground;
-    align-items: center;
-    @include border-radius-background(
-      5px solid $darkBackground,
-      30px,
-      $darkBackground);
-      
-  }
-
+  /* SCORE */
   &__scoreContainer {
-    display: grid;
-    grid-area: 1 / 1 / 2 / -1; 
-    @include grid(1fr, repeat(3, 1fr));
-    @include height-width(100%, 100%);
-    text-align: center;
-    place-items: center;
-    
+    @include grid(1fr, 0.1fr auto 0.1fr);
+    grid-area: 1 / 1 / 3 / -1;
   }
+
   &__points {
-    //grid-area: 1 / 1 / 2 / -1; 
-    @include height-width(100%, 100%);
+    @include flex(center, row);
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    text-transform: uppercase;
+    margin-bottom: 2vh;   
 
     &--playerPoints {
-      grid-area: 1 / 1 / 2 / 2;
+      grid-column: 1 / 2;
+      justify-self: center;
+      
     }
 
     &--cpuPoints {
-      grid-area: 1 / 3 / 2 / 4; 
-    }
-
-    &--drawPoints {
-      grid-area: 1 / 2 / 2 / 3; 
+      grid-column: 3 / 4;
+      justify-self: center;
     }
   }
+  &__player, &__computer {
+    letter-spacing: 2px;
+    margin-bottom: 1em;
+    font-size: clamp(0.75rem, -0.25rem + 2.667vw, 2.75rem);
+  }
 
-  &__player, &__computer, &__draw {
-    font-size: clamp(0.75rem, -0.8125rem + 5vw, 2rem);
-    @include margin-padding(2px, 2px);  }
+  &__player {
+    letter-spacing: 0.4em; // todo poszukaj innego rozwiazania by nie nadpisywało styli
+  }
 
-  &__playerScore, &__computerScore, &__drawScore {
+  /* MESSAGES */
+  &__messageContainer {
+    grid-area: 3 / 2 / 4 / 3;
     text-align: center;
-    font-size: clamp(0.75rem, -0.5rem + 4vw, 1.75rem);
+    letter-spacing: 2px;
   }
 
   &__messages {
-    @include height-width(max-content, 100%);
-    min-height: min-content;
-    @include grid(1fr, 1fr);
-    grid-area: 2 / 1 / 3 / -1; 
     font-size: clamp(0.75rem, -2.0625rem + 9vw, 3rem);
-    text-align: center;
-    place-content: center;
   }
 
-  // &__announcement {
-  // }
-  /* SECTION game window - GAME BUTTONS */
-
+  /* BUTTONS */
   &__gameButtons {
-    @include height-width(30vh, 100%);
-    @include grid-place;
-    @include border-radius-background(
-      2px none $darkBackground,
-      2vmax,
-      $darkBackground
-    );
-
-    grid-area: 4 / 1 / 5 / -1;
+    grid-column: 2 / 3;
+    grid-row: 4 / 5;
+    display: grid;
     grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    justify-items: center;
+    align-items: center;
+    
   }
 
   &__button {
-    @include border-radius-background(
-        10px solid $lightBackground,
-        2vmax,
-        $darkBackground
-      );
-      @include position-top(relative, -3vh);
-      @include height-width(165px, 165px);
-      background-repeat: no-repeat;
-      background-size: 100%;
-      background-position: center;
-      cursor: pointer;
-      color: transparent;
+    width: clamp(100px, 15vw, 150px);
+    height: clamp(100px, 15vw, 150px);
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
+    color: transparent;
+    border: none;
 
     &--rock {
-      background: url(../images/rock/rock_button.png);
+      // background: url(../images/rock/rock_button.png);
     }
-
     &--paper {
       background: url(../images/paper/paper_button.png);
     }
-
     &--scissors {
       background: url(../images/scissors/scissors_button.png);
     }
   }
 }
 
-/* SECTION INTRO */
+// @container 
+@container game-window (max-width: 600px) {
+  .mainGameWindow {
+    
+    // @include grid(3fr 1fr 2fr, 1fr 3fr 1fr);
+    // grid-template-rows: 1.5fr 1fr 2fr;
+    // @include grid(auto 1fr auto 1fr auto, 1fr 3fr 1fr);
+// grid-template-columns: 1fr 3fr 1fr;
+// grid-template-rows: 3fr 1fr 2fr;
 
-/* SECTION FAQ */
+    &__imgContainer {
+      grid-template: repeat(1fr) / 1fr;
+      height: 55vh; //podniosłem kontener wyżej
+
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+    }
+
+    &__scoreContainer {
+      height: 15vh;
+    }
+
+    &__gameButtons {
+    //   grid-row: 3 / 5; // Zmieniamy na zajmowanie wierszy od 3 do 5
+    //   grid-column: 1 / -1; // Rozciągamy na całą szerokość kontenera
+    //   // grid-template-columns: 1fr 1fr 1fr ; // Zmieniamy układ przycisków na 2 kolumny
+    //   grid-template: 1fr / 1fr 1fr 1fr;
+    //   gap: 0.5rem; // Dostosowujemy odstęp między przyciskami
+    //   height: 20vh;
+    //   justify-items: center;
+    // align-items: center;
+    }
+    &__button {
+    //   background: none;
+    // background-image: none;
+    // backdrop-filter: none;
+    }
+
+    &__points {
+      flex-direction: column;
+      writing-mode: horizontal-tb;
+      text-orientation: mixed;
+      justify-content: start;
+      margin: 0.5em;
+      font-size: 2.5em;
+    }
+
+    &__player {
+      letter-spacing: 0.4em;
+
+    }
+  }
+}
+
+// Fallback with @media for browsers that don't support @container
+@supports not (container-type: inline-size) {
+  @media (max-width: 600px) {
+    .mainGameWindow {
+      &__imgContainer {
+        grid-template: repeat(1fr) / 1fr;
+
+        // img {
+        //   max-width: 100%;
+        //   height: auto;
+        // }
+      }
+
+      &__gameButtons {
+        grid-row: 3 / 5; // Zmieniamy na zajmowanie wierszy od 3 do 5
+      grid-column: 1 / -1; // Rozciągamy na całą szerokość kontenera
+      grid-template-columns: 1fr 1fr; // Zmieniamy układ przycisków na 2 kolumny
+      grid-template: repeat(2fr) / 1fr 1fr;
+      gap: 0.5rem; // Dostosowujemy odstęp między przyciskami
+      }
+
+      &__points {
+        flex-direction: column;
+        writing-mode: horizontal-tb;
+        text-orientation: mixed;
+        justify-content: start;
+        margin: 0.5em;
+        font-size: 2.5em;
+      }
+    }
+  }
+}

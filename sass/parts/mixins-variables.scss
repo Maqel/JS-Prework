@@ -3,10 +3,6 @@ $font-frontal: "Monoton", cursive;
 $font-content: "Bebas Neue", sans-serif;
 $darkBackground: #000000;
 $lightBackground: #f5f5f5;
-$purpleBackground: #b951d9;
-$orangeBackground: #fa8231;
-$yellowBackground: #ffee00;
-$greenBackground: #adff2f; //poszukaj w sieci innego sposonu nazaania stałych z kolorami
 
 /* GLOBAL */
 *,
@@ -40,13 +36,13 @@ $greenBackground: #adff2f; //poszukaj w sieci innego sposonu nazaania stałych z
   flex-direction: $flex-direction;
 }
 
-@mixin text-orientation {
-  display: inline-flex;
-  flex-direction: column;
-  writing-mode: vertical-lr;
-  text-orientation: upright;
-  margin-bottom: 3vh;
-}
+// @mixin text-orientation {
+//   display: flex;
+//   flex-direction: row;
+//   writing-mode: vertical-lr;
+//   text-orientation: upright;
+//   margin-bottom: 3vh;
+// }
 
 @mixin height-width($height, $width) {
   height: $height;
