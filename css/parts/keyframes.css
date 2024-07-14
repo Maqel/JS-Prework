@@ -1,13 +1,21 @@
 @keyframes move {
   25% {
-    transform: translatey(-10vmin);
+    transform: translateY(-10vmin);
     opacity: 1;
   }
   50% {
-    transform: translatey(-20vmin);
+    transform: translateY(-20vmin);
   }
   75% {
-    transform: translatey(-30vmin);
+    transform: translateY(-30vmin);
+  }
+}
+@keyframes shake {
+  0% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(-50px);
   }
 }
 

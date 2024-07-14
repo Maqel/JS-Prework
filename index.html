@@ -20,10 +20,10 @@
     <main class="mainGameWindow" container-type="inline-size">
       <section class="mainGameWindow__imgContainer">
         <div class="mainGameWindow__imgPlayerMove">
-          <img src="./images/rock/rock_right.png" alt="player movement view" class="mainGameWindow__playerMove">
+          <img src="./images/rock/rock_right.png" alt="player movement view" class="mainGameWindow__playerMove mainGameWindow__shake">
         </div>
         <div class="mainGameWindow__imgComputerMove">
-          <img src="./images/rock/rock_left.png" alt="computer movement view" class="mainGameWindow__computerMove">
+          <img src="./images/rock/rock_left.png" alt="computer movement view" class="mainGameWindow__computerMove mainGameWindow__shake">
         </div>
       </section>
       <section class="mainGameWindow__scoreContainer">
@@ -46,9 +46,15 @@
         </div>
       </section>
       <section class="mainGameWindow__gameButtons">
-        <button class="mainGameWindow__button mainGameWindow__button--rock" type="button">rock</button>
-        <button class="mainGameWindow__button mainGameWindow__button--paper" type="button">paper</button>
-        <button class="mainGameWindow__button mainGameWindow__button--scissors" type="button">scissors</button>
+        <button class="mainGameWindow__button mainGameWindow__button--rock" type="button">
+          <p>rock</p>
+        </button>
+        <button class="mainGameWindow__button mainGameWindow__button--paper" type="button">
+          <p>paper</p>
+        </button>
+        <button class="mainGameWindow__button mainGameWindow__button--scissors" type="button">
+          <p>scissors</p>
+        </button>
       </section>
     </main>
   </main>
