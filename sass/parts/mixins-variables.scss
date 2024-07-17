@@ -3,6 +3,8 @@ $font-frontal: "Monoton", cursive;
 $font-content: "Bebas Neue", sans-serif;
 $darkBackground: #000000;
 $lightBackground: #f5f5f5;
+$mainColorTheme: rgb(255, 255, 255,);
+$infoContentColor: rgb(192, 255, 97);
 
 /* GLOBAL */
 *,
@@ -14,18 +16,22 @@ $lightBackground: #f5f5f5;
 }
 
 /* MIXINS */
-@mixin grid-place {  // sprawdz czy nie występuje w cssach jeżeli tak to podmień i usuń mixin
+@mixin infoContentColor($opacity) {
+  color: rgba(192, 255, 97, $opacity);
+}
+
+@mixin mainColorTheme($opacity) {
+  background-color: rgba(255, 255, 255, $opacity);
+}
+
+@mixin grid($gt-rows, $gt-columns) {
   display: grid;
-  place-items: center;
-}
-
-@mixin grid ($gt-rows, $gt-columns) {
-  display: grid; 
   grid-template-rows: $gt-rows;
-  grid-template-columns: $gt-columns; 
+  grid-template-columns: $gt-columns;
 }
 
-@mixin letter-spacing($spacing) { // podmień w cssach i usuń mixin (nie stosuj pojedyńczych
+@mixin letter-spacing($spacing) {
+  // podmień w cssach i usuń mixin (nie stosuj pojedyńczych
   letter-spacing: $spacing;
 }
 
@@ -49,10 +55,15 @@ $lightBackground: #f5f5f5;
   width: $width;
 }
 
-@mixin border-radius-background($border, $radius, $background) {
+@mixin border-radius($border, $radius) {
   border: $border;
   border-radius: $radius;
-  background-color: $background;
+}
+
+@mixin border-top-left {
+  border: none;
+  border-top: 3px solid rgba(255, 255, 255, 0.5);
+  border-left: 3px solid rgba(255, 255, 255, 0.5);
 }
 
 @mixin position-top($position, $top) {
@@ -66,15 +77,23 @@ $lightBackground: #f5f5f5;
 }
 
 @mixin text-shadow {
-  text-shadow:
-     -1px -1px 6px $lightBackground,
-     1px 1px 6px $lightBackground,
-     0 0 20px $lightBackground,
+  text-shadow: -1px -1px 6px $lightBackground, 1px 1px 6px $lightBackground,
+    0 0 20px $lightBackground;
 }
 
 @mixin box-shadow {
-  box-shadow: 0 0 10px $lightBackground,
-    inset 0 0 10px $lightBackground,
-    0 0 10px 4px $lightBackground,
-    inset 0 0 10px 4px $darkBackground;
+  box-shadow: 0 0 10px $lightBackground, inset 0 0 10px $lightBackground,
+    0 0 10px 4px $lightBackground, inset 0 0 10px 4px $darkBackground;
+}
+
+@mixin glass-effect($translateX) {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.5);
+  transform: skewX(45deg) translateX($translateX);
+  transition: 500ms;
 }
