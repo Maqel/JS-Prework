@@ -1,9 +1,8 @@
 /* VARIABLES */
 $font-frontal: "Monoton", cursive;
 $font-content: "Bebas Neue", sans-serif;
-$darkBackground: #000000;
-$lightBackground: #f5f5f5;
-$mainColorTheme: rgb(255, 255, 255,);
+$backgroundColor: rgb(0, 0, 0);
+$mainColorTheme: rgb(255, 255, 255);
 $infoContentColor: rgb(192, 255, 97);
 
 /* GLOBAL */
@@ -20,8 +19,8 @@ $infoContentColor: rgb(192, 255, 97);
   color: rgba(192, 255, 97, $opacity);
 }
 
-@mixin mainColorTheme($opacity) {
-  background-color: rgba(255, 255, 255, $opacity);
+@mixin bc-mainColorTheme($opacity) {
+  background-color: rgba($mainColorTheme, $opacity);
 }
 
 @mixin grid($gt-rows, $gt-columns) {
@@ -42,14 +41,6 @@ $infoContentColor: rgb(192, 255, 97);
   flex-direction: $flex-direction;
 }
 
-// @mixin text-orientation {
-//   display: flex;
-//   flex-direction: row;
-//   writing-mode: vertical-lr;
-//   text-orientation: upright;
-//   margin-bottom: 3vh;
-// }
-
 @mixin height-width($height, $width) {
   height: $height;
   width: $width;
@@ -63,7 +54,7 @@ $infoContentColor: rgb(192, 255, 97);
 @mixin border-top-left {
   border: none;
   border-top: 3px solid rgba(255, 255, 255, 0.5);
-  border-left: 3px solid rgba(255, 255, 255, 0.5);
+  border-left: 3px solid rgba(255, 255,255, 0.5); 
 }
 
 @mixin position-top($position, $top) {
@@ -77,13 +68,13 @@ $infoContentColor: rgb(192, 255, 97);
 }
 
 @mixin text-shadow {
-  text-shadow: -1px -1px 6px $lightBackground, 1px 1px 6px $lightBackground,
-    0 0 20px $lightBackground;
+  text-shadow: -1px -1px 6px $mainColorTheme, 1px 1px 6px $mainColorTheme,
+    0 0 20px $mainColorTheme;
 }
 
 @mixin box-shadow {
-  box-shadow: 0 0 10px $lightBackground, inset 0 0 10px $lightBackground,
-    0 0 10px 4px $lightBackground, inset 0 0 10px 4px $darkBackground;
+  box-shadow: 0 0 10px $mainColorTheme, inset 0 0 10px $mainColorTheme,
+    0 0 10px 4px $mainColorTheme, inset 0 0 10px 4px $backgroundColor;
 }
 
 @mixin glass-effect($translateX) {
