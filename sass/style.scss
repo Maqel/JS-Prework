@@ -23,7 +23,7 @@
   text-justify: auto;
   grid-area: 1 / 1 / 2 / -1;
   overflow: hidden;
-  color: $mainColorTheme;
+  color: $textColor;
 
   &__title {
     @include height-width(min-content, auto);
@@ -36,8 +36,8 @@
 
 .mainGameWindow {
   @include grid(auto 1fr auto, 0.5fr 3fr 0.5fr);
-  @include border-radius(solid 2px $mainColorTheme, 15px);
-  @include bc-mainColorTheme(0.1);
+  @include border-radius(solid 2px $textColor, 15px);
+  @include textColor(0.1);
   grid-area: 2 / 2 / 11 / 10;
   gap: 0.5em;
   font-family: $font-content;
@@ -157,14 +157,16 @@
     justify-items: center;
     align-items: center;
     width: 100%;
-    border: 3px solid #ffffff30;
-    border-radius: 15px;
+    border: 1px solid $textColor;
+    border-bottom: none;
+    border-radius: 15px 15px 0 0;
+    @include bc-mainColor(0.1);
 
     &::before {
       content: "";
       position: absolute;
       inset: 0;
-      background-color: #00000020;
+      background-color: inherit;
       z-index: -1;
       border-radius: inherit;
       transition: inset 500ms ease-in-out;
@@ -174,55 +176,41 @@
       inset: -2rem;
       transition-timing-function: cubic-bezier(0.47, 1.64, 0.41, 0.8);
     }
-  }
 
-  &__button {
-    @include button-platform;
-    padding: 10px 20px;
-    position: relative;
-    margin: 3vmin;
-    color: transparent;
-    font-size: 16px;
-    cursor: pointer;
-    transition: 300ms ease-in-out;
-    // stwórz osobna klasę dla wszystkich elementów na platformie, albo stwórz mixin i użyj w kazdym elemencie, poniżej wszystkie właściwości platformy
-    // border: none;
-    // border-radius: 15px;
-    // box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.5);
-    // border: 1px 0 0 1px solid rgba(255, 255, 255, 0.5);
-    // overflow: hidden;
-    // backdrop-filter: blur(100px);
-
-    &::before {
-      @include glass-effect(30vw);
-      // z-index: 11; //rozjaśniasz tylko ikone nie tło ten selektor prowadzi do ikony
-    }
-    
-    &:hover {
-      // transform: scale(1.06);
-      filter: brightness(1.2); /* Rozjaśnia kolor o 20% */
-      -webkit-filter: brightness(1.2); /* Safari */
-      -moz-filter: brightness(1.2); /* Firefox */
-      // z-index: 11;
+    button {
+      @include button-platform;
+      padding: 10px 20px;
+      position: relative;
+      margin: 3vmin;
+      color: transparent;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 300ms ease-in-out;
+      @include bc-mainColor(0.2);
+  
+      &::before {
+        @include glass-effect(30vw);
+      }
+      
+      &:focus-visible,
+      &:hover {
+        @include bc-mainColor(0.3);
+        transform: scale(1.15);
+        z-index: 9;
+      }
+  
+      &:hover::before {
+        transform: skewX(45deg) translateX(-30vw);
+        
+      }
     }
 
-    &:hover::before {
-      transform: skewX(45deg) translateX(-30vw);
+    &:has(button:focus-visible) button:not(:focus-visible),
+    &:has(button:hover) button:not(:hover) {
+      opacity: 50%;
+      scale: 85%;
+      z-index: 8;
     }
-  }
-
-  &__gameButtons button:focus-visible,
-  &__gameButtons button:hover {
-    transform: scale(1.15);
-    z-index: 9;
-    // color: #fff;
-    // background-color: rgba(var(--bg), 0.5);
-  }
-  &__gameButtons:has(button:focus-visible) button:not(:focus-visible),
-  &__gameButtons:has(button:hover) button:not(:hover) {
-    opacity: 50%;
-    scale: 85%;
-    z-index: 8;
   }
 }
 
@@ -286,7 +274,7 @@
       border: none;
       border-top: 1px solid rgba(255, 255, 255, 0.5);
       border-left: 1px solid rgba(255, 255, 255, 0.5);
-      @include bc-mainColorTheme(0.25);
+      @include textColor(0.25);
 
       &:hover {
         // background-color: greenyellow; //niżej jest właściwość bc która nadpisuje ta
@@ -313,7 +301,7 @@
 
     &__content {
       position: absolute;
-      color: $mainColorTheme; // tu daj troszkę ciemniejszy kolor niż po najechaniu na button dla kontrastu żeby była rożnica po najechaniu i bez
+      color: $textColor; // tu daj troszkę ciemniejszy kolor niż po najechaniu na button dla kontrastu żeby była rożnica po najechaniu i bez
       width: 100%;
       font-size: 1rem;
       text-transform: uppercase;
@@ -335,8 +323,8 @@
 
     // &__button {
     //   // background-image: none;
-    //   color: $mainColorTheme; // Przywróć kolor tekstu
-    //   // background-color: $backgroundColor;
+    //   color: $textColor; // Przywróć kolor tekstu
+    //   // background-color: $bc-mainColor;
     //   width: auto; // Przywróć automatyczną szerokość
     //   height: auto; // Przywróć automatyczną wysokość
     //   padding: 10px 20px; // Przywróć padding

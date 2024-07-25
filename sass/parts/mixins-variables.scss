@@ -1,8 +1,8 @@
 /* VARIABLES */
 $font-frontal: "Monoton", cursive;
 $font-content: "Bebas Neue", sans-serif;
-$backgroundColor: rgb(0, 0, 0);
-$mainColorTheme: rgb(255, 255, 255);
+$bc-mainColor: rgb(0, 0, 0);
+$textColor: rgb(255, 255, 255);
 $infoContentColor: rgb(192, 255, 97);
 
 /* GLOBAL */
@@ -29,8 +29,12 @@ $infoContentColor: rgb(192, 255, 97);
   color: rgba(192, 255, 97, $opacity);
 }
 
-@mixin bc-mainColorTheme($opacity) {
-  background-color: rgba($mainColorTheme, $opacity);
+@mixin textColor($opacity) {
+  background-color: rgba($textColor, $opacity);
+}
+
+@mixin bc-mainColor($opacity) {
+  background-color: rgba($bc-mainColor, $opacity);
 }
 
 @mixin grid($gt-rows, $gt-columns) {
@@ -78,13 +82,13 @@ $infoContentColor: rgb(192, 255, 97);
 }
 
 @mixin text-shadow {
-  text-shadow: -1px -1px 6px $mainColorTheme, 1px 1px 6px $mainColorTheme,
-    0 0 20px $mainColorTheme;
+  text-shadow: -1px -1px 6px $textColor, 1px 1px 6px $textColor,
+    0 0 20px $textColor;
 }
 
 @mixin box-shadow {
-  box-shadow: 0 0 10px $mainColorTheme, inset 0 0 10px $mainColorTheme,
-    0 0 10px 4px $mainColorTheme, inset 0 0 10px 4px $backgroundColor;
+  box-shadow: 0 0 10px $textColor, inset 0 0 10px $textColor,
+    0 0 10px 4px $textColor, inset 0 0 10px 4px $bc-mainColor;
 }
 
 @mixin glass-effect($translateX) {
