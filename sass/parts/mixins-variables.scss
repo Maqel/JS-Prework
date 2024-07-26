@@ -67,8 +67,8 @@ $infoContentColor: rgb(192, 255, 97);
 
 @mixin border-top-left {
   border: none;
-  border-top: 3px solid rgba(255, 255, 255, 0.5);
-  border-left: 3px solid rgba(255, 255,255, 0.5); 
+  border-top: 3px solid $textColor;
+  border-left: 2px solid $textColor;
 }
 
 @mixin position-top($position, $top) {
