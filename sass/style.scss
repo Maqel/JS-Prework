@@ -23,23 +23,24 @@
   text-justify: auto;
   grid-area: 1 / 1 / 2 / -1;
   overflow: hidden;
-  color: $textColor;
+  color: $bc-bright;
 
   &__title {
     @include height-width(min-content, auto);
-    @include flex(center, row);
+    // @include flex(start, row);
     margin-inline: 1rem;
-    grid-area: 1 / 3 / 2 / 6;
+    grid-area: 1 / 2 / 2 / 6;
     font-size: clamp(0.75rem, 0.144rem + 2.769vi, 3rem);
+    // font-size: 2.7em;
   }
 }
 
 .mainGameWindow {
-  @include grid(auto 1fr auto, 0.5fr 3fr 0.5fr);
-  @include border-radius(solid 2px $textColor, 15px);
-  @include textColor(0.1);
+  @include grid(3fr 0.2fr 2fr, 0.5fr 3fr 0.5fr);
+  @include border-radius(solid 2px $bc-bright, 15px);
+  @include bc-bright(0.1);
   grid-area: 2 / 2 / 11 / 10;
-  gap: 0.5em;
+  // gap: 0.5em;
   font-family: $font-content;
   font-size: clamp(0.75rem, 0.375rem + 1.333vw, 1.75rem);
   text-shadow: 4px 4px 5px rgba(0, 0, 0, 1);
@@ -54,7 +55,7 @@
   &__imgContainer {
     @include grid(1fr, 1fr 1fr);
     max-width: 100vw;
-    grid-area: 1 / 1 / 3 / 4;
+    grid-area: 1 / 1 / 4 / 4;
     align-items: center;
     justify-items: center;
     z-index: 11;
@@ -68,7 +69,7 @@
     z-index: inherit;
 
     &::before {
-      @include glass-effect(80vw);
+      @include glass-effect(100vw);
     }
 
     &:hover::before {
@@ -139,11 +140,15 @@
     letter-spacing: 2px;
     pointer-events: none;
     position: relative;
-    bottom: 30px;
+    // bottom: 30px;
+    // bottom: 1vh;
+    top: 17vh;
+    z-index: 11;
   }
 
   &__messages {
-    font-size: clamp(0.75rem, -2.0625rem + 9vw, 3rem);
+    // font-size: clamp(0.75rem, -2.0625rem + 9vw, 3rem);
+    font-size: 2em;
     // zmienia położenie przy wyswietlaniu @container pomyśl o rozwiazaniu tego problemu i spróbuj ustawic to na stałe w jednym miejscu
   }
 
@@ -158,10 +163,12 @@
     justify-items: center;
     align-items: center;
     width: 100%;
-    border: 1px solid $textColor;
-    border-bottom: none;
-    border-radius: 15px 15px 0 0;
+    border: 1px solid $bc-bright;
+    // border-bottom: none;
+    border-radius: 15px;
     @include bc-mainColor(0.1);
+    bottom: 0.5vh;
+    padding: 2vh;
 
     &::before {
       content: "";
@@ -183,7 +190,9 @@
       @include bc-mainColor(0.2);
       // padding: 10px 20px;
       position: relative;
-      margin: 3vmin;
+      // margin: 2vmin;
+      margin: 2vmin 1vmin;
+      padding: 2vh;
       color: transparent;
       font-size: 16px;
       cursor: pointer;
@@ -192,7 +201,7 @@
       
   
       &::before {
-        @include glass-effect(30vw);
+        @include glass-effect(50vw);
       }
       
       &:focus-visible,
@@ -220,8 +229,17 @@
 
 
 // @container
+// @container game-window (min-width: 965px) {
+//   .mainGameWindow {
+//     &_gameButtons {
+//       bottom: 15vh;
+//     }
+//   }
+// }
+
 @container game-window (max-width: 769px) {
   .mainGameWindow {
+
     &__imgContainer {
       grid-template: repeat(1fr) / 1fr;
       height: 55vh; //podniosłem kontener wyżej
@@ -236,20 +254,26 @@
       height: 15vh;
     }
 
-    &__announcement {
-      font-size: 3em;
+    &__messageContainer{
+      font-size: 1.3em;
+      // bottom: 9.1vh;
+      top: -4vh;
+      z-index: -11;
     }
 
     &__gameButtons {
-      bottom: 30px;
-      // height: 10vh;
+      bottom: 0.5vh;
+      position: fixed;
       display: inline;
+      text-align: center;
+      @include grid(1fr,3fr);
+      gap: 0;
     }
 
     &__button {
-      padding: 1rem;
-      width: 100%;
-      height: 7vh;
+      // padding: 1rem;
+      width: 80%;
+      height: 5vh;
       outline: none;
       overflow: hidden;
       cursor: pointer;
@@ -261,7 +285,12 @@
       border: none;
       border-top: 1px solid rgba(255, 255, 255, 0.5);
       border-left: 1px solid rgba(255, 255, 255, 0.5);
-      @include textColor(0.25);
+      @include bc-bright(0.25);
+      bottom: 1vh;
+    //   display: grid;
+    // grid-template-columns: repeat(3, 1fr);
+    // gap: 1rem;
+
 
       &:hover {
         // background-color: greenyellow; //niżej jest właściwość bc która nadpisuje ta
@@ -288,20 +317,27 @@
 
     &__content {
       position: absolute;
-      color: $textColor; // tu daj troszkę ciemniejszy kolor niż po najechaniu na button dla kontrastu żeby była rożnica po najechaniu i bez
+      color: $buttonColor; // tu daj troszkę ciemniejszy kolor niż po najechaniu na button dla kontrastu żeby była rożnica po najechaniu i bez
       width: 100%;
-      font-size: 1rem;
+      height: 100%;
+      font-size: 1.3rem;
+      font-weight: 700;
       text-transform: uppercase;
       // opacity: 0;
       left: 0;
-      bottom: 0.5rem;
+      bottom: 0.8rem;
+      // top: 0.5rem;
       padding: 0.3rem;
       text-align: center;
+      line-height: 3.1;
+      letter-spacing: 0.5em;
       transition: all 150ms ease-in-out 0ms;
       outline: none;
       translate: 0 10px; //zobacz czy mozesz zredukowac liczbę tych właściwości bez utraty funkcjonalności
 
       &:hover {
+        font-size: 1.5rem;
+        font-weight: 900;
         opacity: 1;
         translate: 0;
         transition: all 300ms ease-in-out 150ms;
@@ -310,7 +346,7 @@
 
     // &__button {
     //   // background-image: none;
-    //   color: $textColor; // Przywróć kolor tekstu
+    //   color: $bc-bright; // Przywróć kolor tekstu
     //   // background-color: $bc-mainColor;
     //   width: auto; // Przywróć automatyczną szerokość
     //   height: auto; // Przywróć automatyczną wysokość
@@ -319,8 +355,26 @@
   }
 }
 
+@container game-window (max-width: 440px) {
+  .mainGameWindow {
+    &__content {
+      letter-spacing: 0.1em;
+      font-size: 0.8rem;
+
+      &:hover {
+        font-size: 1rem;
+      }
+    }
+
+    &__messageContainer {
+      top: -1vh;
+    }
+  }
+}
+
 @container game-window (min-width: 769px) {
   .mainGameWindow {
+
     &__button {
       @include border-top-left;
       background-repeat: no-repeat;

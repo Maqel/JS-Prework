@@ -2,8 +2,9 @@
 $font-frontal: "Monoton", cursive;
 $font-content: "Bebas Neue", sans-serif;
 $bc-mainColor: rgb(0, 0, 0);
-$textColor: rgb(255, 255, 255);
+$bc-bright: rgb(255, 255, 255);
 $infoContentColor: rgb(192, 255, 97);
+$buttonColor: rgb(0, 212, 255);
 
 /* GLOBAL */
 *,
@@ -29,8 +30,8 @@ $infoContentColor: rgb(192, 255, 97);
   color: rgba(192, 255, 97, $opacity);
 }
 
-@mixin textColor($opacity) {
-  background-color: rgba($textColor, $opacity);
+@mixin bc-bright($opacity) {
+  background-color: rgba($bc-bright, $opacity);
 }
 
 @mixin bc-mainColor($opacity) {
@@ -67,8 +68,8 @@ $infoContentColor: rgb(192, 255, 97);
 
 @mixin border-top-left {
   border: none;
-  border-top: 3px solid $textColor;
-  border-left: 2px solid $textColor;
+  border-top: 3px solid $bc-bright;
+  border-left: 2px solid $bc-bright;
 }
 
 @mixin position-top($position, $top) {
@@ -82,13 +83,13 @@ $infoContentColor: rgb(192, 255, 97);
 }
 
 @mixin text-shadow {
-  text-shadow: -1px -1px 6px $textColor, 1px 1px 6px $textColor,
-    0 0 20px $textColor;
+  text-shadow: -1px -1px 6px $bc-bright, 1px 1px 6px $bc-bright,
+    0 0 20px $bc-bright;
 }
 
 @mixin box-shadow {
-  box-shadow: 0 0 10px $textColor, inset 0 0 10px $textColor,
-    0 0 10px 4px $textColor, inset 0 0 10px 4px $bc-mainColor;
+  box-shadow: 0 0 10px $bc-bright, inset 0 0 10px $bc-bright,
+    0 0 10px 4px $bc-bright, inset 0 0 10px 4px $bc-mainColor;
 }
 
 @mixin glass-effect($translateX) {
