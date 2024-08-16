@@ -163,7 +163,7 @@
     justify-items: center;
     align-items: center;
     width: 100%;
-    border: 1px solid $bc-bright;
+    border: 3px solid $infoContentColor;
     // border-bottom: none;
     border-radius: 15px;
     @include bc-mainColor(0.1);
@@ -197,8 +197,6 @@
       font-size: 16px;
       cursor: pointer;
       transition: 300ms ease-in-out;
-
-      
   
       &::before {
         @include glass-effect(50vw);
@@ -209,6 +207,8 @@
         @include bc-mainColor(0.3);
         transform: scale(1.15);
         z-index: 9;
+        border-top: 3px solid rgba(192, 255, 97, 1.0);
+        border-left: 1.5px solid rgba(192, 255, 97, 0.5);
       }
   
       &:hover::before {
@@ -297,6 +297,8 @@
         // transition: all 300ms ease-in-out 150ms;
         translate: 0 10px;
         transform: scale(1.15);
+        // border-top: 3px solid rgba(192, 255, 97, 1.0);
+        // border-left: 1.5px solid rgba(192, 255, 97, 0.5);
       }
 
       // &:focus-visible,
@@ -317,12 +319,13 @@
 
     &__content {
       position: absolute;
-      color: $buttonColor; // tu daj troszkę ciemniejszy kolor niż po najechaniu na button dla kontrastu żeby była rożnica po najechaniu i bez
+      color: $bc-bright; // tu daj troszkę ciemniejszy kolor niż po najechaniu na button dla kontrastu żeby była rożnica po najechaniu i bez
       width: 100%;
       height: 100%;
       font-size: 1.3rem;
       font-weight: 700;
       text-transform: uppercase;
+      text-shadow: 0 0 3px $bc-bright, 0 0 2px $bc-bright, 0 0 8px $bc-mainColor;
       // opacity: 0;
       left: 0;
       bottom: 0.8rem;
@@ -336,8 +339,9 @@
       translate: 0 10px; //zobacz czy mozesz zredukowac liczbę tych właściwości bez utraty funkcjonalności
 
       &:hover {
-        font-size: 1.5rem;
+        font-size: 1.4rem;
         font-weight: 900;
+        text-shadow: 0 0 3px $bc-bright, 0 0 2px $bc-bright, 0 0 4px $infoContentColor, 0 0 5px $infoContentColor, 0 0 8px $infoContentColor, 0 0 10px $infoContentColor, 0 0 12px $infoContentColor, 0 0 15px $infoContentColor;
         opacity: 1;
         translate: 0;
         transition: all 300ms ease-in-out 150ms;
@@ -374,9 +378,48 @@
 
 @container game-window (min-width: 769px) {
   .mainGameWindow {
+    &__gameButtons {
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        font-size: 7em;
+        color: rgb(255, 255, 255);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: -1;
+        text-transform: uppercase;
+      }
+
+      &:has(.mainGameWindow__button--rock:focus)::after,
+      &:has(.mainGameWindow__button--rock:hover)::after,
+      &:has(.mainGameWindow__button--rock:active)::after {
+        content: 'rock';
+      }
+
+      &:has(.mainGameWindow__button--paper:focus)::after,
+      &:has(.mainGameWindow__button--paper:hover)::after,
+      &:has(.mainGameWindow__button--paper:active)::after {
+        content: 'paper';
+      }
+
+      &:has(.mainGameWindow__button--scissors:focus)::after,
+      &:has(.mainGameWindow__button--scissors:hover)::after,
+      &:has(.mainGameWindow__button--scissors:active)::after {
+        content: 'scissors';
+      }
+    }
 
     &__button {
-      @include border-top-left;
+      border: none;
+      border-top: 3px solid rgb(255, 255, 255);
+      border-left: 2px solid rgb(255, 255, 255);
       background-repeat: no-repeat;
       background-position: center;
       background-size: contain;
@@ -385,15 +428,22 @@
       padding: 0;
       cursor: pointer;
       color: transparent;
+      position: relative;
+      z-index: 1;
+
+      &:focus,
+      &:active {
+        outline: none;
+      }
 
       &--rock {
-        background: url(../images/rock/rock_button.png);
+        background-image: url(../images/rock/rock_button.png);
       }
       &--paper {
-        background: url(../images/paper/paper_button.png);
+        background-image: url(../images/paper/paper_button.png);
       }
       &--scissors {
-        background: url(../images/scissors/scissors_button.png);
+        background-image: url(../images/scissors/scissors_button.png);
       }
     }
   }
