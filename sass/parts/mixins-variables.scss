@@ -1,10 +1,9 @@
 /* VARIABLES */
 $font-frontal: "Monoton", cursive;
 $font-content: "Bebas Neue", sans-serif;
-$bc-mainColor: rgb(0, 0, 0);
-$bc-bright: rgb(255, 255, 255);
-$infoContentColor: rgb(192, 255, 97);
-$buttonColor: rgb(0, 212, 255);
+$darkColorPalette: rgb(0, 0, 0);
+$whiteColorPalette: rgb(255, 255, 255);
+$infoColorPalette: rgb(192, 255, 97);
 
 /* GLOBAL */
 *,
@@ -16,26 +15,33 @@ $buttonColor: rgb(0, 212, 255);
 }
 
 /* MIXINS */
-@mixin button-platform {
+@mixin box-shadow--border-none {
+  box-shadow: 10px 10px 50px $darkColorPalette;
+  border-bottom: none;
+  border-right: none;
+}
+
+@mixin platform {
   @include border-top-left;
+  @include box-shadow--border-none;
   border-radius: 15px;
   overflow: hidden;
-  box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(3.5px);
+  backdrop-filter: blur(9.5px);
   transition: transform 0.3s ease;
 }
 
 
-@mixin infoContentColor($opacity) {
-  color: rgba(192, 255, 97, $opacity);
+
+@mixin c-infoColorPalette($opacity) {
+  color: rgba($infoColorPalette, $opacity);
 }
 
-@mixin bc-bright($opacity) {
-  background-color: rgba($bc-bright, $opacity);
+@mixin bgc-whiteColorPalette($opacity) {
+  background-color: rgba($whiteColorPalette, $opacity);
 }
 
-@mixin bc-mainColor($opacity) {
-  background-color: rgba($bc-mainColor, $opacity);
+@mixin bgc-darkColorPalette($opacity) {
+  background-color: rgba($darkColorPalette, $opacity);
 }
 
 @mixin grid($gt-rows, $gt-columns) {
@@ -44,9 +50,11 @@ $buttonColor: rgb(0, 212, 255);
   grid-template-columns: $gt-columns;
 }
 
-@mixin letter-spacing($spacing) {
-  // podmień w cssach i usuń mixin (nie stosuj pojedyńczych
-  letter-spacing: $spacing;
+@mixin universalCentralPositioning {
+  align-items: center;
+  justify-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 @mixin flex($justify-content, $flex-direction) {
@@ -67,9 +75,9 @@ $buttonColor: rgb(0, 212, 255);
 }
 
 @mixin border-top-left {
-  border: none;
-  border-top: 3px solid $bc-bright;
-  border-left: 2px solid $bc-bright;
+  // border: none;
+  border-top: 3px solid $whiteColorPalette;
+  border-left: 2px solid $whiteColorPalette;
 }
 
 @mixin position-top($position, $top) {
@@ -82,14 +90,14 @@ $buttonColor: rgb(0, 212, 255);
   padding: $padding;
 }
 
-@mixin text-shadow {
-  text-shadow: -1px -1px 6px $bc-bright, 1px 1px 6px $bc-bright,
-    0 0 20px $bc-bright;
-}
+// @mixin text-shadow {
+//   text-shadow: -1px -1px 6px $whiteColorPalette, 1px 1px 6px $whiteColorPalette,
+//     0 0 20px $whiteColorPalette;
+// }
 
 @mixin box-shadow {
-  box-shadow: 0 0 10px $bc-bright, inset 0 0 10px $bc-bright,
-    0 0 10px 4px $bc-bright, inset 0 0 10px 4px $bc-mainColor;
+  box-shadow: 0 0 10px $whiteColorPalette, inset 0 0 10px $whiteColorPalette,
+    0 0 10px 4px $whiteColorPalette, inset 0 0 10px 4px $darkColorPalette;
 }
 
 @mixin glass-effect($translateX) {
