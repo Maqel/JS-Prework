@@ -9,12 +9,7 @@
 <body>
   <main class="flow">
     <div class="header">
-      <h1 class="header__title">your choice: </h1>
-      <!-- <section class="header__animation">
-        <div class="header__choice header__choice--rock">rock</div>
-        <div class="header__choice header__choice--paper">paper</div>
-        <div class="header__choice header__choice--scissors">scissors</div>
-      </section> -->
+      <button class="header__title" type="button"><span class="header__text">Rock<span class="header__faulty-letter"> Paper</span> Scissors</span><p class="header__subtitle">the <span class="header__subtitle-faulty-letter">game</span></p></button>
       <!-- <button class="header__musicButton" type="button">music</button> -->
     </div>
     <main class="mainGameWindow" container-type="inline-size">
@@ -28,10 +23,10 @@
       </section>
       <section class="mainGameWindow__scoreContainer">
         <div class="mainGameWindow__points mainGameWindow__points--playerPoints">
-          <p class="mainGameWindow__playerScore">34</p>
+          <p class="mainGameWindow__playerScore" data-score="17">17</p>
         </div>
         <div class="mainGameWindow__points mainGameWindow__points--cpuPoints">
-          <p class="mainGameWindow__computerScore">27</p>
+          <p class="mainGameWindow__computerScore" data-score="27">27</p>
         </div>
       </section>
       <section class="mainGameWindow__messageContainer">

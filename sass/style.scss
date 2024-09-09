@@ -1,49 +1,127 @@
 @import "./parts/mixins-variables.scss";
-@import "./parts/keyframes.scss";
-@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Monoton&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+@import "./parts/keyframes.scss"; 
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Grey+Qo&display=swap');
+
 
 .flow {
   @include grid(repeat(10, 1fr), repeat(10, 1fr));
   @include height-width(100vh, 100vw);
-  background-color: rgba(108, 105, 111, 1);
-  background-image: linear-gradient(
-    330deg,
-    rgba(108, 105, 111, 1) 0%,
-    rgba(0, 0, 0, 1) 85%
-  );
+  background: linear-gradient(135deg, #ffffff 0%, #d6d6d7 100%)
 }
 
 /* SECTION HEADER */
 .header {
-  @include grid(subgrid, subgrid);
-  font-family: $font-frontal;
-  word-spacing: 0.5em;
-  letter-spacing: 2px;
-  text-justify: auto;
-  grid-area: 1 / 1 / 2 / -1;
+  @include universalCentralPositioning;
+  grid-area: 1 / 1 / -1 / -1;
   overflow: hidden;
   color: $whiteColorPalette;
 
   &__title {
-    @include height-width(min-content, auto);
-    // @include flex(start, row);
-    margin-inline: 1rem;
+    @include height-width(min-content, 60%);
+    @include border-radius(0.15em solid $darkColorPalette, 0.45em);
+    @include margin-padding(1rem, 0.35em 1em);
+    position: relative;
+    top: -1.5vh;
+    display: inline;
+    word-spacing: 0.3em;
+    letter-spacing: 0.6em;
+    text-transform: uppercase;
     grid-area: 1 / 2 / 2 / 6;
-    font-size: clamp(0.75rem, 0.144rem + 2.769vi, 3rem);
-    // font-size: 2.7em;
+    font-size: clamp(1rem, 0.5rem + 1.333vw, 1.7rem);
+    color: $darkColorPalette;
+    cursor: pointer;
+    // background-color: $darkColorPalette;
+    background-color: transparent;
+    perspective: 2em;
+    font-family: $font-frontal;
+    font-weight: 900;
+    text-transform: uppercase;
+    box-shadow: inset 0px 0px 0.5em 0px $darkColorPalette,
+    20px 20px 38px 10px rgba(66, 68, 90, 1);
+      text-shadow: 6px 6px 10px rgba(66, 68, 90, 1);
+    // animation: border-flicker 6s linear infinite;
+    z-index: 10;
+     
+      &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        opacity: 0.7;
+        z-index: -1;
+        color: $darkColorPalette;
+        // box-shadow: 0 0 3em 0.9em $infoColorPalette;
+        // transition: opacity 100ms linear;
+        transform: rotateX(180deg) scale(1.02);
+        // filter: blur(1em);
+      }
+      &:hover {
+        @include border-radius(0.15em solid $darkColorPalette, 0.45em);
+        color: $darkColorPalette;
+        background-color: $infoColorPalette;
+        box-shadow: inset 0px 0px 0.5em 0px $darkColorPalette,
+      0 0 3em 0.9em $infoColorPalette;
+      text-shadow: 6px 6px 10px rgba(66, 68, 90, 1);
+      // SKOPIUJ TEN BOX SHADOW DO KEYFRAMSA PLATFORM-BORDER-FLICKER I ZMNIEJSZ TROCHĘ INTENSYWNOŚ
+      }
+
+      &:hover .header__text {
+        // animation: none;
+        text-shadow: 6px 6px 10px rgba(66, 68, 90, 1);
+      }
+
+      &:hover .header__faulty-letter, .header__other-faulty-letter {
+        // animation: none;
+        // opacity: 1;
+        text-shadow: 6px 6px 10px rgba(66, 68, 90, 1);
+      }
+
+      //TU COŚ NAMIESZANE Z SELEKTORAMI I HOVEREM JAK WŁACZAM ZAKOMENTOWANE OPCJE PRZESTAJE PRAWIDŁOWO DZIAŁA
   }
+
+  &__subtitle {
+    text-transform: lowercase;
+    font-family: $font-subtitle;
+    font-size: 1.5em;
+  }
+
+  &__text {
+    margin-right: -0.8em;
+    text-shadow: 0 0 0.125em hsl(0 0% 100% / 0.3), 0 0 0.45em $infoColorPalette;
+    animation: text-flicker 3s linear infinite;
+  }
+
+  &__faulty-letter {
+    opacity: 0.5;
+    animation: faulty-flicker 2s linear infinite;
+  }
+
+  &__subtitle-faulty-letter {
+    opacity: 1;
+    animation: faulty-flicker 2s linear infinite;
+  }
+
 }
 
 .mainGameWindow {
   @include grid(3fr 0.2fr 2fr, 0.5fr 3fr 0.5fr);
-  @include platform;
+  // @include platform;
+  @include box-shadow;
   @include bgc-whiteColorPalette(0.1);
   @include margin-padding(0 0 2vh 0, 0);
-  grid-area: 2 / 2 / 11 / 10;
+  @include height-width(85vh, 60vw);
+  @include border-radius(16px solid $darkColorPalette, 0.75em);
+  position: relative;
+  grid-area: 2 / 4 / 11 / 8;
   font-family: $font-content;
   font-size: clamp(0.75rem, 0.375rem + 1.333vw, 1.75rem);
   text-shadow: 4px 4px 5px $darkColorPalette;
+  top: 3.5vh;
+  overflow: hidden;
+  // animation: main-border-flicker 2.5s linear infinite;
+
 
   // @container
   container-type: inline-size;
@@ -59,10 +137,12 @@
 
   &__imgPlayerMove,
   &__imgComputerMove {
-    @include height-width(70%, 70%);
+    @include height-width(65%, 65%);
     @include flex(center, row);
     @include platform;
-    @include bgc-darkColorPalette(0.4);
+    @include bgc-darkColorPalette(0.1);
+    // background-color: $darkColorPalette;
+    
     z-index: inherit;
 
     &::before {
@@ -74,11 +154,11 @@
     }
 
     &:hover {
-      @include bgc-darkColorPalette(0.3);
+      @include bgc-darkColorPalette(0.2);
       transform: scale(1.06);
-      filter: brightness(1.2);
-      -webkit-filter: brightness(1.2);
-      -moz-filter: brightness(1.2);
+      filter: brightness(1.1);
+      -webkit-filter: brightness(1.1);
+      -moz-filter: brightness(1.1);
 
     }
 
@@ -106,6 +186,8 @@
 
   &__points {
     @include flex(start, column);
+    position: relative;
+    top: -5vh;
     text-transform: uppercase;
     pointer-events: none;
     padding: 2vmin;
@@ -123,50 +205,62 @@
   &__computerScore,
   &__playerScore {
     @include height-width(min-content, min-content);
-    border-radius: 15px;
-    // text-align: center;
     @include universalCentralPositioning;
+    position: relative;
+    left: -1vw;
+    // @include c-infoColorPalette(0.6);
+    color: $scoreColorPalette;
+    // text-shadow: inset 0px 0px 0.5em 0px $infoColorPalette,
+    // 0px 0px 0.5em 0px $infoColorPalette;;
     font-size: 10em;
-    @include c-infoColorPalette(0.6);
+    text-shadow: 8px 8px 5px $darkColorPalette; //dopierdol szarego i zostaw cienie w beforku
     z-index: inherit;
+
+    &::before {
+      content: attr(data-score);
+      position: absolute;
+      top: 0;
+      left: 1;
+      transform: scale(1.05);
+      right: 0;
+      bottom: 1;
+      letter-spacing: -0.025em;
+      color: $whiteColorPalette;
+      font-size: 1em;
+      z-index: -11;
+    }
   }
 
   /* MESSAGES */
   &__messageContainer {
     @include c-infoColorPalette(0.9);
     grid-area: 3 / 2 / 4 / 3;
-    // text-align: center;
     @include universalCentralPositioning;
     letter-spacing: 2px;
     pointer-events: none;
     position: relative;
-    // bottom: 30px;
-    // bottom: 1vh;
-    top: 17vh;
+    top: 13vh;
     z-index: 11;
   }
 
   &__messages {
-    // font-size: clamp(0.75rem, -2.0625rem + 9vw, 3rem);
     font-size: 2em;
   }
 
   /* BUTTONS */
   &__gameButtons {
-    @include border-radius(solid 3px $infoColorPalette, 15px);
-    @include box-shadow--border-none;
+    @include border-radius(solid 5px $darkColorPalette, 0.75em 0.75em 0 0);
     @include bgc-darkColorPalette(0.1);
+    @include universalCentralPositioning;
+    @include box-shadow;
     position: relative;
+    top: 0.5vh;
     grid-column: 2 / 3;
     grid-row: 4 / 5;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-    // justify-items: center;
-    // align-items: center;
-    @include universalCentralPositioning;
     width: 100%;
-    bottom: 0.5vh;
+    bottom: 0.1vh;
     padding: 2vh;
 
     &::before {
@@ -187,7 +281,7 @@
     button {
       @include platform;
       @include bgc-darkColorPalette(0.2);
-      @include margin-padding(2vmin 1vmin, 2vh); // nie wprowadza zmiany
+      @include margin-padding(2vmin 1vmin, 2vh);
       position: relative;
       color: transparent;
       font-size: 16px;
@@ -203,8 +297,10 @@
         @include bgc-darkColorPalette(0.3);
         transform: scale(1.15);
         z-index: 9;
-        border-top: 3px solid rgba(192, 255, 97, 1.0);
-        border-left: 1.5px solid rgba(192, 255, 97, 0.5);
+        border-top: 0.50em solid rgba(192, 255, 97, 0.5);
+        border-left: 0.25em solid rgba(192, 255, 97, 0.5);
+        border-bottom: 0.1em solid rgba(192, 255, 97, 0.5); ;
+        border-right: 0.1em solid rgba(192, 255, 97, 0.5);
       }
   
       &:hover::before {
@@ -215,30 +311,19 @@
 
     &:has(button:focus-visible) button:not(:focus-visible),
     &:has(button:hover) button:not(:hover) {
-      opacity: 80%; //50 w orginale bez contentu za buttonem
+      opacity: 80%;
       scale: 85%;
       z-index: 8;
     }
   }
 }
 
-
-
-// @container
-// @container game-window (min-width: 965px) {
-//   .mainGameWindow {
-//     &_gameButtons {
-//       bottom: 15vh;
-//     }
-//   }
-// }
-
 @container game-window (max-width: 769px) {
   .mainGameWindow {
 
     &__imgContainer {
       grid-template: repeat(1fr) / 1fr;
-      height: 55vh; //podniosłem kontener wyżej
+      height: 45vh;
     }
 
     &__imgPlayerMove,
@@ -252,17 +337,13 @@
 
     &__messageContainer{
       font-size: 1.3em;
-      // bottom: 9.1vh;
-      top: -4vh;
+      top: 11vh;
       z-index: -11;
     }
 
     &__gameButtons {
-      bottom: 0.5vh;
-      position: fixed;
+
       display: inline;
-      // text-align: center;
-      @include universalCentralPositioning; // może nie by potrzebny
       @include grid(1fr,3fr);
       gap: 0;
     }
@@ -285,17 +366,15 @@
 
     &__content {
       position: absolute;
-      color: $whiteColorPalette; // tu daj troszkę ciemniejszy kolor niż po najechaniu na button dla kontrastu żeby była rożnica po najechaniu i bez
+      color: $whiteColorPalette;
       @include height-width(100%, 100%);
       font-size: 1.3rem;
       font-weight: 700;
       text-transform: uppercase;
       text-shadow: 0 0 3px $whiteColorPalette, 0 0 2px $whiteColorPalette, 0 0 8px $darkColorPalette;
-      // opacity: 0;
       left: 0;
-      bottom: 0.8rem;
-      // top: 0.5rem;
-      padding: 0.3rem;
+      bottom: 1em;
+      padding: 0.3em;
       text-align: center;
       line-height: 3.1;
       letter-spacing: 0.5em;
@@ -325,10 +404,6 @@
         font-size: 1rem;
       }
     }
-
-    &__messageContainer {
-      top: -1vh;
-    }
   }
 }
 
@@ -345,8 +420,8 @@
         right: 0;
         bottom: 0;
         font-size: 7em;
-        color: rgba(255, 255, 255, 0.605);
-        // @include bgc-whiteColorPalette(0.6);
+        color: $darkColorPalette;
+        text-shadow: 6px 6px 3px $whiteColorPalette;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -378,7 +453,7 @@
       background-size: contain;
       padding: 0;
       cursor: pointer;
-      color: transparent;
+      // color: transparent;
       position: relative;
       z-index: 1;
 
@@ -397,5 +472,11 @@
         background-image: url(../images/scissors/scissors_button.png);
       }
     }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .glowing-btn {
+    font-size: 1em;
   }
 }

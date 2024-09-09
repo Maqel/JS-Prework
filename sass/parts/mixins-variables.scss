@@ -1,8 +1,10 @@
 /* VARIABLES */
-$font-frontal: "Monoton", cursive;
+$font-frontal: "Anton", sans-serif;
 $font-content: "Bebas Neue", sans-serif;
+$font-subtitle: "Grey Qo", cursive;
 $darkColorPalette: rgb(0, 0, 0);
 $whiteColorPalette: rgb(255, 255, 255);
+$scoreColorPalette: rgb(192, 255, 97);
 $infoColorPalette: rgb(192, 255, 97);
 
 /* GLOBAL */
@@ -15,18 +17,26 @@ $infoColorPalette: rgb(192, 255, 97);
 }
 
 /* MIXINS */
-@mixin box-shadow--border-none {
-  box-shadow: 10px 10px 50px $darkColorPalette;
-  border-bottom: none;
-  border-right: none;
+
+@mixin border-top-left {
+  // border: none;
+  border-top: 0.50em solid $infoColorPalette;
+  border-right: 0.35em solid $infoColorPalette;
+  border-bottom: 0.1em solid $infoColorPalette; ;
+  border-left: 0.1em solid $infoColorPalette;
+  // box-shadow: -20px -20px 50px -15px $infoColorPalette;
+}
+
+@mixin box-shadow {
+  box-shadow: 20px 20px 38px 10px rgba(66, 68, 90, 1);
 }
 
 @mixin platform {
   @include border-top-left;
-  @include box-shadow--border-none;
-  border-radius: 15px;
+  @include box-shadow;
+  border-radius: 0.75em;
   overflow: hidden;
-  backdrop-filter: blur(9.5px);
+  backdrop-filter: blur(4.5px);
   transition: transform 0.3s ease;
 }
 
@@ -74,11 +84,6 @@ $infoColorPalette: rgb(192, 255, 97);
   border-radius: $radius;
 }
 
-@mixin border-top-left {
-  // border: none;
-  border-top: 3px solid $whiteColorPalette;
-  border-left: 2px solid $whiteColorPalette;
-}
 
 @mixin position-top($position, $top) {
   position: $position;
@@ -95,10 +100,10 @@ $infoColorPalette: rgb(192, 255, 97);
 //     0 0 20px $whiteColorPalette;
 // }
 
-@mixin box-shadow {
-  box-shadow: 0 0 10px $whiteColorPalette, inset 0 0 10px $whiteColorPalette,
-    0 0 10px 4px $whiteColorPalette, inset 0 0 10px 4px $darkColorPalette;
-}
+// @mixin box-shadow {
+//   box-shadow: 0 0 10px $whiteColorPalette, inset 0 0 10px $whiteColorPalette,
+//     0 0 10px 4px $whiteColorPalette, inset 0 0 10px 4px $darkColorPalette;
+// }
 
 @mixin glass-effect($translateX) {
   content: "";
