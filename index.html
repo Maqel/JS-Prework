@@ -1,23 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rock Paper Scissors</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
-  <main class="flow">
+  <main class="canvas">
     <div class="header">
-      <button class="header__title" type="button"><span class="header__text">Rock<span class="header__faulty-letter"> Paper</span> Scissors</span><p class="header__subtitle">the <span class="header__subtitle-faulty-letter">game</span></p></button>
-      <!-- <button class="header__musicButton" type="button">music</button> -->
+      <button class="header__title" type="button">
+        <span class="header__text">Rock Paper Scissors</span>
+        <span class="header__subtitle">the game</span>
+      </button>
+      <div class="header__musicButton"></div>
     </div>
     <main class="mainGameWindow" container-type="inline-size">
+      <!-- <section class="mainGameWindow__intro">
+        <button class="intro__btn intro__btn--play" type="button">play game</button>
+        <button class="intro__btn intro__btn--faq" type="button" href="#faq">how to play</button>
+      </section>
+      <section class="mainGameWindow__faq">
+        <div class="faq_container">
+          <h1>How to play Rock Paper Scissors?</h1>
+          <p>Rock beats scissors and loses to paper. <br>To throw a stone, select the clenched fist buttons on the left
+            side of the game window</p>
+          <p>Paper beats rock, but loses to scissors. <br>To throw the paper, select the open hand buttons in the center
+            of the game window</p>
+          <p>Scissors beat paper but loses to rock. <br>To throw scissors, select the button with a clenched fist and
+            two fingers extended on the right side of the game window</p>
+          <button class="backButton" type="button">Back to Menu</button>
+        </div>
+      </section> -->
+
       <section class="mainGameWindow__imgContainer">
-        <div class="mainGameWindow__imgPlayerMove mainGameWindows_platform">
+        <div class="mainGameWindow__imgPlayerMove">
           <img src="./images/rock/rock_left.png" alt="player movement view" class="mainGameWindow__playerMove mainGameWindow__shake">
         </div>
-        <div class="mainGameWindow__imgComputerMove mainGameWindows_platform">
+        <div class="mainGameWindow__imgComputerMove">
           <img src="./images/rock/rock_right.png" alt="computer movement view" class="mainGameWindow__computerMove mainGameWindow__shake">
         </div>
       </section>
@@ -53,4 +75,5 @@
     <source src="../vendor/sounds/retro.mp3" type="audio/mp3">
   </audio>
 </body>
+
 </html>

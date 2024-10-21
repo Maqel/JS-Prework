@@ -18,29 +18,33 @@ $infoColorPalette: rgb(192, 255, 97);
 
 /* MIXINS */
 
-@mixin border-top-left {
-  // border: none;
-  border-top: 0.50em solid $infoColorPalette;
-  border-right: 0.35em solid $infoColorPalette;
-  border-bottom: 0.1em solid $infoColorPalette; ;
-  border-left: 0.1em solid $infoColorPalette;
-  // box-shadow: -20px -20px 50px -15px $infoColorPalette;
+@mixin border($colorPalette) {
+  border: solid $colorPalette;
+  border-width: 0.5em 0.35em 0.1em 0.1em;
+  border-radius: 0.75em;;
+}
+
+@mixin margin-padding($margin, $padding) {
+  margin: $margin;
+  padding: $padding;
 }
 
 @mixin box-shadow {
   box-shadow: 20px 20px 38px 10px rgba(66, 68, 90, 1);
 }
 
-@mixin platform {
-  @include border-top-left;
+@mixin platform($height, $width, $margin, $padding, $colorPalette, $opacity, $index) {
+  @include height-width($height, $width);
+  @include margin-padding($margin, $padding);
   @include box-shadow;
-  border-radius: 0.75em;
+  @include border($colorPalette);
+  @include bgc-darkColorPalette($opacity);
   overflow: hidden;
-  backdrop-filter: blur(4.5px);
-  transition: transform 0.3s ease;
+  z-index: $index;
+  // backdrop-filter: blur(4.5px);
+  // transition: transform 0.3s ease;
+
 }
-
-
 
 @mixin c-infoColorPalette($opacity) {
   color: rgba($infoColorPalette, $opacity);
@@ -60,18 +64,11 @@ $infoColorPalette: rgb(192, 255, 97);
   grid-template-columns: $gt-columns;
 }
 
-@mixin universalCentralPositioning {
-  align-items: center;
-  justify-items: center;
-  justify-content: center;
-  text-align: center;
-}
-
 @mixin flex($justify-content, $flex-direction) {
-  justify-content: $justify-content;
   display: flex;
-  align-items: center;
   flex-direction: $flex-direction;
+  justify-content: $justify-content;
+  align-items: center;
 }
 
 @mixin height-width($height, $width) {
@@ -79,21 +76,16 @@ $infoColorPalette: rgb(192, 255, 97);
   width: $width;
 }
 
-@mixin border-radius($border, $radius) {
-  border: $border;
-  border-radius: $radius;
-}
-
+// @mixin border-radius($border, $radius) {
+//   border: $border;
+//   border-radius: $radius;
+// }
 
 @mixin position-top($position, $top) {
   position: $position;
   top: $top;
 }
 
-@mixin margin-padding($margin, $padding) {
-  margin: $margin;
-  padding: $padding;
-}
 
 // @mixin text-shadow {
 //   text-shadow: -1px -1px 6px $whiteColorPalette, 1px 1px 6px $whiteColorPalette,
