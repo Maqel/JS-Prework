@@ -14,6 +14,8 @@ $infoColorPalette: rgb(192, 255, 97);
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  // outline: 2px solid blue;
+  // background: hsl(0 100% 50% / .1)
 }
 
 /* MIXINS */
@@ -21,7 +23,7 @@ $infoColorPalette: rgb(192, 255, 97);
 @mixin border($colorPalette) {
   border: solid $colorPalette;
   border-width: 0.5em 0.35em 0.1em 0.1em;
-  border-radius: 0.75em;;
+  border-radius: 0.75em;
 }
 
 @mixin margin-padding($margin, $padding) {
@@ -33,17 +35,24 @@ $infoColorPalette: rgb(192, 255, 97);
   box-shadow: 20px 20px 38px 10px rgba(66, 68, 90, 1);
 }
 
-@mixin platform($height, $width, $margin, $padding, $colorPalette, $opacity, $index) {
+@mixin glassPlatform(
+  $height,
+  $width,
+  $margin: 0.25em,
+  $padding: 0.5em 1em,
+  $colorPalette: $darkColorPalette,
+  $opacity: 0.1,
+  $index: 11
+) {
   @include height-width($height, $width);
   @include margin-padding($margin, $padding);
   @include box-shadow;
   @include border($colorPalette);
   @include bgc-darkColorPalette($opacity);
-  overflow: hidden;
   z-index: $index;
+  overflow: hidden;
   // backdrop-filter: blur(4.5px);
   // transition: transform 0.3s ease;
-
 }
 
 @mixin c-infoColorPalette($opacity) {
@@ -63,6 +72,36 @@ $infoColorPalette: rgb(192, 255, 97);
   grid-template-rows: $gt-rows;
   grid-template-columns: $gt-columns;
 }
+
+@mixin pseudoElement($top: 0, $right: 0, $bottom: 0, $left: 0, $radius: none) {
+  &::after {
+    content: "";
+    @include height-width(10em, 10em);
+    position: absolute;
+    top: $top;
+    right: $right;
+    bottom: $bottom;
+    left: $left;
+    border-radius: $radius;
+    background-color: #b13254;
+    z-index: -10;
+    // opacity: 90%;
+  }
+}
+
+// @mixin grid($gt-rows, $gt-columns, $y-start: null, $x-start: null, $y-end: null, $x-end: null) {
+//   display: grid;
+//   grid-template-rows: $gt-rows;
+//   grid-template-columns: $gt-columns;
+
+//   @if $y-start != null and $y-end != null {
+//     grid-row: $y-start / $y-end;
+//   }
+
+//   @if $x-start != null and $x-end != null {
+//     grid-column: $x-start / $x-end;
+//   }
+// }
 
 @mixin flex($justify-content, $flex-direction) {
   display: flex;
@@ -86,11 +125,9 @@ $infoColorPalette: rgb(192, 255, 97);
   top: $top;
 }
 
-
-// @mixin text-shadow {
-//   text-shadow: -1px -1px 6px $whiteColorPalette, 1px 1px 6px $whiteColorPalette,
-//     0 0 20px $whiteColorPalette;
-// }
+@mixin text-shadow($x: 5px, $y: 6px, $blur: 10px, $color: rgba(66, 68, 90, 1)) {
+  text-shadow: $x $y $blur $color;
+}
 
 // @mixin box-shadow {
 //   box-shadow: 0 0 10px $whiteColorPalette, inset 0 0 10px $whiteColorPalette,

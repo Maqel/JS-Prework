@@ -13,11 +13,11 @@
 
 @keyframes shake {
   0% {
-    transform: translateY(0px);
+    transform: translateY(0em);
   }
 
   100% {
-    transform: translateY(-50px);
+    transform: translateY(-1.2em);
   }
 }
 
