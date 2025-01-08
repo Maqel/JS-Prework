@@ -50,7 +50,7 @@ $infoColorPalette: rgb(192, 255, 97);
   @include border($colorPalette);
   @include bgc-darkColorPalette($opacity);
   z-index: $index;
-  overflow: hidden;
+  // overflow: hidden;
   // backdrop-filter: blur(4.5px);
   // transition: transform 0.3s ease;
 }
