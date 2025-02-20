@@ -46,7 +46,7 @@ $infoColorPalette: rgb(192, 255, 97);
 ) {
   @include height-width($height, $width);
   @include margin-padding($margin, $padding);
-  @include box-shadow;
+  // @include box-shadow;
   @include border($colorPalette);
   @include bgc-darkColorPalette($opacity);
   z-index: $index;
