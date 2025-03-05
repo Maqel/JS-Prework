@@ -7,6 +7,8 @@ $whiteColorPalette: rgb(255, 255, 255);
 $scoreColorPalette: rgb(192, 255, 97);
 $infoColorPalette: rgb(192, 255, 97);
 
+$darkColorPalette-opacity: rgba($darkColorPalette, 0.5);
+
 /* GLOBAL */
 *,
 *::before,
@@ -65,6 +67,10 @@ $infoColorPalette: rgb(192, 255, 97);
 
 @mixin bgc-darkColorPalette($opacity) {
   background-color: rgba($darkColorPalette, $opacity);
+}
+
+@mixin darkColorPalette($opacity) {
+  color: rgba($darkColorPalette, $opacity);
 }
 
 @mixin grid($gt-rows, $gt-columns) {

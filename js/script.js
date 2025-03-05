@@ -1,135 +1,157 @@
-// class MouseParallax {
-//   constructor(config) {
-//     this.wrapper = config.wrapper; // Główny wrapper
-//     this.elements = config.elements;
-//     this.strengths = config.strengths || [15, 10, 5];
-//     this.easing = config.easing || 0.1;
-//     this.targetPositions = {};
-//     this.isMouseInside = false; // Flaga śledząca, czy mysz jest wewnątrz wrappera
+// // Konfiguracja efektu tilt
+// const TILT_CONFIG = {
+//   // Maksymalny kąt przechylenia w stopniach
+//   maxTilt: 15,
+//   // Intensywność efektu poświaty (glare)
+//   glareIntensity: 0.5,
+//   // Szybkość animacji w milisekundach
+//   transitionDuration: 300,
+//   // Mnożnik głębokości cienia
+//   shadowFactor: 1.5,
+//   // Hierarchia warstw
+//   zIndexLevels: {
+//     background: 1,
+//     middle: 2,
+//     foreground: 3
+//   }
+// };
 
-//     this.wrapper.addEventListener(
-//       'mouseenter',
-//       () => (this.isMouseInside = true)
+// // Klasa implementująca efekt tilt
+// class TiltEffect {
+//   constructor() {
+//     // Inicjalizacja elementów z różnymi poziomami z-index
+//     this.backgroundElements = document.querySelectorAll('.header, .mainGameWindow');
+//     this.middleElements = document.querySelectorAll(
+//       '.header__text, .header__subtitle, .mainGameWindow__scoreContainer--playerScore, ' +
+//       '.mainGameWindow__scoreContainer--computerScore, .mainGameWindow__messages, ' +
+//       '.mainGameWindow__gameButtons'
 //     );
-//     this.wrapper.addEventListener(
-//       'mouseleave',
-//       this.resetParallax.bind(this)
+//     this.foregroundElements = document.querySelectorAll(
+//       '.mainGameWindow__imgContainer-imgPlayerMove, .mainGameWindow__imgContainer-imgComputerMove, ' +
+//       '.mainGameWindow__gameButtons-button--rock, .mainGameWindow__gameButtons-button--paper, ' +
+//       '.mainGameWindow__gameButtons-button--scissors'
 //     );
-//     document.addEventListener(
-//       'mousemove',
-//       this.updateTargetPositions.bind(this)
-//     );
-//     this.animateParallax();
+
+//     // Ustawienie z-index dla wszystkich elementów
+//     this.setupZIndexLevels();
+//     // Inicjalizacja efektów
+//     this.initializeTiltEffects();
 //   }
 
-//   /**
-//    * Update the target positions of the elements based on the mouse position
-//    */
-//   updateTargetPositions(event) {
-//     if (!this.isMouseInside) return; // Ignoruj zdarzenia, gdy mysz jest poza wrapperem
+//   // Ustawienie poziomów z-index
+//   setupZIndexLevels() {
+//     this.backgroundElements.forEach(el => {
+//       el.style.zIndex = TILT_CONFIG.zIndexLevels.background;
+//       this.prepareElement(el);
+//     });
 
-//     const wrapperRect = this.wrapper.getBoundingClientRect(); // Pobierz wymiary wrappera
-//     const mouseX = event.clientX - wrapperRect.left; // Pozycja myszy względem wrappera
-//     const mouseY = event.clientY - wrapperRect.top;
+//     this.middleElements.forEach(el => {
+//       el.style.zIndex = TILT_CONFIG.zIndexLevels.middle;
+//       this.prepareElement(el);
+//     });
 
-//     const wrapperCenterX = wrapperRect.width / 2;
-//     const wrapperCenterY = wrapperRect.height / 2;
+//     this.foregroundElements.forEach(el => {
+//       el.style.zIndex = TILT_CONFIG.zIndexLevels.foreground;
+//       this.prepareElement(el);
+//     });
+//   }
 
-//     this.elements.forEach((layer, index) => {
-//       const strength = this.strengths[index];
+//   // Przygotowanie elementu do efektu tilt
+//   prepareElement(element) {
+//     // Dodanie efektu glare
+//     const glareElement = document.createElement('div');
+//     glareElement.className = 'glare-effect';
+//     glareElement.style.cssText = `
+//       position: absolute;
+//       top: 0;
+//       left: 0;
+//       width: 100%;
+//       height: 100%;
+//       background: linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,${TILT_CONFIG.glareIntensity}) 100%);
+//       pointer-events: none;
+//       opacity: 0;
+//       transition: opacity ${TILT_CONFIG.transitionDuration}ms ease-out;
+//     `;
+//     element.style.position = 'relative';
+//     element.style.transform = 'perspective(1000px)';
+//     element.style.transition = `transform ${TILT_CONFIG.transitionDuration}ms ease-out`;
+//     element.appendChild(glareElement);
+//   }
 
-//       layer.forEach((element) => {
-//         // Obliczenia paralaksy
-//         this.targetPositions[element] = {
-//           x: ((wrapperCenterX - mouseX) * strength) / 100,
-//           y: ((wrapperCenterY - mouseY) * strength) / 100,
-//         };
+//   // Obliczanie efektu tilt na podstawie pozycji myszy
+//   calculateTilt(event, element) {
+//     const rect = element.getBoundingClientRect();
+//     const x = event.clientX - rect.left;
+//     const y = event.clientY - rect.top;
+    
+//     // Obliczanie procentowej pozycji myszy względem elementu
+//     const xPercent = (x / rect.width - 0.5) * 2;
+//     const yPercent = (y / rect.height - 0.5) * 2;
+    
+//     return {
+//       tiltX: -yPercent * TILT_CONFIG.maxTilt,
+//       tiltY: xPercent * TILT_CONFIG.maxTilt,
+//       glareX: x / rect.width * 100,
+//       glareY: y / rect.height * 100
+//     };
+//   }
 
-//         // Obliczenia tilt
-//         const relativeX = (mouseX - wrapperCenterX) / wrapperRect.width; // Proporcjonalna pozycja X
-//         const relativeY = (mouseY - wrapperCenterY) / wrapperRect.height; // Proporcjonalna pozycja Y
+//   // Aktualizacja cienia elementu
+//   updateShadow(element, tiltX, tiltY) {
+//     const shadowX = tiltY * TILT_CONFIG.shadowFactor;
+//     const shadowY = tiltX * TILT_CONFIG.shadowFactor;
+//     element.style.boxShadow = `
+//       ${shadowX}px ${shadowY}px 20px rgba(0,0,0,0.2)
+//     `;
+//   }
 
-//         const tiltX = relativeY * 20; // Obrót w osi X
-//         const tiltY = relativeX * -20; // Obrót w osi Y
+//   // Inicjalizacja efektów tilt dla wszystkich elementów
+//   initializeTiltEffects() {
+//     const allElements = [
+//       ...this.backgroundElements,
+//       ...this.middleElements,
+//       ...this.foregroundElements
+//     ];
 
-//         // Dynamiczne cienie
-//         const shadowX = relativeX * 50; // Pozycja cienia w osi X
-//         const shadowY = relativeY * 50; // Pozycja cienia w osi Y
-//         const shadowBlur = 30; // Rozmycie cienia
-//         const shadowColor = 'rgba(0, 0, 0, 0.3)'; // Kolor cienia
+//     allElements.forEach(element => {
+//       // Obsługa wejścia myszy na element
+//       element.addEventListener('mouseenter', () => {
+//         element.querySelector('.glare-effect').style.opacity = '1';
+//       });
 
-//         // Efekt blasku
-//         const glowColor = 'rgba(255, 255, 255, 0.6)'; // Kolor blasku
-//         const glowBlur = 20; // Rozmycie blasku
-
-//         // Przypisz wartości tilt i style cieni do dataset
-//         element.dataset.tiltX = tiltX;
-//         element.dataset.tiltY = tiltY;
-//         element.style.boxShadow = `
-//           ${-shadowX}px ${-shadowY}px ${shadowBlur}px ${shadowColor},
-//           0 0 ${glowBlur}px ${glowColor}
+//       // Obsługa ruchu myszy nad elementem
+//       element.addEventListener('mousemove', (e) => {
+//         const { tiltX, tiltY, glareX, glareY } = this.calculateTilt(e, element);
+        
+//         // Zastosowanie efektu tilt
+//         element.style.transform = `
+//           perspective(1000px)
+//           rotateX(${tiltX}deg)
+//           rotateY(${tiltY}deg)
 //         `;
+
+//         // Aktualizacja pozycji poświaty
+//         const glare = element.querySelector('.glare-effect');
+//         glare.style.transform = `
+//           translate(${glareX}%, ${glareY}%)
+//         `;
+
+//         // Aktualizacja cienia
+//         this.updateShadow(element, tiltX, tiltY);
+//       });
+
+//       // Obsługa wyjścia myszy z elementu
+//       element.addEventListener('mouseleave', () => {
+//         // Reset wszystkich efektów
+//         element.style.transform = 'perspective(1000px)';
+//         element.style.boxShadow = '';
+//         element.querySelector('.glare-effect').style.opacity = '0';
 //       });
 //     });
-//   }
-
-//   /**
-//    * Reset the parallax, tilt, and shadow effect to center
-//    */
-//   resetParallax() {
-//     this.isMouseInside = false; // Flaga resetowana na false, gdy mysz opuszcza wrapper
-
-//     this.elements.forEach((layer) => {
-//       layer.forEach((element) => {
-//         this.targetPositions[element] = { x: 0, y: 0 };
-
-//         // Reset efektu tilt, paralaksy i cieni
-//         element.dataset.tiltX = 0;
-//         element.dataset.tiltY = 0;
-//         element.style.transform = 'rotateX(0deg) rotateY(0deg) translate(0px, 0px)';
-//         element.style.boxShadow = 'none';
-//       });
-//     });
-//   }
-
-//   /**
-//    * Animate the parallax, tilt, and shadow effect
-//    */
-//   animateParallax() {
-//     this.elements.forEach((layer) => {
-//       layer.forEach((element) => {
-//         const target = this.targetPositions[element];
-//         if (!target) return;
-
-//         const matrix = new DOMMatrix(getComputedStyle(element).transform);
-//         const currentX = matrix.m41;
-//         const currentY = matrix.m42;
-
-//         const newX = currentX + (target.x - currentX) * this.easing;
-//         const newY = currentY + (target.y - currentY) * this.easing;
-
-//         // Pobranie wartości tilt
-//         const tiltX = parseFloat(element.dataset.tiltX) || 0;
-//         const tiltY = parseFloat(element.dataset.tiltY) || 0;
-
-//         // Zastosowanie spójnej transformacji
-//         element.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg) translate(${newX}px, ${newY}px)`;
-//       });
-//     });
-
-//     requestAnimationFrame(this.animateParallax.bind(this));
 //   }
 // }
 
-// // Initialize MouseParallax
-// const wrapper = document.querySelector('.wrapper');
-// const layer1 = document.querySelectorAll('.mainGameWindow__gameButtons-button');
-// const layer2 = document.querySelectorAll('.mainGameWindow__gameButtons, .mainGameWindow__imgContainer');
-// const layer3 = document.querySelectorAll('.mainGameWindow');
-
-// new MouseParallax({
-//   wrapper,
-//   elements: [layer1, layer2, layer3],
-//   strengths: [20, 10, 5], // Siła efektu dla każdej warstwy
-//   easing: 0.1,
+// // Inicjalizacja efektu po załadowaniu strony
+// document.addEventListener('DOMContentLoaded', () => {
+//   new TiltEffect();
 // });

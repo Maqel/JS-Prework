@@ -2,6 +2,9 @@
 @import "./parts/keyframes.scss";
 @import url("https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Grey+Qo&display=swap");
 
+$primary-color: #1f2687;
+$shadow-color: #000; // Kolor dla ciemnych cieni
+
 * {
   text-transform: uppercase;
 }
@@ -105,19 +108,28 @@ html {
 .mainGameWindow {
   @include grid(3fr 0.5fr 2fr, 1fr 3fr 1fr);
   @include glassPlatform(80%, 100%);
-  @include text-shadow(4px, 4px, 5px, $darkColorPalette);
+  // width: 80%;
+  // height: 100%;
+  box-shadow: -2px 2px 30px 3px rgba($darkColorPalette, 0.56) inset,
+        20px 20px 20px rgba($darkColorPalette, 0.1);
+      border: 2px solid $whiteColorPalette(0.18);
+      border-radius: 10px;
+
+  // @include text-shadow(4px, 4px, 5px, $whiteColorPalette,); //zmiany w wyświetlaniu wyniku
+  // text-shadow:
+  //   1px 4px 5px $whiteColorPalette,  // Pierwszy cień (jasny)
+  //   3px -2px 10px $darkColorPalette;
   position: relative;
   font: 400 clamp(0.25rem, 0.375rem + 1.333vw, 1.75rem) $font-content;
   // transform-style: preserve-3d;
   // transform: perspective(1000px);
-  
 
   // @container
   container-type: inline-size;
   container-name: game-window;
 
   &__imgContainer {
-    @include flex(space-between, row);
+    @include flex(space-around, row);
     grid-area: 1 / 1 / 2 / -1;
     gap: 1.5rem;
     position: relative;
@@ -135,7 +147,7 @@ html {
     //   color: $darkColorPalette;
     //   text-align: center;
     //   z-index: 10;
-    //   opacity: 80%; 
+    //   opacity: 80%;
     //   -webkit-text-stroke: 1px white;
     //   // -webkit-text-fill-color: white;
     //   // @include text-shadow(4px, 4px, 5px, $darkColorPalette);
@@ -156,43 +168,34 @@ html {
     // }
 
     &-imgPlayerMove {
+    }
+
+    &-imgComputerMove {
+    }
+
+    &-imgPlayerMove,
+    &-imgComputerMove {
+      @include bgc-darkColorPalette(0);
       width: 230px;
       height: 300px;
-      background-color: #fff;
-      // @include bgc-darkColorPalette(0.3);
+      // background-color: #fff;
       position: relative;
       display: flex;
       justify-content: center;
       align-items: center;
       border-radius: 10px;
-      border : 2px solid $darkColorPalette;
-      // box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.15), 40px 40px 0 #fff,
-      //   50px 50px 20px rgba(0, 0, 0, 0.15), 80px 80px 0 #fff,
-      //   80px 80px 40px rgba(0, 0, 0, 0.15), 120px 120px 0 rgba(0, 0, 0, 0.1);
-      // @include border(#35b5ff);
+      // border : 2px solid $darkColorPalette;
       transition: 0.5s ease-in-out;
+      overflow: hidden;
 
-      &:hover {
-      // transform: translateX(2.5vw) scale(1.2);
-      transform: translate(-60px, -60px) scale(1.2);
-      box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.15), 40px 40px 0 #fff,
-        50px 50px 20px rgba(0, 0, 0, 0.15), 80px 80px 0 #fff,
-        80px 80px 40px rgba(0, 0, 0, 0.15), 120px 120px 0 rgba(0, 0, 0, 0.1);
+      box-shadow: -2px -2px 13px -5px rgba($darkColorPalette, 0.56) inset,
+        20px 20px 20px rgba($darkColorPalette, 0.1);
+      border: 2px solid $whiteColorPalette(0.18);
+
+      &::before {
+        @include glass-effect(50vw);
       }
-    }
 
-    &-imgComputerMove {
-      // @include border(#b13254);
-
-      // &:hover {
-      // transform: translateX(-2.5vw) scale(1.1);
-      // // transform: translateX(-3vw) scale(1.2) rotateY(20deg);
-      // }
-      // zapytaj gpt o możliwoś zamienienie tych wartości z class img... i hoverami na zastosowanie ifów (znajdz nazwę tej metody w sieci) albo konstrukcji z not itd
-    }
-
-    &-imgPlayerMove,
-    &-imgComputerMove {
       // // @include box-shadow;
       // // @include border($infoColorPalette);
       // position: relative;
@@ -244,6 +247,33 @@ html {
     }
   }
 
+  &:hover {
+    .mainGameWindow__imgContainer-imgPlayerMove,
+    .mainGameWindow__imgContainer-imgComputerMove {
+      @include bgc-darkColorPalette(0.05);
+      transform: translate(-1vw, -2.5vh) scale(1.1);
+      box-shadow: -2px -2px 13px -5px rgba($darkColorPalette, 0.56) inset,
+        0px 8px 32px rgba($darkColorPalette, 0.37), 5px 5px 0 $whiteColorPalette,
+        7px 7px 7px rgba($darkColorPalette, 0.15),
+        12px 12px 0 $whiteColorPalette,
+        18px 18px 10px rgba($darkColorPalette, 0.15),
+        20px 20px 20px rgba($darkColorPalette, 0.1);
+      border: 2px solid $whiteColorPalette(0.18);
+      //   backdrop-filter: blur( 0.5px );
+      // -webkit-backdrop-filter: blur( 0.5px );
+      &::before {
+        transform: skewX(45deg) translateX(-40vw);
+      }
+
+    }
+
+    .mainGameWindow__gameButtons {
+      transition: 0.5s ease-in-out;
+
+      transform: scale(1.1);
+    }
+  }
+
   /* SCORE */
   &__scoreContainer {
     @include height-width(60%, 100%);
@@ -275,32 +305,38 @@ html {
     // @include height-width(min-content, min-content);
     // @include text-shadow(4px, 4px, 5px, $darkColorPalette);
     // @include text-shadow;
+
     position: relative;
     top: -2vh;
     left: -1vw;
-    color: $scoreColorPalette;
+    // color: $darkColorPalette-opacity;
+    color: transparent;
     font-size: 10em;
     z-index: inherit;
+    background: rgba(0, 0, 0, 0.9);
+    background-clip: text;
+    -webkit-background-clip: text;
+    text-shadow: -4px 8px 7px rgba(255, 255, 255, 0.7);
 
-    &::before {
-      content: attr(data-score);
-      position: absolute;
-      transform: scale(1.02);
-      top: 0;
-      left: 1;
-      right: 1px;
-      bottom: 0;
-      letter-spacing: -0.025em;
-      color: $whiteColorPalette;
-      font-size: 1em;
-      z-index: -11;
-    }
+    // &::before {
+    //   content: attr(data-score);
+    //   position: absolute;
+    //   transform: scale(1.01);
+    //   top: 0;
+    //   left: 1;
+    //   right: 1px;
+    //   bottom: 0;
+    //   letter-spacing: -0.025em;
+    //   color: $whiteColorPalette;
+    //   font-size: 1em;
+    //   z-index: -11;
+    // }
   }
 
   /* MESSAGES */
   &__messageContainer {
-    @include c-infoColorPalette(0.9);
-    @include text-shadow(4px, 4px, 5px, $darkColorPalette);
+    // @include c-infoColorPalette(0.9);
+    // @include text-shadow(4px, 4px, 5px, $darkColorPalette);
     grid-area: 2 / 1 / 3 / -1;
     text-align: center;
     letter-spacing: 2px;
@@ -308,6 +344,11 @@ html {
     position: relative;
     // top: 13vh;
     z-index: 11;
+    color:  transparent;
+    text-shadow: -4px -4px 5px rgba(255, 255, 255, 0.6);
+    background: rgba(0, 0, 0, 0.5);
+    background-clip: text;
+    -webkit-background-clip: text;
   }
 
   &__messages {
