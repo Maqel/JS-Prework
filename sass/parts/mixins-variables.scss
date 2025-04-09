@@ -5,9 +5,34 @@ $font-subtitle: "Grey Qo", cursive;
 $darkColorPalette: rgb(0, 0, 0);
 $whiteColorPalette: rgb(255, 255, 255);
 $scoreColorPalette: rgb(192, 255, 97);
-$infoColorPalette: rgb(192, 255, 97);
+$infoColorPalette: rgb(193, 244, 0);
 
 $darkColorPalette-opacity: rgba($darkColorPalette, 0.5);
+
+$boxShadowPrimary: -2px -2px 13px -5px rgba($darkColorPalette, 0.56) inset,
+20px 20px 20px rgba($darkColorPalette, 0.1),
+2px 0 30px rgba($whiteColorPalette, 0.56);
+
+/* MAP FUNCTIONS */
+
+$theme-colors: (
+  "darkColorPalette": rgb(0, 0, 0),
+  "whiteColorPalette": rgb(255, 255, 255),
+  "winningColorPalette": rgb(255, 215, 0),
+  "lossColorPalette": rgb(230, 57, 70),
+  "infoColorPalette": rgb(193, 244, 0),
+);
+
+@function theme-color($key, $opacity: 1) {
+  $color: map-get($theme-colors, $key);
+  
+  @if $color {
+    @return rgba($color, $opacity);
+  } @else {
+    @warn "Color #{$key} not found in theme-colors map.";
+    @return null;
+  }
+}
 
 /* GLOBAL */
 *,
