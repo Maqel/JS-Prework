@@ -16,6 +16,7 @@ html {
   margin-inline: auto;
   padding-inline: 2rem;
   transform-style: preserve-3d;
+  perspective: 1500px
   //   // @container
   //   container-type: inline-size;
   //   container-name: game-window;
@@ -24,7 +25,6 @@ html {
 /* SECTION HEADER */
 .header {
   @include flex(center, column);
-  @include glassPlatform(13%, 95%);
   @include text-shadow;
   font: 900 clamp(1rem, 0.5rem + 1.333vw, 1.7rem) $font-frontal;
   text-align: center;
@@ -35,14 +35,13 @@ html {
   // mix-blend-mode: multiply;
 
   cursor: pointer;
-  box-shadow: inset 0px 0px 0.5em 0px $darkColorPalette,
-    20px 20px 38px 10px rgba(66, 68, 90, 1);
+  box-shadow: $boxShadowPrimary;
 
   &:hover {
-    // background-color: $infoColorPalette;
     background-color: theme-color("infoColorPalette");
-    box-shadow: inset 3px 3px 0.5em 0px $darkColorPalette,
-      0 0 3em 0.9em $infoColorPalette;
+    box-shadow: inset 3px 3px 0.5em 0px theme-color("darkColorPalette"),
+      0 0 3em 0.9em theme-color("infoColorPalette");
+    // CALY HEADER WRAZ Z HOVEREM DO PRZEROBIENIA NA BARDZIEJ SZKLANY EFEKT WYKOŻYSTAJ KOLORY Z MAPY//
   }
 
   &__subtitle {
@@ -63,7 +62,6 @@ html {
       bottom: 50%;
       background-color: #b13254;
       z-index: -10;
-      // opacity: 90%;
     }
 
     &::before {
@@ -86,7 +84,7 @@ html {
     @include height-width(30px, 30px);
     position: absolute;
     background: url(../vendor/icon/playDark.png) no-repeat center / contain;
-    border: 2px solid $darkColorPalette;
+    border: 2px solid theme-color("darkColorPalette");
     border-radius: 30%; // zamień na mixin z borederem
     cursor: pointer;
     top: 20px;
@@ -106,65 +104,34 @@ html {
 .mainGameWindow {
   @include grid(3fr 0.5fr 2fr, 1fr 3fr 1fr);
   position: relative;
-  // background: linear-gradient(135deg, #ffffff 40%, #d6d6d7 10%);
   backdrop-filter: blur(8px);
-
-  // @include glassPlatform(80%, 100%);
   margin: 0.25em;
   padding: 0.5em 1em;
   height: 80%;
   width: 100%;
-  // width: 80%;
-  // height: 100%;
   box-shadow: $boxShadowPrimary;
-  // border-left-color: white;
   border-radius: 10px;
-  transition: all 0.3s ease-in-out;
-  // -webkit-box-reflect: left -80px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(30%, transparent), to(rgba(255, 255, 255, 0.5)));
-  // width: 70px;
-
+  // transition: all 0.3s ease-in-out;
   transform: perspective(90vh) rotateX(5deg);
-
-  // @include text-shadow(4px, 4px, 5px, $whiteColorPalette,); //zmiany w wyświetlaniu wyniku
-  // text-shadow:
-  //   1px 4px 5px $whiteColorPalette,  // Pierwszy cień (jasny)
-  //   3px -2px 10px $darkColorPalette;
-  // position: relative;
   font: 400 clamp(0.25rem, 0.375rem + 1.333vw, 1.75rem) $font-content;
   // transform-style: preserve-3d;
   // transform: perspective(1000px);
+  transition-duration: 300ms;
+  transition-property: transform, box-shadow; // Zachowajmy box-shadow jeśli nadal go animujesz
+  transition-timing-function: ease-out;
+  // transform: perspective(90vh) rotateX(5deg); // <-- USUŃ lub zakomentuj tę linię, jeśli istniała i powodowała stałe pochylenie
+  transform-style: preserve-3d; // <-- DODAJ TĘ WŁAŚCIWOŚĆ (zalecane)
 
   &::before {
     content: "";
-  position: absolute;
-  top: 0;
-  bottom: -100%;
-  // left: 8vw;
-  width: inherit;
-  height: inherit;
-  background: inherit;
-  // -webkit-box-reflect: left -80px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(30%, transparent), to(rgba(255, 255, 255, 0.5)));
-  // z-index: 12;
-  // transform: skewX(-15deg);
+    position: absolute;
+    top: 0;
+    bottom: -100%;
+    // left: 8vw;
+    width: inherit;
+    height: inherit;
+    background: inherit;
   }
-  // ::after {
-  //   content: "";
-  // position: absolute;
-  // top: -3%; // Odbicie pojawia się pod oryginalnym elementem
-  // // bottom: 50%;
-  // left: 3vw;
-  // width: 100%;
-  // height: 100%;
-  // background: inherit; // Kopiuje stylizację .box (szkło)
-  // // transform: scaleY(1) rotate(5deg); // Odbicie + przechylenie o 15% w prawo
-  // transform-origin: bottom; // Punkt obrotu na dole
-  // transform: perspective(500px) rotateX(30deg);
-  // opacity: 0.6; // Odbicie jest lekko przyciemnione
-  // filter: blur(1px); // Delikatne rozmycie odbicia dla realizmu
-  // mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.6) 50%, rgba(0, 0, 0, 0) 100%);
-  // -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 50%, rgba(0, 0, 0, 0) 100%);
-  // pointer-events: none; // Odbicie nie przeszkadza w klikaniu
-  // }
 
   // @container
   container-type: inline-size;
@@ -214,101 +181,54 @@ html {
     //     20px 20px 20px rgba($whiteColorPalette, 0.1);
     // }
 
-    &-imgComputerMove {
-    }
-
     &-imgPlayerMove,
     &-imgComputerMove {
-      @include bgc-whiteColorPalette(0.05);
-      mix-blend-mode: multiply;
-      // isolation: isolate;
-
-      // background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+      background-color: theme-color("whiteColorPalette", 0.05);
       width: 230px;
       height: 300px;
-      // background-color: #fff;
       position: relative;
       display: flex;
       justify-content: center;
       align-items: center;
-      // border : 2px solid $darkColorPalette;
       transition: 0.5s ease-in-out;
       overflow: hidden;
       border-radius: 10px;
-      border: 2px solid $whiteColorPalette(0.18);
+      border: 2px solid theme-color("darkColorPalette", 0.15);
       backdrop-filter: blur(2.5px);
-      box-shadow: -2px -2px 13px -5px rgba($darkColorPalette, 0.56) inset,
-        20px 20px 20px rgba($darkColorPalette, 0.1);
-
+      --webkit-backdrop-filter: blur(2.5px);
       // mix-blend-mode: multiply;
 
       &::before {
         @include glass-effect(50vw);
       }
 
-      // // @include box-shadow;
-      // // @include border($infoColorPalette);
-      // position: relative;
-      // // aspect-ratio: 1 / 1;
-      // // width: 50%;
-      // // max-width: 10em;
-      // @include height-width(
-      //   clamp(100px, 30vw, 50%),
-      //   clamp(100px, 30vw, 44%)
-      // ); // zakomentuj i odkomentuj opcje z ratio zobacz jakie zmieny, zakomentuj wszystko i zobacz co odpowieda za skalowanie kontentenerów czy to grid area?
-      // backdrop-filter: blur(1.5px);
-      // transition: transform 0.3  s ease;
-      // z-index: inherit;
-      // overflow: hidden;
-      // cursor: pointer;
-
-      // &::before {
-      //   @include glass-effect(100vw);
-      // }
-
-      // &:hover::before {
-      //   transform: skewX(45deg) translateX(-50vw);
-      // }
-
-      // &:hover {
-      //   @include bgc-darkColorPalette(0.2);
-      //   filter: brightness(1.40);
-      //   // transform: scale(1.2);
-      //   z-index: 12;
-      //   // transition: all 0.5s;
-      // transition: transform 0.5s ease-in-out;
-
-      // }
-
-      // img {
-      //   width: 100%;
-      //   height: 100%;
-      //   object-fit: contain;
-      //   filter: drop-shadow(10px 10px 10px theme-color("whiteColorPalette", 0.5));
-
-      // }
-
       &--shake {
         width: 100%;
         height: 100%;
         object-fit: contain;
-        filter: drop-shadow(
-          10px 10px 10px theme-color("darkColorPalette", 0.7)
-        );
 
         &:hover {
           animation: 0.45s shake 2;
-          // width: 100%;
-          // height: 100%;
           transition: 3s;
         }
+      }
+      &:hover::before {
+        transform: skewX(45deg) translateX(-30vw);
       }
     }
 
     &-imgPlayerMove {
       filter: drop-shadow(5px 5px 5px theme-color("whiteColorPalette", 0.3));
-      box-shadow: -2px -2px 13px -5px rgba($whiteColorPalette, 1.56) inset,
-        10px 10px 20px rgba($whiteColorPalette, 0.2);
+      box-shadow: -2px -2px 13px -5px theme-color("whiteColorPalette", 1.56)
+          inset,
+        10px 10px 20px theme-color("whiteColorPalette", 0.2);
+    }
+
+    &-imgComputerMove {
+      filter: drop-shadow(10px 10px 10px theme-color("darkColorPalette", 0.7));
+      box-shadow: -2px -2px 13px -5px theme-color("darkColorPalette", 0.56)
+          inset,
+        20px 20px 20px theme-color("darkColorPalette", 0.1);
     }
   }
 
@@ -322,39 +242,45 @@ html {
     // }
 
     .mainGameWindow__imgContainer-imgComputerMove {
-      @include bgc-darkColorPalette(0.05);
       transform: translate(-1vw, -2.5vh) scale(1.1);
-      box-shadow: -2px -2px 13px -5px rgba($darkColorPalette, 0.56) inset,
-        0px 8px 32px rgba($darkColorPalette, 0.37), 5px 5px 0 $whiteColorPalette,
-        7px 7px 7px rgba($darkColorPalette, 0.15),
-        12px 12px 0 $whiteColorPalette,
-        18px 18px 10px rgba($darkColorPalette, 0.15),
-        20px 20px 20px rgba($darkColorPalette, 0.1);
-      border: 2px solid $whiteColorPalette(0.18);
+      box-shadow: -2px -2px 13px -5px theme-color("darkColorPalette", 0.56)
+          inset,
+        0px 8px 32px theme-color("darkColorPalette", 0.37),
+        5px 5px 0 theme-color("whiteColorPalette"),
+        7px 7px 7px theme-color("darkColorPalette", 0.15),
+        12px 12px 0 theme-color("whiteColorPalette"),
+        18px 18px 10px theme-color("darkColorPalette", 0.15),
+        20px 20px 20px theme-color("darkColorPalette", 0.1);
+      border: 2px solid theme-color("whiteColorPalette", 0.18);
       //   backdrop-filter: blur( 0.5px );
       // -webkit-backdrop-filter: blur( 0.5px );
-      &::before {
-        transform: skewX(45deg) translateX(-40vw);
-      }
+      // &::before {
+      //   transform: skewX(45deg) translateX(-40vw);
+      // }
     }
 
     .mainGameWindow__imgContainer-imgPlayerMove {
-      @include bgc-darkColorPalette(0.05);
       transform: translate(-1vw, -2.5vh) scale(1.1);
-      box-shadow: -2px -2px 13px -5px rgba($whiteColorPalette, 0.56) inset,
-        0px 8px 32px rgba($whiteColorPalette, 0.37), 5px 5px 0 $darkColorPalette,
-        7px 7px 7px rgba($whiteColorPalette, 0.15),
-        12px 12px 0 $darkColorPalette,
-        18px 18px 10px rgba($whiteColorPalette, 0.15),
-        20px 20px 20px rgba($whiteColorPalette, 0.1);
-      border: 2px solid $darkColorPalette(0.18);
+      box-shadow: -2px -2px 13px -5px theme-color("whiteColorPalette", 0.56)
+          inset,
+        0px 8px 32px theme-color("whiteColorPalette", 0.37),
+        5px 5px 0 theme-color("darkColorPalette"),
+        7px 7px 7px theme-color("whiteColorPalette", 0.15),
+        12px 12px 0 theme-color("darkColorPalette"),
+        18px 18px 10px theme-color("whiteColorPalette", 0.15),
+        20px 20px 20px theme-color("whiteColorPalette", 0.1);
+      border: 2px solid theme-color("darkColorPalette", 0.18);
+
+      // &::before {
+      //   transform: skewX(45deg) translateX(-40vw);
+      // }
     }
 
     .mainGameWindow__gameButtons {
       transition: 0.5s ease-in-out;
 
       transform: scale(1.1);
-    }
+    } // PRZENIEŚ W ODPOWIEDNIE MIEJSCE
   }
 
   /* SCORE */
@@ -395,10 +321,6 @@ html {
 
   &__playerScore,
   &__computerScore {
-    // @include height-width(min-content, min-content);
-    // @include text-shadow(4px, 4px, 5px, $darkColorPalette);
-    // @include text-shadow;
-
     position: relative;
     top: -2vh;
     left: -1vw;
@@ -409,7 +331,6 @@ html {
     // background: rgba(0, 0, 0, 0.9);
     background-clip: text;
     -webkit-background-clip: text;
-    // text-shadow: -4px 8px 7px rgba(255, 255, 255, 0.7);
     text-shadow: -4px 8px 7px theme-color("whiteColorPalette", 0.7);
     // mix-blend-mod : multiply;
 
@@ -430,8 +351,6 @@ html {
 
   /* MESSAGES */
   &__messageContainer {
-    // @include c-infoColorPalette(0.9);
-    // @include text-shadow(4px, 4px, 5px, $darkColorPalette);
     grid-area: 2 / 1 / 3 / -1;
     text-align: center;
     bottom: 3vh;
@@ -472,13 +391,10 @@ html {
 
   /* BUTTONS */
   &__gameButtons {
-    // @include border($whiteColorPalette);
-    @include bgc-darkColorPalette(0.05);
-    // @include box-shadow;
-    // box-shadow: 0px 0px 50px 10px rgba(66, 68, 90, 1);
     @include flex(space-between, row);
     grid-area: 3 / 1 / 4 / -1;
     position: relative;
+    isolation: isolate;
     width: 85%;
     padding: 2vh;
     margin: 0 auto 2.5vh auto;
@@ -486,11 +402,11 @@ html {
 
     transform: translateZ(20px);
     border-radius: 10px;
-    border: 2px solid $whiteColorPalette(0.18);
-    backdrop-filter: blur(2.5px);
-    box-shadow: -2px -2px 13px -5px rgba($darkColorPalette, 0.56) inset,
-      20px 20px 20px rgba($darkColorPalette, 0.1),
-      2px 0 30px rgba($whiteColorPalette, 0.56);
+    border: 2px solid theme-color("whiteColorPalette", 0.18);
+    // backdrop-filter: blur(2.5px);
+    box-shadow: -2px -2px 13px -5px theme-color("darkColorPalette", 0.56) inset,
+      20px 20px 20px theme-color("darkColorPalette", 0.1),
+      2px 0 30px theme-color("whiteColorPalette", 0.56);
     // transform-style: preserve-3d;
 
     &::before {
@@ -503,24 +419,85 @@ html {
       transition: inset 500ms ease-in-out;
     }
 
+    &::after {
+      content: ""; // Pusty domyślnie
+    position: absolute;
+    // width: inherit;
+    inset: 0; // Rozciągnij na cały kontener
+    margin: 0 0.5em 0 0.5em;
+    display: flex; // Do centrowania tekstu
+    justify-content: center;
+    align-items: center;
+    font-size: 5em; // Dostosuj rozmiar
+    font-family: $font-frontal; // Użyj zmiennej fontu, jeśli chcesz
+    // color: theme-color("darkColorPalette", 0.15); // Przykładowy kolor z lekką przezroczystością
+    text-shadow: -2px 2px 4px theme-color("whiteColorPalette", 0.5); // Opcjonalny cień
+    text-transform: uppercase; // Dopasuj do reszty stylów
+    z-index: -1; // Umieść ZA przyciskami, ale PRZED tłem kontenera
+    pointer-events: none; // Ignoruj zdarzenia myszy
+    opacity: 0; // Ukryty domyślnie
+    transition: opacity 0.3s ease-in-out; // Płynne pojawianie się
+    color: transparent;
+  background: theme-color("darkColorPalette", 0.9); // Ciemne tło jak w wyniku komputera
+  -webkit-background-clip: text;
+  background-clip: text;
+  text-shadow: -3px 4px 3px theme-color("infoColorPalette", 0.9); // Taki sam cień
+
+  // Właściwości do dostosowania
+  font-size: 6em; // <-- Dostosuj rozmiar czcionki do potrzeb
+  font-family: $font-content; // <-- Wybierz odpowiedni font (np. ten sam co w wyniku)
+  // position: ...; // <-- Dostosuj pozycjonowanie, jeśli potrzebne
+  // top: ...;
+  // left: ...;
+  text-transform: uppercase;
+
+
+
+    // text-stroke: 1px theme-color("whiteColorPalette", 0.6); // Standardowa właściwość
+
+    }
+
+    // Warunki :has() do zmiany content i opacity
+  &:has(.mainGameWindow__gameButtons-button--rock:hover),
+  &:has(.mainGameWindow__gameButtons-button--rock:focus) {
+    &::after {
+      content: "rock";
+      opacity: 1;
+    }
+  }
+
+  &:has(.mainGameWindow__gameButtons-button--paper:hover),
+  &:has(.mainGameWindow__gameButtons-button--paper:focus) {
+    &::after {
+      content: "paper";
+      opacity: 1;
+    }
+  }
+
+  &:has(.mainGameWindow__gameButtons-button--scissors:hover),
+  &:has(.mainGameWindow__gameButtons-button--scissors:focus) {
+    &::after {
+      content: "scissors";
+      opacity: 1;
+    }
+  }
+
+    
+
     &:hover::before {
       inset: -2rem;
       transition-timing-function: cubic-bezier(0.47, 1.64, 0.41, 0.8);
     }
 
     &-button {
-      // @include platform;
-      @include bgc-whiteColorPalette(0.05);
       @include margin-padding(2vmin 2vmin, 2vh);
-      // @include box-shadow;
-      // @include border($whiteColorPalette);
-      border: inherit;
-      border-radius: 10px;
-
       @include height-width(
         clamp(100px, 15vw, 150px),
         clamp(100px, 15vw, 150px)
-      );
+        );
+      background-color: inherit;
+      border-radius: 10px;
+      border: inherit;
       position: relative;
       color: transparent;
       font-size: 16px;
@@ -529,12 +506,15 @@ html {
       overflow: hidden;
       backdrop-filter: blur(4.5px);
       --webkit-backdrop-filter: blur(4.5px);
-      box-shadow: -2px -2px 13px -5px rgba($darkColorPalette, 0.56) inset,
-        20px 20px 20px rgba($darkColorPalette, 0.1),
-        2px 0 30px rgba($whiteColorPalette, 0.56);
+      box-shadow: -2px -2px 13px -5px theme-color("darkColorPalette", 0.56)
+          inset,
+        20px 20px 20px theme-color("darkColorPalette", 0.1),
+        2px 0 30px theme-color("whiteColorPalette", 0.56);
       background-repeat: no-repeat;
       background-position: center;
       background-size: contain;
+      
+      
       // background-color: red;
       // transition: transform 0.3s ease;
 
@@ -554,17 +534,18 @@ html {
 
       &:focus-visible,
       &:hover {
-        @include bgc-darkColorPalette(0.05);
-        transform: translate(-0.5vw, -1.2vh) ;
-        box-shadow: -2px -2px 13px -5px rgba($darkColorPalette, 0.56) inset,
-          0px 8px 32px rgba($darkColorPalette, 0.37),
-          2px 2px 30px rgba($whiteColorPalette, 0.56),
-          4px 4px 0 $whiteColorPalette,
-          6px 6px 6px rgba($darkColorPalette, 0.15),
-          8px 8px 0 $whiteColorPalette,
-          10px 10px 10px rgba($darkColorPalette, 0.15),
-          12px 12px 12px rgba($darkColorPalette, 0.1);
-        border: 2px solid $whiteColorPalette(0.18);
+        background-color: inherit;
+        transform: translate(-0.5vw, -1.2vh);
+        box-shadow: -2px -2px 13px -5px theme-color("darkColorPalette", 0.56)
+            inset,
+          0px 8px 32px theme-color("darkColorPalette", 0.37),
+          2px 2px 30px theme-color("whiteColorPalette", 0.56),
+          4px 4px 0 theme-color("whiteColorPalette"),
+          6px 6px 6px theme-color("darkColorPalette", 0.15),
+          8px 8px 0 theme-color("whiteColorPalette"),
+          10px 10px 10px theme-color("darkColorPalette", 0.15),
+          12px 12px 12px theme-color("darkColorPalette", 0.1);
+        border: 2px solid theme-color("whiteColorPalette", 0.18);
       }
 
       &:hover::before {
@@ -593,7 +574,6 @@ html {
     &__btn {
       // @include platform;
       @include box-shadow;
-      @include border($infoColorPalette);
       overflow: hidden;
       backdrop-filter: blur(4.5px);
       transition: transform 0.3s ease;

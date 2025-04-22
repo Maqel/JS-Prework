@@ -1,31 +1,25 @@
-/* VARIABLES */
+/* ---------- TYPOGRAPHY ---------- */
+
+/* ---------- VARIABLES ----------*/
 $font-frontal: "Anton", sans-serif;
 $font-content: "Bebas Neue", sans-serif;
 $font-subtitle: "Grey Qo", cursive;
-$darkColorPalette: rgb(0, 0, 0);
-$whiteColorPalette: rgb(255, 255, 255);
-$scoreColorPalette: rgb(192, 255, 97);
-$infoColorPalette: rgb(193, 244, 0);
 
-$darkColorPalette-opacity: rgba($darkColorPalette, 0.5);
+/* ---------- MAP FUNCTIONS ---------- */
 
-$boxShadowPrimary: -2px -2px 13px -5px rgba($darkColorPalette, 0.56) inset,
-20px 20px 20px rgba($darkColorPalette, 0.1),
-2px 0 30px rgba($whiteColorPalette, 0.56);
-
-/* MAP FUNCTIONS */
-
+// colors //
 $theme-colors: (
   "darkColorPalette": rgb(0, 0, 0),
   "whiteColorPalette": rgb(255, 255, 255),
   "winningColorPalette": rgb(255, 215, 0),
   "lossColorPalette": rgb(230, 57, 70),
   "infoColorPalette": rgb(193, 244, 0),
+  "shadowsColorPalette": rgb(66, 68, 90),
 );
 
 @function theme-color($key, $opacity: 1) {
   $color: map-get($theme-colors, $key);
-  
+
   @if $color {
     @return rgba($color, $opacity);
   } @else {
@@ -34,7 +28,12 @@ $theme-colors: (
   }
 }
 
-/* GLOBAL */
+$boxShadowPrimary: -2px -2px 13px -5px theme-color("darkColorPalette", 0.56)
+    inset,
+  20px 20px 38px 10px theme-color("shadowsColorPalette"),
+  2px 0 30px theme-color("whiteColorPalette", 0.56);
+
+/* ---------- GLOBAL ---------- */
 *,
 *::before,
 *::after {
@@ -45,7 +44,7 @@ $theme-colors: (
   // background: hsl(0 100% 50% / .1)
 }
 
-/* MIXINS */
+/* ---------- MIXINS ---------- */
 
 @mixin border($colorPalette) {
   border: solid $colorPalette;
@@ -60,42 +59,6 @@ $theme-colors: (
 
 @mixin box-shadow {
   box-shadow: 20px 20px 38px 10px rgba(66, 68, 90, 1);
-}
-
-@mixin glassPlatform(
-  $height,
-  $width,
-  $margin: 0.25em,
-  $padding: 0.5em 1em,
-  $colorPalette: $darkColorPalette,
-  $opacity: 0.1,
-  $index: 11
-) {
-  @include height-width($height, $width);
-  @include margin-padding($margin, $padding);
-  // @include box-shadow;
-  @include border($colorPalette);
-  @include bgc-darkColorPalette($opacity);
-  z-index: $index;
-  // overflow: hidden;
-  // backdrop-filter: blur(4.5px);
-  // transition: transform 0.3s ease;
-}
-
-@mixin c-infoColorPalette($opacity) {
-  color: rgba($infoColorPalette, $opacity);
-}
-
-@mixin bgc-whiteColorPalette($opacity) {
-  background-color: rgba($whiteColorPalette, $opacity);
-}
-
-@mixin bgc-darkColorPalette($opacity) {
-  background-color: rgba($darkColorPalette, $opacity);
-}
-
-@mixin darkColorPalette($opacity) {
-  color: rgba($darkColorPalette, $opacity);
 }
 
 @mixin grid($gt-rows, $gt-columns) {
@@ -160,10 +123,6 @@ $theme-colors: (
   text-shadow: $x $y $blur $color;
 }
 
-// @mixin box-shadow {
-//   box-shadow: 0 0 10px $whiteColorPalette, inset 0 0 10px $whiteColorPalette,
-//     0 0 10px 4px $whiteColorPalette, inset 0 0 10px 4px $darkColorPalette;
-// }
 
 @mixin glass-effect($translateX) {
   content: "";

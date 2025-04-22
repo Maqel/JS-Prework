@@ -155,3 +155,60 @@
 // document.addEventListener('DOMContentLoaded', () => {
 //   new TiltEffect();
 // });
+
+document.addEventListener('DOMContentLoaded', () => {
+
+  // Kod dla efektu 3D karty
+  const $gameWindow = document.querySelector('.mainGameWindow');
+
+  if ($gameWindow) { // Sprawdź, czy element istnieje
+    let bounds;
+
+    function rotateToMouse(e) {
+      const mouseX = e.clientX;
+      const mouseY = e.clientY;
+      const leftX = mouseX - bounds.x;
+      const topY = mouseY - bounds.y;
+      const center = {
+        x: leftX - bounds.width / 2,
+        y: topY - bounds.height / 2
+      }
+      // Zmniejszamy dzielnik (np. ze 100 na 50 lub mniej), aby zwiększyć czułość/zakres obrotu
+      // Możesz też dostosować mnożnik logarytmu (np. * 1 lub * 1.5 zamiast * 2)
+      const rotateX = center.y / 50; // Zwiększona czułość
+      const rotateY = -center.x / 50; // Zwiększona czułość
+      const distance = Math.sqrt(center.x**2 + center.y**2);
+      const angle = Math.log(distance + 1) * 1.5; // Użyj (distance + 1), aby uniknąć log(0), dostosuj mnożnik
+
+      $gameWindow.style.transform = `
+        scale3d(1.05, 1.05, 1.05) /* Możesz dostosować skalę lub ją usunąć */
+        rotate3d(
+          ${rotateX},
+          ${rotateY},
+          0,
+          ${angle}deg
+        )
+      `;
+
+      // Usunięto aktualizację '.glow'
+    }
+
+    $gameWindow.addEventListener('mouseenter', () => {
+      bounds = $gameWindow.getBoundingClientRect();
+      document.addEventListener('mousemove', rotateToMouse);
+    });
+
+    $gameWindow.addEventListener('mouseleave', () => {
+      document.removeEventListener('mousemove', rotateToMouse);
+      // Resetuj tylko transform, zachowując inne potencjalne style inline
+      $gameWindow.style.transform = '';
+      // Usunięto resetowanie tła
+    });
+
+  } else {
+    console.warn('.mainGameWindow element not found for 3D effect.');
+  }
+
+  // ... Twój pozostały kod JavaScript ...
+
+}); // Koniec DOMContentLoaded

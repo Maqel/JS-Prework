@@ -1,6 +1,7 @@
-/* VARIABLES */
-/* MAP FUNCTIONS */
-/* GLOBAL */
+/* ---------- TYPOGRAPHY ---------- */
+/* ---------- VARIABLES ----------*/
+/* ---------- MAP FUNCTIONS ---------- */
+/* ---------- GLOBAL ---------- */
 *,
 *::before,
 *::after {
@@ -9,6 +10,6 @@
   padding: 0;
 }
 
-/* MIXINS */
+/* ---------- MIXINS ---------- */
 
 /*# sourceMappingURL=mixins-variables.css.map */
