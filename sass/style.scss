@@ -16,95 +16,143 @@ html {
   margin-inline: auto;
   padding-inline: 2rem;
   transform-style: preserve-3d;
-  perspective: 1500px
+  perspective: 1500px;
   //   // @container
   //   container-type: inline-size;
   //   container-name: game-window;
 }
 
 /* SECTION HEADER */
-.header {
-  @include flex(center, column);
-  @include text-shadow;
-  font: 900 clamp(1rem, 0.5rem + 1.333vw, 1.7rem) $font-frontal;
-  text-align: center;
-  letter-spacing: 0.5em;
-  overflow: hidden;
-  -webkit-text-stroke: 1px black;
-  -webkit-text-fill-color: white;
-  // mix-blend-mode: multiply;
+// .header__arc-wrapper {
+//   height: 10%;
+//   width: 100%;
+//   overflow: visible;
+//   max-width: 800px;
+//   z-index: -12;
+// }
 
-  cursor: pointer;
-  box-shadow: $boxShadowPrimary;
+// .header {
+//   @include flex(center, column);
+//   position: relative;
+//   width: 100%;
+//   height: 30vh;
+//   // top: -8vh;
 
-  &:hover {
-    background-color: theme-color("infoColorPalette");
-    box-shadow: inset 3px 3px 0.5em 0px theme-color("darkColorPalette"),
-      0 0 3em 0.9em theme-color("infoColorPalette");
-    // CALY HEADER WRAZ Z HOVEREM DO PRZEROBIENIA NA BARDZIEJ SZKLANY EFEKT WYKOŻYSTAJ KOLORY Z MAPY//
-  }
+//   // display: flex;
+//   // flex-direction: column;
+//   // align-items: center;
+//   // justify-content: center;
+//   // padding: 2rem;
+//   // margin: 2rem;
 
-  &__subtitle {
-    display: block;
-    text-transform: lowercase;
-    font: 500 1.9em $font-subtitle;
-    position: relative;
-    // mix-blend-mode: multiply;
+//   &__text {
+//     width: 100%;
+//     height: 550px;
+//     overflow: visible;
 
-    &::after {
-      content: "";
-      position: absolute;
-      border-radius: 7.5em;
-      @include height-width(10em, 10em);
-      top: 0;
-      left: 50%;
-      right: 0;
-      bottom: 50%;
-      background-color: #b13254;
-      z-index: -10;
-    }
+//     text {
+//       fill: greenyellow; // lub inny kolor pasujący do Twojego motywu
+//       // font-size: 28px;
+//       // font-weight: bold;
+//       // font: 900 clamp(1rem, 0.5rem + 1.333vw, 1.7rem) $font-frontal;
+//       font: 900 clamp(1rem, -2.393rem + 7.048vw, 3.75rem) $font-frontal;
 
-    &::before {
-      @include height-width(10em, 10em);
-      content: "";
-      position: absolute;
-      border-radius: 7.5em;
-      top: -2em;
-      left: -2em;
-      right: 0;
-      bottom: 0;
-      background-color: #35b5ff;
+//       letter-spacing: 4px;
+//       // text-transform: uppercase;
+//     }
+//   }
 
-      z-index: -10;
-      opacity: 80%;
-    }
-  }
+//   // &__subtitle {
+//   //   font-size: 1.2rem;
+//   //   margin-top: -1rem;
+//   //   color: #ccc;
+//   // }
+// }
 
-  &__musicButton {
-    @include height-width(30px, 30px);
-    position: absolute;
-    background: url(../vendor/icon/playDark.png) no-repeat center / contain;
-    border: 2px solid theme-color("darkColorPalette");
-    border-radius: 30%; // zamień na mixin z borederem
-    cursor: pointer;
-    top: 20px;
-  }
-}
+// .header {
+//   @include flex(center, column);
+//   @include text-shadow;
+//   font: 900 clamp(1rem, 0.5rem + 1.333vw, 1.7rem) $font-frontal;
+//   text-align: center;
+//   letter-spacing: 0.5em;
+//   overflow: hidden;
+//   -webkit-text-stroke: 1px black;
+//   -webkit-text-fill-color: white;
+//   // mix-blend-mode: multiply;
+
+//   cursor: pointer;
+//   box-shadow: $boxShadowPrimary;
+
+//   &:hover {
+//     background-color: theme-color("infoColorPalette");
+//     box-shadow: inset 3px 3px 0.5em 0px theme-color("darkColorPalette"),
+//       0 0 3em 0.9em theme-color("infoColorPalette");
+//     // CALY HEADER WRAZ Z HOVEREM DO PRZEROBIENIA NA BARDZIEJ SZKLANY EFEKT WYKOŻYSTAJ KOLORY Z MAPY//
+//   }
+
+//   &__subtitle {
+//     display: block;
+//     text-transform: lowercase;
+//     font: 500 1.9em $font-subtitle;
+//     position: relative;
+//     // mix-blend-mode: multiply;
+
+//     &::after {
+//       content: "";
+//       position: absolute;
+//       border-radius: 7.5em;
+//       @include height-width(10em, 10em);
+//       top: 0;
+//       left: 50%;
+//       right: 0;
+//       bottom: 50%;
+//       background-color: #b13254;
+//       z-index: -10;
+//     }
+
+//     &::before {
+//       @include height-width(10em, 10em);
+//       content: "";
+//       position: absolute;
+//       border-radius: 7.5em;
+//       top: -2em;
+//       left: -2em;
+//       right: 0;
+//       bottom: 0;
+//       background-color: #35b5ff;
+
+//       z-index: -10;
+//       opacity: 80%;
+//     }
+//   }
+
+//   &__musicButton {
+//     @include height-width(30px, 30px);
+//     position: absolute;
+//     background: url(../vendor/icon/playDark.png) no-repeat center / contain;
+//     border: 2px solid theme-color("darkColorPalette");
+//     border-radius: 30%; // zamień na mixin z borederem
+//     cursor: pointer;
+//     top: 20px;
+//   }
+// }
 
 /* SECTION MAIN GAME WINDOW */
 
-// .mouse-parallax {
-//   position: relative; /* Zapewnia poprawne odniesienie do innych elementów */
-//   display: inline-block; /* Pozwala na łatwe stosowanie box-shadow */
-//   transition: box-shadow 0.1s ease-out; /* Płynne przejście cienia */
-//   // transition: transform 1s ease;
-//   will-change: transform, box-shadow; /* Optymalizacja animacji */
-// }
+.glow {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  
+  background-image: radial-gradient(circle at 50% -20%, #ffffff22, #0000000f);
+}
 
 .mainGameWindow {
   @include grid(3fr 0.5fr 2fr, 1fr 3fr 1fr);
   position: relative;
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(3px); // większy blur mniejsza widocznośc header
   margin: 0.25em;
   padding: 0.5em 1em;
   height: 80%;
@@ -112,15 +160,20 @@ html {
   box-shadow: $boxShadowPrimary;
   border-radius: 10px;
   // transition: all 0.3s ease-in-out;
-  transform: perspective(90vh) rotateX(5deg);
+  // transform: perspective(90vh) rotateX(5deg);
   font: 400 clamp(0.25rem, 0.375rem + 1.333vw, 1.75rem) $font-content;
-  // transform-style: preserve-3d;
   // transform: perspective(1000px);
   transition-duration: 300ms;
   transition-property: transform, box-shadow; // Zachowajmy box-shadow jeśli nadal go animujesz
   transition-timing-function: ease-out;
-  // transform: perspective(90vh) rotateX(5deg); // <-- USUŃ lub zakomentuj tę linię, jeśli istniała i powodowała stałe pochylenie
-  transform-style: preserve-3d; // <-- DODAJ TĘ WŁAŚCIWOŚĆ (zalecane)
+  // transform-style: preserve-3d;
+  transform: rotate3d(0);
+  will-change: transform;
+  background-color: transparent;
+  background-size: cover;
+  // backface-visibility: hidden; //nie dziala
+  // transition: transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
+  // transition: transform 0.6s ease;
 
   &::before {
     content: "";
@@ -233,7 +286,9 @@ html {
   }
 
   &:hover {
+    // HOVER DO MAINGAMEWINDOWS
     transform: scale(1.02);
+    box-shadow: $boxShadowSecondary;
 
     // .mainGameWindow__computerScore,
     // .mainGameWindow__playerScore,
@@ -421,68 +476,66 @@ html {
 
     &::after {
       content: ""; // Pusty domyślnie
-    position: absolute;
-    // width: inherit;
-    inset: 0; // Rozciągnij na cały kontener
-    margin: 0 0.5em 0 0.5em;
-    display: flex; // Do centrowania tekstu
-    justify-content: center;
-    align-items: center;
-    font-size: 5em; // Dostosuj rozmiar
-    font-family: $font-frontal; // Użyj zmiennej fontu, jeśli chcesz
-    // color: theme-color("darkColorPalette", 0.15); // Przykładowy kolor z lekką przezroczystością
-    text-shadow: -2px 2px 4px theme-color("whiteColorPalette", 0.5); // Opcjonalny cień
-    text-transform: uppercase; // Dopasuj do reszty stylów
-    z-index: -1; // Umieść ZA przyciskami, ale PRZED tłem kontenera
-    pointer-events: none; // Ignoruj zdarzenia myszy
-    opacity: 0; // Ukryty domyślnie
-    transition: opacity 0.3s ease-in-out; // Płynne pojawianie się
-    color: transparent;
-  background: theme-color("darkColorPalette", 0.9); // Ciemne tło jak w wyniku komputera
-  -webkit-background-clip: text;
-  background-clip: text;
-  text-shadow: -3px 4px 3px theme-color("infoColorPalette", 0.9); // Taki sam cień
+      position: absolute;
+      // width: inherit;
+      inset: 0; // Rozciągnij na cały kontener
+      margin: 0 0.5em 0 0.5em;
+      display: flex; // Do centrowania tekstu
+      justify-content: center;
+      align-items: center;
+      font-size: 5em; // Dostosuj rozmiar
+      font-family: $font-frontal; // Użyj zmiennej fontu, jeśli chcesz
+      // color: theme-color("darkColorPalette", 0.15); // Przykładowy kolor z lekką przezroczystością
+      text-shadow: -2px 2px 4px theme-color("whiteColorPalette", 0.5); // Opcjonalny cień
+      text-transform: uppercase; // Dopasuj do reszty stylów
+      z-index: -1; // Umieść ZA przyciskami, ale PRZED tłem kontenera
+      pointer-events: none; // Ignoruj zdarzenia myszy
+      opacity: 0; // Ukryty domyślnie
+      transition: opacity 0.3s ease-in-out; // Płynne pojawianie się
+      color: transparent;
+      background: theme-color(
+        "darkColorPalette",
+        0.9
+      ); // Ciemne tło jak w wyniku komputera
+      -webkit-background-clip: text;
+      background-clip: text;
+      text-shadow: -3px 4px 3px theme-color("infoColorPalette", 0.9); // Taki sam cień
 
-  // Właściwości do dostosowania
-  font-size: 6em; // <-- Dostosuj rozmiar czcionki do potrzeb
-  font-family: $font-content; // <-- Wybierz odpowiedni font (np. ten sam co w wyniku)
-  // position: ...; // <-- Dostosuj pozycjonowanie, jeśli potrzebne
-  // top: ...;
-  // left: ...;
-  text-transform: uppercase;
+      // Właściwości do dostosowania
+      font-size: 6em; // <-- Dostosuj rozmiar czcionki do potrzeb
+      font-family: $font-content; // <-- Wybierz odpowiedni font (np. ten sam co w wyniku)
+      // position: ...; // <-- Dostosuj pozycjonowanie, jeśli potrzebne
+      // top: ...;
+      // left: ...;
+      text-transform: uppercase;
 
-
-
-    // text-stroke: 1px theme-color("whiteColorPalette", 0.6); // Standardowa właściwość
-
+      // text-stroke: 1px theme-color("whiteColorPalette", 0.6); // Standardowa właściwość
     }
 
     // Warunki :has() do zmiany content i opacity
-  &:has(.mainGameWindow__gameButtons-button--rock:hover),
-  &:has(.mainGameWindow__gameButtons-button--rock:focus) {
-    &::after {
-      content: "rock";
-      opacity: 1;
+    &:has(.mainGameWindow__gameButtons-button--rock:hover),
+    &:has(.mainGameWindow__gameButtons-button--rock:focus) {
+      &::after {
+        content: "rock";
+        opacity: 1;
+      }
     }
-  }
 
-  &:has(.mainGameWindow__gameButtons-button--paper:hover),
-  &:has(.mainGameWindow__gameButtons-button--paper:focus) {
-    &::after {
-      content: "paper";
-      opacity: 1;
+    &:has(.mainGameWindow__gameButtons-button--paper:hover),
+    &:has(.mainGameWindow__gameButtons-button--paper:focus) {
+      &::after {
+        content: "paper";
+        opacity: 1;
+      }
     }
-  }
 
-  &:has(.mainGameWindow__gameButtons-button--scissors:hover),
-  &:has(.mainGameWindow__gameButtons-button--scissors:focus) {
-    &::after {
-      content: "scissors";
-      opacity: 1;
+    &:has(.mainGameWindow__gameButtons-button--scissors:hover),
+    &:has(.mainGameWindow__gameButtons-button--scissors:focus) {
+      &::after {
+        content: "scissors";
+        opacity: 1;
+      }
     }
-  }
-
-    
 
     &:hover::before {
       inset: -2rem;
@@ -494,7 +547,7 @@ html {
       @include height-width(
         clamp(100px, 15vw, 150px),
         clamp(100px, 15vw, 150px)
-        );
+      );
       background-color: inherit;
       border-radius: 10px;
       border: inherit;
@@ -513,8 +566,7 @@ html {
       background-repeat: no-repeat;
       background-position: center;
       background-size: contain;
-      
-      
+
       // background-color: red;
       // transition: transform 0.3s ease;
 

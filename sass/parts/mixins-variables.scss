@@ -28,7 +28,11 @@ $theme-colors: (
   }
 }
 
-$boxShadowPrimary: -2px -2px 13px -5px theme-color("darkColorPalette", 0.56)
+$boxShadowPrimary: -2px -2px 13px -5px theme-color("darkColorPalette", 0.56) inset,
+5px 5px 20px 5px theme-color("shadowsColorPalette"),
+2px 0 10px theme-color("whiteColorPalette", 0.56);
+
+$boxShadowSecondary: -2px -2px 13px -5px theme-color("darkColorPalette", 0.56)
     inset,
   20px 20px 38px 10px theme-color("shadowsColorPalette"),
   2px 0 30px theme-color("whiteColorPalette", 0.56);
