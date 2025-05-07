@@ -1,5 +1,4 @@
 @import "./parts/mixins-variables.scss";
-@import "./parts/keyframes.scss";
 @import url("https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Grey+Qo&display=swap");
 
 * {
@@ -23,167 +22,53 @@ html {
 }
 
 /* SECTION HEADER */
-// .header__arc-wrapper {
-//   height: 10%;
-//   width: 100%;
-//   overflow: visible;
-//   max-width: 800px;
-//   z-index: -12;
-// }
-
-// .header {
-//   @include flex(center, column);
-//   position: relative;
-//   width: 100%;
-//   height: 30vh;
-//   // top: -8vh;
-
-//   // display: flex;
-//   // flex-direction: column;
-//   // align-items: center;
-//   // justify-content: center;
-//   // padding: 2rem;
-//   // margin: 2rem;
-
-//   &__text {
-//     width: 100%;
-//     height: 550px;
-//     overflow: visible;
-
-//     text {
-//       fill: greenyellow; // lub inny kolor pasujący do Twojego motywu
-//       // font-size: 28px;
-//       // font-weight: bold;
-//       // font: 900 clamp(1rem, 0.5rem + 1.333vw, 1.7rem) $font-frontal;
-//       font: 900 clamp(1rem, -2.393rem + 7.048vw, 3.75rem) $font-frontal;
-
-//       letter-spacing: 4px;
-//       // text-transform: uppercase;
-//     }
-//   }
-
-//   // &__subtitle {
-//   //   font-size: 1.2rem;
-//   //   margin-top: -1rem;
-//   //   color: #ccc;
-//   // }
-// }
-
-// .header {
-//   @include flex(center, column);
-//   @include text-shadow;
-//   font: 900 clamp(1rem, 0.5rem + 1.333vw, 1.7rem) $font-frontal;
-//   text-align: center;
-//   letter-spacing: 0.5em;
-//   overflow: hidden;
-//   -webkit-text-stroke: 1px black;
-//   -webkit-text-fill-color: white;
-//   // mix-blend-mode: multiply;
-
-//   cursor: pointer;
-//   box-shadow: $boxShadowPrimary;
-
-//   &:hover {
-//     background-color: theme-color("infoColorPalette");
-//     box-shadow: inset 3px 3px 0.5em 0px theme-color("darkColorPalette"),
-//       0 0 3em 0.9em theme-color("infoColorPalette");
-//     // CALY HEADER WRAZ Z HOVEREM DO PRZEROBIENIA NA BARDZIEJ SZKLANY EFEKT WYKOŻYSTAJ KOLORY Z MAPY//
-//   }
-
-//   &__subtitle {
-//     display: block;
-//     text-transform: lowercase;
-//     font: 500 1.9em $font-subtitle;
-//     position: relative;
-//     // mix-blend-mode: multiply;
-
-//     &::after {
-//       content: "";
-//       position: absolute;
-//       border-radius: 7.5em;
-//       @include height-width(10em, 10em);
-//       top: 0;
-//       left: 50%;
-//       right: 0;
-//       bottom: 50%;
-//       background-color: #b13254;
-//       z-index: -10;
-//     }
-
-//     &::before {
-//       @include height-width(10em, 10em);
-//       content: "";
-//       position: absolute;
-//       border-radius: 7.5em;
-//       top: -2em;
-//       left: -2em;
-//       right: 0;
-//       bottom: 0;
-//       background-color: #35b5ff;
-
-//       z-index: -10;
-//       opacity: 80%;
-//     }
-//   }
-
-//   &__musicButton {
-//     @include height-width(30px, 30px);
-//     position: absolute;
-//     background: url(../vendor/icon/playDark.png) no-repeat center / contain;
-//     border: 2px solid theme-color("darkColorPalette");
-//     border-radius: 30%; // zamień na mixin z borederem
-//     cursor: pointer;
-//     top: 20px;
-//   }
-// }
 
 /* SECTION MAIN GAME WINDOW */
-
-.glow {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  left: 0;
-  top: 0;
-  
-  background-image: radial-gradient(circle at 50% -20%, #ffffff22, #0000000f);
-}
-
 .mainGameWindow {
   @include grid(3fr 0.5fr 2fr, 1fr 3fr 1fr);
   position: relative;
-  backdrop-filter: blur(3px); // większy blur mniejsza widocznośc header
-  margin: 0.25em;
-  padding: 0.5em 1em;
   height: 80%;
   width: 100%;
-  box-shadow: $boxShadowPrimary;
-  border-radius: 10px;
-  // transition: all 0.3s ease-in-out;
-  // transform: perspective(90vh) rotateX(5deg);
+  margin: 0.25em;
+  padding: 0.5em 1em;
   font: 400 clamp(0.25rem, 0.375rem + 1.333vw, 1.75rem) $font-content;
-  // transform: perspective(1000px);
-  transition-duration: 300ms;
-  transition-property: transform, box-shadow; // Zachowajmy box-shadow jeśli nadal go animujesz
-  transition-timing-function: ease-out;
-  // transform-style: preserve-3d;
-  transform: rotate3d(0);
-  will-change: transform;
+  backdrop-filter: blur(6.5px);
   background-color: transparent;
   background-size: cover;
-  // backface-visibility: hidden; //nie dziala
-  // transition: transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
-  // transition: transform 0.6s ease;
+  overflow: hidden;
+  box-shadow: $boxShadowPrimary;
+  border-radius: 10px;
+  transform: perspective(90vh) rotateX(5deg);
+  transition-duration: 300ms;
+  transition-property: transform, box-shadow;
+  transition-timing-function: ease-out;
+  transform: rotate3d(0);
+  will-change: transform;
+  backface-visibility: hidden;
 
+  @include pseudoElement-before(
+    100%,
+    100%,
+    0,
+    0,
+    inherit,
+    0,
+    0
+  ); //basic structure of a pseudo element
   &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: -100%;
-    // left: 8vw;
-    width: inherit;
-    height: inherit;
-    background: inherit;
+    background-image: radial-gradient(
+      circle at var(--glow-x, 50%) // Domyślnie 50%
+      var(--glow-y, 50%),
+      // Domyślnie 50%
+      theme-color(whiteColorPalette, 0.15),
+      theme-color(darkColorPalette, 0.05)
+    );
+    transition: opacity 300ms ease-out;
+    pointer-events: none;
+  }
+
+  &:hover::before {
+    opacity: 1;
   }
 
   // @container
@@ -249,6 +134,7 @@ html {
       border: 2px solid theme-color("darkColorPalette", 0.15);
       backdrop-filter: blur(2.5px);
       --webkit-backdrop-filter: blur(2.5px);
+      z-index: inherit;
       // mix-blend-mode: multiply;
 
       &::before {
@@ -259,10 +145,22 @@ html {
         width: 100%;
         height: 100%;
         object-fit: contain;
-
+c
         &:hover {
           animation: 0.45s shake 2;
+          width: 100%;
+          height: 100%;
           transition: 3s;
+
+          .mainGameWindow__playerScore {
+            // background: rgba(255, 255, 255, 0.9);
+            background: theme-color("infoColorPalette", 0.9);
+          }
+        
+          .mainGameWindow__computerScore {
+            // background: rgba(0, 0, 0, 0.9);
+            background: theme-color("infoColorPalette", 0.9);
+          }
         }
       }
       &:hover::before {
@@ -295,16 +193,15 @@ html {
     // .mainGameWindow__announcement {
     //   filter: drop-shadow(1px 1px 1px theme-color("infoColorPalette", 4));
     // }
-
     .mainGameWindow__imgContainer-imgComputerMove {
-      transform: translate(-1vw, -2.5vh) scale(1.1);
+      transform: translate(-0.5vw, -1vh) scale(1.01);
       box-shadow: -2px -2px 13px -5px theme-color("darkColorPalette", 0.56)
           inset,
         0px 8px 32px theme-color("darkColorPalette", 0.37),
         5px 5px 0 theme-color("whiteColorPalette"),
-        7px 7px 7px theme-color("darkColorPalette", 0.15),
-        12px 12px 0 theme-color("whiteColorPalette"),
-        18px 18px 10px theme-color("darkColorPalette", 0.15),
+        // 7px 7px 7px theme-color("darkColorPalette", 0.15),
+        // 12px 12px 0 theme-color("whiteColorPalette"),
+        // 18px 18px 10px theme-color("darkColorPalette", 0.15),
         20px 20px 20px theme-color("darkColorPalette", 0.1);
       border: 2px solid theme-color("whiteColorPalette", 0.18);
       //   backdrop-filter: blur( 0.5px );
@@ -313,16 +210,17 @@ html {
       //   transform: skewX(45deg) translateX(-40vw);
       // }
     }
-
+    // .mainGameWindow__imgContainer-imgComputerMove,
+    .mainGameWindow__gameButtons-button,
     .mainGameWindow__imgContainer-imgPlayerMove {
-      transform: translate(-1vw, -2.5vh) scale(1.1);
+      transform: translate(-0.5vw, -1vh) scale(1.01);
       box-shadow: -2px -2px 13px -5px theme-color("whiteColorPalette", 0.56)
           inset,
         0px 8px 32px theme-color("whiteColorPalette", 0.37),
         5px 5px 0 theme-color("darkColorPalette"),
-        7px 7px 7px theme-color("whiteColorPalette", 0.15),
-        12px 12px 0 theme-color("darkColorPalette"),
-        18px 18px 10px theme-color("whiteColorPalette", 0.15),
+        // 7px 7px 7px theme-color("whiteColorPalette", 0.15),
+        // 12px 12px 0 theme-color("darkColorPalette"),
+        // 18px 18px 10px theme-color("whiteColorPalette", 0.15),
         20px 20px 20px theme-color("whiteColorPalette", 0.1);
       border: 2px solid theme-color("darkColorPalette", 0.18);
 
@@ -366,7 +264,7 @@ html {
 
   &__playerScore {
     // background: rgba(255, 255, 255, 0.9);
-    background: theme-color("whiteColorPalette", 0.9);
+    background: theme-color("darkColorPalette", 0.9);
   }
 
   &__computerScore {
@@ -548,9 +446,9 @@ html {
         clamp(100px, 15vw, 150px),
         clamp(100px, 15vw, 150px)
       );
-      background-color: inherit;
+      background-color: transparent;
       border-radius: 10px;
-      border: inherit;
+      border: none;
       position: relative;
       color: transparent;
       font-size: 16px;
@@ -559,13 +457,16 @@ html {
       overflow: hidden;
       backdrop-filter: blur(4.5px);
       --webkit-backdrop-filter: blur(4.5px);
-      box-shadow: -2px -2px 13px -5px theme-color("darkColorPalette", 0.56)
-          inset,
-        20px 20px 20px theme-color("darkColorPalette", 0.1),
-        2px 0 30px theme-color("whiteColorPalette", 0.56);
+      // box-shadow: -2px -2px 13px -5px theme-color("darkColorPalette", 0.56)
+      //     inset,
+      //   20px 20px 20px theme-color("darkColorPalette", 0.1),
+      //   2px 0 30px theme-color("whiteColorPalette", 0.56);
       background-repeat: no-repeat;
       background-position: center;
       background-size: contain;
+      box-shadow: -2px -2px 13px -5px theme-color("whiteColorPalette", 1.56)
+          inset,
+        10px 10px 20px theme-color("whiteColorPalette", 0.2);
 
       // background-color: red;
       // transition: transform 0.3s ease;
@@ -593,9 +494,9 @@ html {
           0px 8px 32px theme-color("darkColorPalette", 0.37),
           2px 2px 30px theme-color("whiteColorPalette", 0.56),
           4px 4px 0 theme-color("whiteColorPalette"),
-          6px 6px 6px theme-color("darkColorPalette", 0.15),
-          8px 8px 0 theme-color("whiteColorPalette"),
-          10px 10px 10px theme-color("darkColorPalette", 0.15),
+          // 6px 6px 6px theme-color("darkColorPalette", 0.15),
+          // 8px 8px 0 theme-color("whiteColorPalette"),
+          // 10px 10px 10px theme-color("darkColorPalette", 0.15),
           12px 12px 12px theme-color("darkColorPalette", 0.1);
         border: 2px solid theme-color("whiteColorPalette", 0.18);
       }

@@ -11,5 +11,26 @@
 }
 
 /* ---------- MIXINS ---------- */
+/* ---------- KEYFRAMES ----------*/
+@keyframes shake {
+  0% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(-50px);
+  }
+}
+@keyframes move {
+  25% {
+    transform: translateY(-10vmin);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-20vmin);
+  }
+  75% {
+    transform: translateY(-30vmin);
+  }
+}
 
 /*# sourceMappingURL=mixins-variables.css.map */

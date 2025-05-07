@@ -71,19 +71,22 @@ $boxShadowSecondary: -2px -2px 13px -5px theme-color("darkColorPalette", 0.56)
   grid-template-columns: $gt-columns;
 }
 
-@mixin pseudoElement($top: 0, $right: 0, $bottom: 0, $left: 0, $radius: none) {
-  &::after {
+@mixin height-width($height, $width) {
+  height: $height;
+  width: $width;
+}
+
+@mixin pseudoElement-before($height, $width, $top: 0, $left: 0, $radius: 0, $z-index: 0, $opacity: 0) {
+  &::before {
     content: "";
-    @include height-width(10em, 10em);
     position: absolute;
+    @include height-width($height, $width);
+    inset: 0;
     top: $top;
-    right: $right;
-    bottom: $bottom;
     left: $left;
     border-radius: $radius;
-    background-color: #b13254;
-    z-index: -10;
-    // opacity: 90%;
+    z-index: $z-index;
+    opacity: $opacity;
   }
 }
 
@@ -108,11 +111,6 @@ $boxShadowSecondary: -2px -2px 13px -5px theme-color("darkColorPalette", 0.56)
   align-items: center;
 }
 
-@mixin height-width($height, $width) {
-  height: $height;
-  width: $width;
-}
-
 // @mixin border-radius($border, $radius) {
 //   border: $border;
 //   border-radius: $radius;
@@ -135,7 +133,33 @@ $boxShadowSecondary: -2px -2px 13px -5px theme-color("darkColorPalette", 0.56)
   left: 0;
   width: 50%;
   height: 100%;
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.20);
   transform: skewX(45deg) translateX($translateX);
   transition: 500ms;
+}
+
+
+/* ---------- KEYFRAMES ----------*/
+
+@keyframes shake {
+  0% {
+    transform: translateY(0px);
+  }
+
+  100% {
+    transform: translateY(-50px);
+  }
+}
+
+@keyframes move {
+  25% {
+    transform: translateY(-10vmin);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-20vmin);
+  }
+  75% {
+    transform: translateY(-30vmin);
+  }
 }
