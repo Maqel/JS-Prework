@@ -28,9 +28,10 @@ $theme-colors: (
   }
 }
 
-$boxShadowPrimary: -2px -2px 13px -5px theme-color("darkColorPalette", 0.56) inset,
-5px 5px 20px 5px theme-color("shadowsColorPalette"),
-2px 0 10px theme-color("whiteColorPalette", 0.56);
+$boxShadowPrimary: -2px -2px 13px -5px theme-color("darkColorPalette", 0.56)
+    inset,
+  5px 5px 20px 5px theme-color("shadowsColorPalette"),
+  2px 0 10px theme-color("whiteColorPalette", 0.56);
 
 $boxShadowSecondary: -2px -2px 13px -5px theme-color("darkColorPalette", 0.56)
     inset,
@@ -76,7 +77,15 @@ $boxShadowSecondary: -2px -2px 13px -5px theme-color("darkColorPalette", 0.56)
   width: $width;
 }
 
-@mixin pseudoElement-before($height, $width, $top: 0, $left: 0, $radius: 0, $z-index: 0, $opacity: 0) {
+@mixin pseudoElement-before(
+  $height,
+  $width,
+  $top: 0,
+  $left: 0,
+  $radius: 0,
+  $z-index: 0,
+  $opacity: 0
+) {
   &::before {
     content: "";
     position: absolute;
@@ -125,7 +134,6 @@ $boxShadowSecondary: -2px -2px 13px -5px theme-color("darkColorPalette", 0.56)
   text-shadow: $x $y $blur $color;
 }
 
-
 @mixin glass-effect($translateX) {
   content: "";
   position: absolute;
@@ -133,11 +141,10 @@ $boxShadowSecondary: -2px -2px 13px -5px theme-color("darkColorPalette", 0.56)
   left: 0;
   width: 50%;
   height: 100%;
-  background: rgba(255, 255, 255, 0.20);
+  background: rgba(255, 255, 255, 0.2);
   transform: skewX(45deg) translateX($translateX);
   transition: 500ms;
 }
-
 
 /* ---------- KEYFRAMES ----------*/
 

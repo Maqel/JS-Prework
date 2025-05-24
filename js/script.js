@@ -1,3 +1,5 @@
+import './parts/mixins-variables.scss';
+
 /**
  * Main Algorithm:
  * 1. Wait for the entire HTML structure (DOM) to be fully loaded.
@@ -138,3 +140,16 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 }); // End of the DOMContentLoaded listener
+
+
+
+const img = document.querySelector('.img');
+const score = document.querySelector('.shine');
+
+img.addEventListener('mouseenter', () => {
+  score.classList.add('active');
+});
+
+img.addEventListener('mouseleave', () => {
+  score.classList.remove('s');
+});

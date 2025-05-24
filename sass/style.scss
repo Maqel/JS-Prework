@@ -145,7 +145,7 @@ html {
         width: 100%;
         height: 100%;
         object-fit: contain;
-c
+
         &:hover {
           animation: 0.45s shake 2;
           width: 100%;
@@ -156,7 +156,7 @@ c
             // background: rgba(255, 255, 255, 0.9);
             background: theme-color("infoColorPalette", 0.9);
           }
-        
+
           .mainGameWindow__computerScore {
             // background: rgba(0, 0, 0, 0.9);
             background: theme-color("infoColorPalette", 0.9);
@@ -187,6 +187,12 @@ c
     // HOVER DO MAINGAMEWINDOWS
     transform: scale(1.02);
     box-shadow: $boxShadowSecondary;
+    .shine {
+      color: theme-color("infoColorPalette", 0.9);
+      text-shadow: -2px 4px 5px theme-color("infoColorPalette", 0.7),
+        -4px 8px 7px theme-color("darkColorPalette", 0.7);
+      transition: color 350ms;
+    }
 
     // .mainGameWindow__computerScore,
     // .mainGameWindow__playerScore,
@@ -209,6 +215,9 @@ c
       // &::before {
       //   transform: skewX(45deg) translateX(-40vw);
       // }
+      &--shake {
+        animation: 0.45s shake 2;
+      }
     }
     // .mainGameWindow__imgContainer-imgComputerMove,
     .mainGameWindow__gameButtons-button,
@@ -227,6 +236,9 @@ c
       // &::before {
       //   transform: skewX(45deg) translateX(-40vw);
       // }
+      &--shake {
+        animation: 0.45s shake 2;
+      }
     }
 
     .mainGameWindow__gameButtons {
@@ -560,6 +572,11 @@ c
   // background-clip: text;
   // -webkit-background-clip: text;
 }
+
+// .shine {
+//   color: theme-color("infoColorPalette", 0.9);
+//   text-shadow: -2px 4px 5px theme-color("infoColorPalette", 0.7), -4px 8px 7px theme-color("darkColorPalette", 0.7);
+// }
 
 // @container game-window (max-width: 769px) {
 //   .wrapper {
