@@ -9,19 +9,23 @@ $font-subtitle: "Grey Qo", cursive;
 
 // colors //
 $theme-colors: (
-  "darkColorPalette": rgb(0, 0, 0),
-  "whiteColorPalette": rgb(255, 255, 255),
-  "winningColorPalette": rgb(255, 215, 0),
-  "lossColorPalette": rgb(230, 57, 70),
-  "infoColorPalette": rgb(193, 244, 0),
-  "shadowsColorPalette": rgb(66, 68, 90),
+  "darkColorPalette": oklch(0 0 0),
+  "whiteColorPalette": oklch(1 0 0),
+  "winningColorPalette": oklch(0.89 0.22 86.3),
+  "lossColorPalette": oklch(0.61 0.21 17.5),
+  "infoColorPalette": oklch(0.93 0.23 115),
+  "shadowsColorPalette": oklch(0.46 0.03 274),
 );
 
 @function theme-color($key, $opacity: 1) {
   $color: map-get($theme-colors, $key);
 
   @if $color {
-    @return rgba($color, $opacity);
+    @if $opacity < 1 {
+      @return oklch(from $color l c h / $opacity);
+    } @else {
+      @return $color;
+    }
   } @else {
     @warn "Color #{$key} not found in theme-colors map.";
     @return null;
@@ -29,6 +33,8 @@ $theme-colors: (
 }
 
 $boxShadowPrimary: -2px -2px 13px -5px theme-color("darkColorPalette", 0.56)
+    inset,
+    3px 15px 14px -7px theme-color("whiteColorPalette", 0.56)
     inset,
   5px 5px 20px 5px theme-color("shadowsColorPalette"),
   2px 0 10px theme-color("whiteColorPalette", 0.56);
@@ -77,27 +83,27 @@ $boxShadowSecondary: -2px -2px 13px -5px theme-color("darkColorPalette", 0.56)
   width: $width;
 }
 
-@mixin pseudoElement-before(
-  $height,
-  $width,
-  $top: 0,
-  $left: 0,
-  $radius: 0,
-  $z-index: 0,
-  $opacity: 0
-) {
-  &::before {
-    content: "";
-    position: absolute;
-    @include height-width($height, $width);
-    inset: 0;
-    top: $top;
-    left: $left;
-    border-radius: $radius;
-    z-index: $z-index;
-    opacity: $opacity;
-  }
-}
+// @mixin pseudoElement-before(
+//   $height,
+//   $width,
+//   $top: 0,
+//   $left: 0,
+//   $radius: 0,
+//   $z-index: 0,
+//   $opacity: 0
+// ) {
+//   &::before {
+//     content: "";
+//     position: absolute;
+//     @include height-width($height, $width);
+//     inset: 0;
+//     top: $top;
+//     left: $left;
+//     border-radius: $radius;
+//     z-index: $z-index;
+//     opacity: $opacity;
+//   }
+// }
 
 // @mixin grid($gt-rows, $gt-columns, $y-start: null, $x-start: null, $y-end: null, $x-end: null) {
 //   display: grid;
@@ -141,9 +147,27 @@ $boxShadowSecondary: -2px -2px 13px -5px theme-color("darkColorPalette", 0.56)
   left: 0;
   width: 50%;
   height: 100%;
-  background: rgba(255, 255, 255, 0.2);
+  background: theme-color(shadowsColorPalette, 0.1);
   transform: skewX(45deg) translateX($translateX);
   transition: 500ms;
+}
+
+@mixin glass-effect {
+  &::after {
+  content: "";
+  display: block;
+  width: 30px;
+  height: 100%;
+  position: absolute;
+  top: -180px;
+  left: 0;
+  background-color: theme-color(whiteColorPalette, 0.8);
+  opacity: 0;
+  transform: rotate(45deg);
+  animation: reflect 250ms ease-in-out;
+  -webkit-transform: rotate(45deg);
+  -webkit-animation: reflect 250ms ease-in-out;
+}
 }
 
 /* ---------- KEYFRAMES ----------*/
@@ -168,5 +192,63 @@ $boxShadowSecondary: -2px -2px 13px -5px theme-color("darkColorPalette", 0.56)
   }
   75% {
     transform: translateY(-30vmin);
+  }
+}
+
+
+@keyframes reflect {
+  0%   {
+    transform: scale(0) rotate(45deg);
+    opacity: 0;
+  }
+
+  10% {
+    transform: scale(0.5) rotate(45deg);
+    opacity: 0.3;
+  }
+
+  20% {
+    transform: scale(1.5) rotate(45deg);
+    opacity: 0.6;
+  }
+
+  30% {
+    transform: scale(2.5) rotate(45deg);
+    opacity: 0.8;
+  }
+
+  40% {
+    transform: scale(3.5) rotate(45deg);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(4) rotate(45deg);
+    opacity: 1;
+  }
+
+  60% {
+    transform: scale(6) rotate(45deg);
+    opacity: 0.8;
+  }
+
+  70% {
+    transform: scale(10) rotate(45deg);
+    opacity: 0.6;
+  }
+
+  80% {
+    transform: scale(20) rotate(45deg);
+    opacity: 0.3;
+  }
+
+  90% {
+    transform: scale(35) rotate(45deg);
+    opacity: 0.1;
+  }
+
+  100% {
+    transform: scale(50) rotate(45deg);
+    opacity: 0;
   }
 }

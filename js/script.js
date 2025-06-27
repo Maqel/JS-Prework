@@ -143,13 +143,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-const img = document.querySelector('.img');
-const score = document.querySelector('.shine');
+// const img = document.querySelector('.img');
+// const score = document.querySelector('.shine');
 
-img.addEventListener('mouseenter', () => {
-  score.classList.add('active');
-});
+// img.addEventListener('mouseenter', () => {
+//   score.classList.add('active');
+// });
 
-img.addEventListener('mouseleave', () => {
-  score.classList.remove('s');
-});
+// img.addEventListener('mouseleave', () => {
+//   score.classList.remove('s');
+// });

@@ -32,5 +32,51 @@
     transform: translateY(-30vmin);
   }
 }
+@keyframes reflect {
+  0% {
+    transform: scale(0) rotate(45deg);
+    opacity: 0;
+  }
+  10% {
+    transform: scale(0.5) rotate(45deg);
+    opacity: 0.3;
+  }
+  20% {
+    transform: scale(1.5) rotate(45deg);
+    opacity: 0.6;
+  }
+  30% {
+    transform: scale(2.5) rotate(45deg);
+    opacity: 0.8;
+  }
+  40% {
+    transform: scale(3.5) rotate(45deg);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(4) rotate(45deg);
+    opacity: 1;
+  }
+  60% {
+    transform: scale(6) rotate(45deg);
+    opacity: 0.8;
+  }
+  70% {
+    transform: scale(10) rotate(45deg);
+    opacity: 0.6;
+  }
+  80% {
+    transform: scale(20) rotate(45deg);
+    opacity: 0.3;
+  }
+  90% {
+    transform: scale(35) rotate(45deg);
+    opacity: 0.1;
+  }
+  100% {
+    transform: scale(50) rotate(45deg);
+    opacity: 0;
+  }
+}
 
 /*# sourceMappingURL=mixins-variables.css.map */

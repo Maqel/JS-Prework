@@ -33,6 +33,52 @@
     transform: translateY(-30vmin);
   }
 }
+@keyframes reflect {
+  0% {
+    transform: scale(0) rotate(45deg);
+    opacity: 0;
+  }
+  10% {
+    transform: scale(0.5) rotate(45deg);
+    opacity: 0.3;
+  }
+  20% {
+    transform: scale(1.5) rotate(45deg);
+    opacity: 0.6;
+  }
+  30% {
+    transform: scale(2.5) rotate(45deg);
+    opacity: 0.8;
+  }
+  40% {
+    transform: scale(3.5) rotate(45deg);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(4) rotate(45deg);
+    opacity: 1;
+  }
+  60% {
+    transform: scale(6) rotate(45deg);
+    opacity: 0.8;
+  }
+  70% {
+    transform: scale(10) rotate(45deg);
+    opacity: 0.6;
+  }
+  80% {
+    transform: scale(20) rotate(45deg);
+    opacity: 0.3;
+  }
+  90% {
+    transform: scale(35) rotate(45deg);
+    opacity: 0.1;
+  }
+  100% {
+    transform: scale(50) rotate(45deg);
+    opacity: 0;
+  }
+}
 * {
   text-transform: uppercase;
 }
@@ -46,35 +92,34 @@ html {
   width: 50vw;
   display: flex;
   flex-direction: column;
-  justify-content: start;
+  justify-content: center;
   align-items: center;
   margin-inline: auto;
-  padding-inline: 2rem;
+  padding-inline: min(4rem, 10%);
   transform-style: preserve-3d;
   perspective: 1500px;
 }
 
-/* SECTION HEADER */
-/* SECTION MAIN GAME WINDOW */
+/* --- SECTION HEADER --- */
+/* --- SECTION MAIN GAME WINDOW --- */
 .mainGameWindow {
   display: grid;
   grid-template-rows: 3fr 0.5fr 2fr;
   grid-template-columns: 1fr 3fr 1fr;
-  position: relative;
   height: 80%;
   width: 100%;
   margin: 0.25em;
-  padding: 0.5em 1em;
+  padding: 0.5em 0.25em;
+  position: relative;
   font: 400 clamp(0.25rem, 0.375rem + 1.333vw, 1.75rem) "Bebas Neue", sans-serif;
   -webkit-backdrop-filter: blur(6.5px);
           backdrop-filter: blur(6.5px);
-  background-color: transparent;
-  background-size: cover;
+  background: transparent no-repeat center/cover;
   overflow: hidden;
-  box-shadow: -2px -2px 13px -5px rgba(0, 0, 0, 0.56) inset, 5px 5px 20px 5px #42445a, 2px 0 10px rgba(255, 255, 255, 0.56);
+  box-shadow: -2px -2px 13px -5px oklch(from oklch(0 0 0) l c h/0.56) inset, 3px 15px 14px -7px oklch(from oklch(1 0 0) l c h/0.56) inset, 5px 5px 20px 5px oklch(0.46 0.03 274), 2px 0 10px oklch(from oklch(1 0 0) l c h/0.56);
   border-radius: 10px;
   transform: perspective(90vh) rotateX(5deg);
-  transition-duration: 300ms;
+  transition-duration: 200ms;
   transition-property: transform, box-shadow;
   transition-timing-function: ease-out;
   transform: rotate3d(0);
@@ -82,128 +127,93 @@ html {
   backface-visibility: hidden;
   container-type: inline-size;
   container-name: game-window;
+  /* --- IMAGE SECTION --- */
   /* SCORE */
   /* MESSAGES */
   /* BUTTONS */
   /* SECTION INTRO */
 }
-.mainGameWindow::before {
-  content: "";
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  inset: 0;
-  top: 0;
-  left: 0;
-  border-radius: inherit;
-  z-index: 0;
-  opacity: 0;
+.mainGameWindow:hover {
+  transform: scale(1.02);
+  box-shadow: -2px -2px 13px -5px oklch(from oklch(0 0 0) l c h/0.56) inset, 20px 20px 38px 10px oklch(0.46 0.03 274), 2px 0 30px oklch(from oklch(1 0 0) l c h/0.56);
 }
-.mainGameWindow::before {
-  background-image: radial-gradient(circle at var(--glow-x, 50%) var(--glow-y, 50%), rgba(255, 255, 255, 0.15), rgba(0, 0, 0, 0.05));
-  transition: opacity 300ms ease-out;
-  pointer-events: none;
+.mainGameWindow:hover .shine {
+  color: oklch(from oklch(0.93 0.23 115) l c h/0.9);
+  text-shadow: -2px 4px 5px oklch(from oklch(0.93 0.23 115) l c h/0.7), -4px 8px 7px oklch(from oklch(0 0 0) l c h/0.7);
+  transition: color 350ms;
 }
-.mainGameWindow:hover::before {
-  opacity: 1;
+.mainGameWindow:hover .mainGameWindow__imgContainer-imgComputerMove {
+  transform: translate(-0.5vw, -1vh) scale(1.01);
+  box-shadow: -2px -2px 13px -5px oklch(from oklch(0 0 0) l c h/0.56) inset, 0px 8px 32px oklch(from oklch(0 0 0) l c h/0.37), 5px 5px 0 oklch(1 0 0), 20px 20px 20px oklch(from oklch(0 0 0) l c h/0.1);
+}
+.mainGameWindow:hover .mainGameWindow__gameButtons-button,
+.mainGameWindow:hover .mainGameWindow__imgContainer-imgPlayerMove {
+  transform: translate(-0.5vw, -1vh) scale(1.01);
+  box-shadow: -2px -2px 13px -5px oklch(from oklch(1 0 0) l c h/0.56) inset, 0px 8px 32px oklch(from oklch(1 0 0) l c h/0.37), 5px 5px 0 oklch(0 0 0), 20px 20px 20px oklch(from oklch(1 0 0) l c h/0.1);
+}
+.mainGameWindow:hover .mainGameWindow__gameButtons,
+.mainGameWindow:hover .mainGameWindow__announcement {
+  transition: 0.4s ease-in-out;
+  transform: scale(1.1);
 }
 .mainGameWindow__imgContainer {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
+  position: relative;
+  bottom: 2vh;
   grid-area: 1/1/2/-1;
   gap: 1.5rem;
-  position: relative;
   z-index: 11;
 }
-.mainGameWindow__imgContainer-imgPlayerMove, .mainGameWindow__imgContainer-imgComputerMove {
-  background-color: rgba(255, 255, 255, 0.05);
-  width: 230px;
-  height: 300px;
-  position: relative;
+.mainGameWindow__imgContainer > :nth-child(1) {
+  filter: drop-shadow(10px 10px 10px oklch(from oklch(1 0 0) l c h/0.3));
+  box-shadow: -2px 10px 13px -5px oklch(1 0 0) inset, 10px 10px 20px oklch(from oklch(1 0 0) l c h/0.2);
+  border: 2px solid oklch(from oklch(1 0 0) l c h/0.25);
+}
+.mainGameWindow__imgContainer > :nth-child(2) {
+  filter: drop-shadow(10px 10px 10px oklch(from oklch(0 0 0) l c h/0.7));
+  box-shadow: -2px 10px 13px -5px oklch(from oklch(0 0 0) l c h/0.56) inset, 20px 20px 20px oklch(from oklch(0 0 0) l c h/0.1);
+  border: 2px solid oklch(from oklch(0 0 0) l c h/0.25);
+}
+.mainGameWindow__imgContainer > * {
+  height: 90%;
+  width: 45%;
   display: flex;
-  justify-content: center;
+  flex-direction: center;
+  justify-content: row;
   align-items: center;
   transition: 0.5s ease-in-out;
   overflow: hidden;
   border-radius: 10px;
-  border: 2px solid rgba(0, 0, 0, 0.15);
-  -webkit-backdrop-filter: blur(2.5px);
-          backdrop-filter: blur(2.5px);
-  --webkit-backdrop-filter: blur(2.5px);
-  z-index: inherit;
+  -webkit-backdrop-filter: blur(0.5px);
+          backdrop-filter: blur(0.5px);
+  --webkit-backdrop-filter: blur(0.5px);
 }
-.mainGameWindow__imgContainer-imgPlayerMove::before, .mainGameWindow__imgContainer-imgComputerMove::before {
+.mainGameWindow__imgContainer > *:hover::after {
   content: "";
+  display: block;
+  width: 30px;
+  height: 100%;
   position: absolute;
-  top: 0;
+  top: -180px;
   left: 0;
-  width: 50%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.2);
-  transform: skewX(45deg) translateX(50vw);
-  transition: 500ms;
+  background-color: oklch(from oklch(1 0 0) l c h/0.8);
+  opacity: 0;
+  transform: rotate(45deg);
+  animation: reflect 250ms ease-in-out;
+  -webkit-transform: rotate(45deg);
+  -webkit-animation: reflect 250ms ease-in-out;
 }
-.mainGameWindow__imgContainer-imgPlayerMove--shake, .mainGameWindow__imgContainer-imgComputerMove--shake {
-  width: 100%;
+.mainGameWindow__imgContainer > * > * {
   height: 100%;
+  width: 100%;
   -o-object-fit: contain;
      object-fit: contain;
 }
-.mainGameWindow__imgContainer-imgPlayerMove--shake:hover, .mainGameWindow__imgContainer-imgComputerMove--shake:hover {
-  animation: 0.45s shake 2;
-  width: 100%;
-  height: 100%;
-  transition: 3s;
-}
-.mainGameWindow__imgContainer-imgPlayerMove--shake:hover .mainGameWindow__playerScore, .mainGameWindow__imgContainer-imgComputerMove--shake:hover .mainGameWindow__playerScore {
-  background: rgba(193, 244, 0, 0.9);
-}
-.mainGameWindow__imgContainer-imgPlayerMove--shake:hover .mainGameWindow__computerScore, .mainGameWindow__imgContainer-imgComputerMove--shake:hover .mainGameWindow__computerScore {
-  background: rgba(193, 244, 0, 0.9);
-}
-.mainGameWindow__imgContainer-imgPlayerMove:hover::before, .mainGameWindow__imgContainer-imgComputerMove:hover::before {
-  transform: skewX(45deg) translateX(-30vw);
-}
-.mainGameWindow__imgContainer-imgPlayerMove {
-  filter: drop-shadow(5px 5px 5px rgba(255, 255, 255, 0.3));
-  box-shadow: -2px -2px 13px -5px white inset, 10px 10px 20px rgba(255, 255, 255, 0.2);
-}
-.mainGameWindow__imgContainer-imgComputerMove {
-  filter: drop-shadow(10px 10px 10px rgba(0, 0, 0, 0.7));
-  box-shadow: -2px -2px 13px -5px rgba(0, 0, 0, 0.56) inset, 20px 20px 20px rgba(0, 0, 0, 0.1);
-}
-.mainGameWindow:hover {
-  transform: scale(1.02);
-  box-shadow: -2px -2px 13px -5px rgba(0, 0, 0, 0.56) inset, 20px 20px 38px 10px #42445a, 2px 0 30px rgba(255, 255, 255, 0.56);
-}
-.mainGameWindow:hover .shine {
-  color: rgba(193, 244, 0, 0.9);
-  text-shadow: -2px 4px 5px rgba(193, 244, 0, 0.7), -4px 8px 7px rgba(0, 0, 0, 0.7);
-  transition: color 350ms;
-}
-.mainGameWindow:hover .mainGameWindow__imgContainer-imgComputerMove {
-  transform: translate(-0.5vw, -1vh) scale(1.01);
-  box-shadow: -2px -2px 13px -5px rgba(0, 0, 0, 0.56) inset, 0px 8px 32px rgba(0, 0, 0, 0.37), 5px 5px 0 white, 20px 20px 20px rgba(0, 0, 0, 0.1);
-  border: 2px solid rgba(255, 255, 255, 0.18);
-}
-.mainGameWindow:hover .mainGameWindow__imgContainer-imgComputerMove--shake {
-  animation: 0.45s shake 2;
-}
-.mainGameWindow:hover .mainGameWindow__gameButtons-button,
-.mainGameWindow:hover .mainGameWindow__imgContainer-imgPlayerMove {
-  transform: translate(-0.5vw, -1vh) scale(1.01);
-  box-shadow: -2px -2px 13px -5px rgba(255, 255, 255, 0.56) inset, 0px 8px 32px rgba(255, 255, 255, 0.37), 5px 5px 0 black, 20px 20px 20px rgba(255, 255, 255, 0.1);
-  border: 2px solid rgba(0, 0, 0, 0.18);
-}
-.mainGameWindow:hover .mainGameWindow__gameButtons-button--shake,
-.mainGameWindow:hover .mainGameWindow__imgContainer-imgPlayerMove--shake {
-  animation: 0.45s shake 2;
-}
-.mainGameWindow:hover .mainGameWindow__gameButtons {
-  transition: 0.5s ease-in-out;
-  transform: scale(1.1);
+.mainGameWindow__imgContainer > * > *:hover {
+  animation: 350ms shake 2;
 }
 .mainGameWindow__scoreContainer {
   height: 60%;
@@ -216,10 +226,10 @@ html {
   align-items: start;
 }
 .mainGameWindow__playerScore {
-  background: rgba(0, 0, 0, 0.9);
+  background: oklch(from oklch(0 0 0) l c h/0.9);
 }
 .mainGameWindow__computerScore {
-  background: rgba(0, 0, 0, 0.9);
+  background: oklch(from oklch(0 0 0) l c h/0.9);
 }
 .mainGameWindow__playerScore, .mainGameWindow__computerScore {
   position: relative;
@@ -230,7 +240,7 @@ html {
   z-index: inherit;
   background-clip: text;
   -webkit-background-clip: text;
-  text-shadow: -4px 8px 7px rgba(255, 255, 255, 0.7);
+  text-shadow: -4px 8px 7px oklch(from oklch(1 0 0) l c h/0.7);
 }
 .mainGameWindow__messageContainer {
   grid-area: 2/1/3/-1;
@@ -241,10 +251,54 @@ html {
   position: relative;
   z-index: 11;
 }
+.mainGameWindow__announcement * {
+  display: inline-block;
+  position: relative;
+  transform: translateX(0);
+  animation-duration: 0.75s;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+}
+.mainGameWindow__announcement *:first-child {
+  color: oklch(0 0 0);
+  -webkit-text-stroke: 2px oklch(1 0 0);
+  transform: translateX(-200%);
+  animation-name: slide-in-left;
+}
+.mainGameWindow__announcement *:last-child {
+  color: oklch(1 0 0);
+  -webkit-text-stroke: 2px oklch(0 0 0);
+  transform: translateX(200%);
+  animation-name: slide-in-right;
+}
+@keyframes slide-in-left {
+  0% {
+    transform: translateX(-200%);
+  }
+  75% {
+    text-shadow: 4px 2px 6px oklch(0.93 0.23 115), 4px 4px 4px oklch(1 0 0);
+  }
+  100% {
+    transform: translateX(0);
+    text-shadow: 4px 2px 2px oklch(0.93 0.23 115), 4px 4px 1px oklch(1 0 0);
+  }
+}
+@keyframes slide-in-right {
+  0% {
+    transform: translateX(200%);
+  }
+  75% {
+    text-shadow: 4px 2px 6px oklch(0.93 0.23 115), 6px 4px 4px oklch(0 0 0);
+  }
+  100% {
+    transform: translateX(0);
+    text-shadow: 4px 2px 2px oklch(0.93 0.23 115), 6px 4px 1px oklch(0 0 0);
+  }
+}
 .mainGameWindow__messages {
   font-size: 2em;
   color: transparent;
-  background: rgba(0, 0, 0, 0.5);
+  background: oklch(from oklch(0 0 0) l c h/0.5);
   background-clip: text;
   -webkit-background-clip: text;
 }
@@ -257,13 +311,13 @@ html {
   position: relative;
   isolation: isolate;
   width: 85%;
-  padding: 2vh;
+  padding: auto;
   margin: 0 auto 2.5vh auto;
   transition: 500ms ease-in-out;
   transform: translateZ(20px);
   border-radius: 10px;
-  border: 2px solid rgba(255, 255, 255, 0.18);
-  box-shadow: -2px -2px 13px -5px rgba(0, 0, 0, 0.56) inset, 20px 20px 20px rgba(0, 0, 0, 0.1), 2px 0 30px rgba(255, 255, 255, 0.56);
+  border: 2px solid oklch(from oklch(1 0 0) l c h/0.18);
+  box-shadow: -2px -2px 13px -5px oklch(from oklch(0 0 0) l c h/0.56) inset, 20px 20px 20px oklch(from oklch(0 0 0) l c h/0.1), 2px 0 30px oklch(from oklch(1 0 0) l c h/0.56);
 }
 .mainGameWindow__gameButtons::before {
   content: "";
@@ -284,17 +338,17 @@ html {
   align-items: center;
   font-size: 5em;
   font-family: "Anton", sans-serif;
-  text-shadow: -2px 2px 4px rgba(255, 255, 255, 0.5);
+  text-shadow: -2px 2px 4px oklch(from oklch(1 0 0) l c h/0.5);
   text-transform: uppercase;
   z-index: -1;
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
   color: transparent;
-  background: rgba(0, 0, 0, 0.9);
+  background: oklch(from oklch(0 0 0) l c h/0.9);
   -webkit-background-clip: text;
   background-clip: text;
-  text-shadow: -3px 4px 3px rgba(193, 244, 0, 0.9);
+  text-shadow: -3px 4px 3px oklch(from oklch(0.93 0.23 115) l c h/0.9);
   font-size: 6em;
   font-family: "Bebas Neue", sans-serif;
   text-transform: uppercase;
@@ -316,8 +370,8 @@ html {
   transition-timing-function: cubic-bezier(0.47, 1.64, 0.41, 0.8);
 }
 .mainGameWindow__gameButtons-button {
-  margin: 2vmin 2vmin;
-  padding: 2vh;
+  margin: 2vmin min(0.5vmin, 2%);
+  padding: 2vmin;
   height: clamp(100px, 15vw, 150px);
   width: clamp(100px, 15vw, 150px);
   background-color: transparent;
@@ -335,7 +389,7 @@ html {
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
-  box-shadow: -2px -2px 13px -5px white inset, 10px 10px 20px rgba(255, 255, 255, 0.2);
+  box-shadow: -2px -2px 13px -5px oklch(1 0 0) inset, 10px 10px 20px oklch(from oklch(1 0 0) l c h/0.2);
 }
 .mainGameWindow__gameButtons-button--rock {
   background-image: url(../images/rock/rock_button.png);
@@ -346,22 +400,11 @@ html {
 .mainGameWindow__gameButtons-button--scissors {
   background-image: url(../images/scissors/scissors_button.png);
 }
-.mainGameWindow__gameButtons-button::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 50%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.2);
-  transform: skewX(45deg) translateX(50vw);
-  transition: 500ms;
-}
 .mainGameWindow__gameButtons-button:focus-visible, .mainGameWindow__gameButtons-button:hover {
   background-color: inherit;
   transform: translate(-0.5vw, -1.2vh);
-  box-shadow: -2px -2px 13px -5px rgba(0, 0, 0, 0.56) inset, 0px 8px 32px rgba(0, 0, 0, 0.37), 2px 2px 30px rgba(255, 255, 255, 0.56), 4px 4px 0 white, 12px 12px 12px rgba(0, 0, 0, 0.1);
-  border: 2px solid rgba(255, 255, 255, 0.18);
+  box-shadow: -2px -2px 13px -5px oklch(from oklch(0 0 0) l c h/0.56) inset, 0px 8px 32px oklch(from oklch(0 0 0) l c h/0.37), 2px 2px 30px oklch(from oklch(1 0 0) l c h/0.56), 4px 4px 0 oklch(1 0 0), 12px 12px 12px oklch(from oklch(0 0 0) l c h/0.1);
+  border: 2px solid oklch(from oklch(1 0 0) l c h/0.18);
 }
 .mainGameWindow__gameButtons-button:hover::before {
   transform: skewX(45deg) translateX(-30vw);
@@ -392,18 +435,6 @@ html {
   display: none;
 }
 
-.on-light {
-  color: white;
-  -webkit-text-stroke: 2px black;
-  text-shadow: -2px 4px 5px rgba(0, 0, 0, 0.7);
-}
-
-.on-dark {
-  color: black;
-  -webkit-text-stroke: 2px white;
-  text-shadow: -2px 4px 5px rgba(255, 255, 255, 0.7);
-}
-
 @media only screen and (max-width: 960px) {
   * {
     transition: 500ms ease-in-out;
@@ -423,4 +454,4 @@ html {
   }
 }
 
-/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3Nhc3MvcGFydHMvbWl4aW5zLXZhcmlhYmxlcy5zY3NzIiwiLi4vc2Fzcy9zdHlsZS5zY3NzIiwic3R5bGUuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLHFDQUFBO0FBRUEsbUNBQUE7QUFLQSx3Q0FBQTtBQWdDQSxpQ0FBQTtBQ3RDUSwyR0FBQTtBRHVDUjs7O0VBR0Usc0JBQUE7RUFDQSxTQUFBO0VBQ0EsVUFBQTtBRWxDRjs7QUZ1Q0EsaUNBQUE7QUEyRkEsbUNBQUE7QUFFQTtFQUNFO0lBQ0UsMEJBQUE7RUUvSEY7RUZrSUE7SUFDRSw0QkFBQTtFRWhJRjtBQUNGO0FGbUlBO0VBQ0U7SUFDRSw4QkFBQTtJQUNBLFVBQUE7RUVqSUY7RUZtSUE7SUFDRSw4QkFBQTtFRWpJRjtFRm1JQTtJQUNFLDhCQUFBO0VFaklGO0FBQ0Y7QUQvQkE7RUFDRSx5QkFBQTtBQ2lDRjs7QUQ5QkE7RUFDRSw4REFBQTtBQ2lDRjs7QUQ5QkE7RUQrREUsY0M5RHNCO0VEK0R0QixXQy9EOEI7RUQrRjlCLGFBQUE7RUFDQSxzQkMvRnFCO0VEZ0dyQixzQkNoR2M7RURpR2QsbUJBQUE7RUNoR0EsbUJBQUE7RUFDQSxvQkFBQTtFQUNBLDRCQUFBO0VBQ0EsbUJBQUE7QUNxQ0Y7O0FEL0JBLG1CQUFBO0FBRUEsNkJBQUE7QUFDQTtFRDBDRSxhQUFBO0VBQ0EsaUNDMUNjO0VEMkNkLGtDQzNDNkI7RUFDN0Isa0JBQUE7RUFDQSxXQUFBO0VBQ0EsV0FBQTtFQUNBLGNBQUE7RUFDQSxrQkFBQTtFQUNBLDhFQUFBO0VBQ0Esb0NBQUE7VUFBQSw0QkFBQTtFQUNBLDZCQUFBO0VBQ0Esc0JBQUE7RUFDQSxnQkFBQTtFQUNBLHlIRFJpQjtFQ1NqQixtQkFBQTtFQUNBLDBDQUFBO0VBQ0EsMEJBQUE7RUFDQSwwQ0FBQTtFQUNBLG9DQUFBO0VBQ0Esc0JBQUE7RUFDQSxzQkFBQTtFQUNBLDJCQUFBO0VBNEJBLDJCQUFBO0VBQ0EsMkJBQUE7RUErS0EsVUFBQTtFQWtFQSxh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LFVBQUE7QUM1Sk47QURrS0U7RUFHRSxrQkFBQTtFQUNBLGtCQUFBO0VENWNGLFlDNmN3QjtFRDVjeEIsV0M0YzhCO0VBQzVCLHNCQUFBO0FDaktKO0FEbUtJO0VEMWRGLCtDQUFBO0VDNmRJLGdCQUFBO0VBQ0Esb0NBQUE7VUFBQSw0QkFBQTtFQUNBLCtCQUFBO0VEcmRKLFlDc2QwQjtFRHJkMUIsV0NxZGdDO0VBQzVCLFlBQUE7QUNqS047QURxS0U7RUFDRSxhQUFBO0FDbktKOztBRHVLQTtFQUNFLFlBQUE7RUFDQSw4QkFBQTtFQUVBLDRDQUFBO0FDcktGOztBRDJLQTtFQUNFLFlBQUE7RUFDQSw4QkFBQTtFQUVBLGtEQUFBO0FDektGOztBRGdXQTtFQUNFO0lBQ0UsNkJBQUE7RUM3VkY7RURpV0E7SUQzcUJBLGNDNHFCd0I7SUQzcUJ4QixXQzJxQmdDO0VDOVZoQztBQUNGO0FEa1dBO0VBQ0U7SUFDRSw2QkFBQTtFQ2hXRjtFRGtXQTtJRHJyQkEsY0NzckJ3QjtJRHJyQnhCLFdDcXJCZ0M7RUMvVmhDO0FBQ0YiLCJmaWxlIjoic3R5bGUuY3NzIn0= */
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3Nhc3MvcGFydHMvbWl4aW5zLXZhcmlhYmxlcy5zY3NzIiwiLi4vc2Fzcy9zdHlsZS5zY3NzIiwic3R5bGUuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLHFDQUFBO0FBRUEsbUNBQUE7QUFLQSx3Q0FBQTtBQXVDQSxpQ0FBQTtBQzdDUSwyR0FBQTtBRDhDUjs7O0VBR0Usc0JBQUE7RUFDQSxTQUFBO0VBQ0EsVUFBQTtBRXpDRjs7QUY4Q0EsaUNBQUE7QUFtSEEsbUNBQUE7QUFFQTtFQUNFO0lBQ0UsMEJBQUE7RUU5SkY7RUZpS0E7SUFDRSw0QkFBQTtFRS9KRjtBQUNGO0FGa0tBO0VBQ0U7SUFDRSw4QkFBQTtJQUNBLFVBQUE7RUVoS0Y7RUZrS0E7SUFDRSw4QkFBQTtFRWhLRjtFRmtLQTtJQUNFLDhCQUFBO0VFaEtGO0FBQ0Y7QUZvS0E7RUFDRTtJQUNFLGlDQUFBO0lBQ0EsVUFBQTtFRWxLRjtFRnFLQTtJQUNFLG1DQUFBO0lBQ0EsWUFBQTtFRW5LRjtFRnNLQTtJQUNFLG1DQUFBO0lBQ0EsWUFBQTtFRXBLRjtFRnVLQTtJQUNFLG1DQUFBO0lBQ0EsWUFBQTtFRXJLRjtFRndLQTtJQUNFLG1DQUFBO0lBQ0EsVUFBQTtFRXRLRjtFRnlLQTtJQUNFLGlDQUFBO0lBQ0EsVUFBQTtFRXZLRjtFRjBLQTtJQUNFLGlDQUFBO0lBQ0EsWUFBQTtFRXhLRjtFRjJLQTtJQUNFLGtDQUFBO0lBQ0EsWUFBQTtFRXpLRjtFRjRLQTtJQUNFLGtDQUFBO0lBQ0EsWUFBQTtFRTFLRjtFRjZLQTtJQUNFLGtDQUFBO0lBQ0EsWUFBQTtFRTNLRjtFRjhLQTtJQUNFLGtDQUFBO0lBQ0EsVUFBQTtFRTVLRjtBQUNGO0FEN0VBO0VBQ0UseUJBQUE7QUMrRUY7O0FENUVBO0VBQ0UsOERBQUE7QUMrRUY7O0FENUVBO0VEc0VFLGNDckVzQjtFRHNFdEIsV0N0RThCO0VEOEc5QixhQUFBO0VBQ0Esc0JDOUdzQjtFRCtHdEIsdUJDL0djO0VEZ0hkLG1CQUFBO0VDL0dBLG1CQUFBO0VBQ0EsOEJBQUE7RUFDQSw0QkFBQTtFQUNBLG1CQUFBO0FDbUZGOztBRDdFQSwyQkFBQTtBQUVBLHFDQUFBO0FBQ0E7RURpREUsYUFBQTtFQUNBLGlDQ2pEYztFRGtEZCxrQ0NsRDZCO0VEc0Q3QixXQ3JEc0I7RURzRHRCLFdDdEQyQjtFRHNDM0IsY0NyQ3dCO0VEc0N4QixxQkN0Q2dDO0VBQ2hDLGtCQUFBO0VBQ0EsOEVBQUE7RUFDQSxvQ0FBQTtVQUFBLDRCQUFBO0VBQ0EsOENBQUE7RUFDQSxnQkFBQTtFQUNBLDhORERpQjtFQ0VqQixtQkFBQTtFQUNBLDBDQUFBO0VBQ0EsMEJBQUE7RUFDQSwwQ0FBQTtFQUNBLG9DQUFBO0VBQ0Esc0JBQUE7RUFDQSxzQkFBQTtFQUNBLDJCQUFBO0VBR0EsMkJBQUE7RUFDQSwyQkFBQTtFQWdFQSwwQkFBQTtFQW9EQSxVQUFBO0VBa0VBLGFBQUE7RUE0RkEsWUFBQTtFQTZLQSxrQkFBQTtBQ3pXRjtBRHBGRTtFQUNFLHNCQUFBO0VBQ0EsbUtEVmlCO0FFZ0dyQjtBRG5GSTtFQUNFLGlEQUFBO0VBQ0EscUhBQUE7RUFFQSx1QkFBQTtBQ29GTjtBRDVFSTtFQUNFLDhDQUFBO0VBQ0Esc01BQUE7QUM4RU47QURqRUk7O0VBRUUsOENBQUE7RUFDQSxzTUFBQTtBQ21FTjtBRGhESTs7RUFFRSw0QkFBQTtFQUVBLHFCQUFBO0FDaUROO0FEM0NFO0VEU0EsYUFBQTtFQUNBLG1CQ1Q4QjtFRFU5Qiw2QkNWZ0I7RURXaEIsbUJBQUE7RUNWRSxrQkFBQTtFQUNBLFdBQUE7RUFDQSxtQkFBQTtFQUNBLFdBQUE7RUFDQSxXQUFBO0FDZ0RKO0FEOUNLO0VBQ0Msc0VBQUE7RUFDQSxxR0FBQTtFQUdBLHFEQUFBO0FDOENOO0FEM0NJO0VBQ0Usc0VBQUE7RUFDQSw0SEFBQTtFQUdBLHFEQUFBO0FDMkNOO0FEeENLO0VEeERILFdDeUQwQjtFRHhEMUIsVUN3RCtCO0VEaEIvQixhQUFBO0VBQ0Esc0JDZ0J1QjtFRGZ2QixvQkNla0I7RURkbEIsbUJBQUE7RUNlSSw0QkFBQTtFQUNBLGdCQUFBO0VBQ0EsbUJBQUE7RUFDQSxvQ0FBQTtVQUFBLDRCQUFBO0VBQ0EscUNBQUE7QUM4Q047QUZuQ0U7RUFDQSxXQUFBO0VBQ0EsY0FBQTtFQUNBLFdBQUE7RUFDQSxZQUFBO0VBQ0Esa0JBQUE7RUFDQSxXQUFBO0VBQ0EsT0FBQTtFQUNBLG9EQUFBO0VBQ0EsVUFBQTtFQUNBLHdCQUFBO0VBQ0Esb0NBQUE7RUFDQSxnQ0FBQTtFQUNBLDRDQUFBO0FFcUNGO0FEdkRPO0VEckVMLFlDc0U0QjtFRHJFNUIsV0NxRWtDO0VBQzVCLHNCQUFBO0tBQUEsbUJBQUE7QUMwRFI7QUR4RFE7RUFDRSx3QkFBQTtBQzBEVjtBRGpERTtFRG5GQSxXQ29Gd0I7RURuRnhCLFdDbUY2QjtFRDNDN0IsYUFBQTtFQUNBLG1CQzJDK0I7RUQxQy9CLDhCQzBDZ0I7RUR6Q2hCLG1CQUFBO0VDMENFLG1CQUFBO0VBRUEsa0JBQUE7QUNzREo7QURsQ0U7RUFFRSw4Q0FBQTtBQ21DSjtBRGhDRTtFQUVFLDhDQUFBO0FDaUNKO0FEOUJFO0VBRUUsa0JBQUE7RUFDQSxTQUFBO0VBQ0EsVUFBQTtFQUVBLGtCQUFBO0VBQ0EsZUFBQTtFQUNBLGdCQUFBO0VBRUEscUJBQUE7RUFDQSw2QkFBQTtFQUNBLDREQUFBO0FDNkJKO0FEVkU7RUFDRSxtQkFBQTtFQUNBLGtCQUFBO0VBQ0EsV0FBQTtFQUNBLG1CQUFBO0VBQ0Esb0JBQUE7RUFDQSxrQkFBQTtFQUVBLFdBQUE7QUNXSjtBRFFFO0VBQ0UscUJBQUE7RUFDQSxrQkFBQTtFQUNBLHdCQUFBO0VBQ0EseUJBQUE7RUFDQSxtQ0FBQTtFQUNBLDZCQUFBO0FDTko7QURRSTtFQUNFLG1CQUFBO0VBQ0EscUNBQUE7RUFDQSw0QkFBQTtFQUNBLDZCQUFBO0FDTk47QURTSTtFQUNFLG1CQUFBO0VBQ0EscUNBQUE7RUFDQSwyQkFBQTtFQUNBLDhCQUFBO0FDUE47QURVRTtFQUNFO0lBQ0UsNEJBQUE7RUNSSjtFRFdFO0lBQ0UsdUVBQUE7RUNUSjtFRFlFO0lBQ0Usd0JBQUE7SUFDQSx1RUFBQTtFQ1ZKO0FBQ0Y7QURjRTtFQUNFO0lBQ0UsMkJBQUE7RUNaSjtFRGVFO0lBQ0UsdUVBQUE7RUNiSjtFRGdCRTtJQUNFLHdCQUFBO0lBQ0EsdUVBQUE7RUNkSjtBQUNGO0FEa0JFO0VBQ0UsY0FBQTtFQUNBLGtCQUFBO0VBR0EsOENBQUE7RUFDQSxxQkFBQTtFQUNBLDZCQUFBO0FDbEJKO0FEc0JFO0VEeE1BLGFBQUE7RUFDQSxtQkN3TStCO0VEdk0vQiw4QkN1TWdCO0VEdE1oQixtQkFBQTtFQ3VNRSxtQkFBQTtFQUNBLGtCQUFBO0VBQ0Esa0JBQUE7RUFDQSxVQUFBO0VBQ0EsYUFBQTtFQUNBLHlCQUFBO0VBQ0EsNkJBQUE7RUFFQSwyQkFBQTtFQUNBLG1CQUFBO0VBQ0EscURBQUE7RUFFQSw0S0FBQTtBQ25CSjtBRHdCSTtFQUNFLFdBQUE7RUFDQSxrQkFBQTtFQUNBLFFBQUE7RUFDQSx5QkFBQTtFQUNBLFdBQUE7RUFDQSxzQkFBQTtFQUNBLG1DQUFBO0FDdEJOO0FEeUJJO0VBQ0UsV0FBQTtFQUNBLGtCQUFBO0VBRUEsUUFBQTtFQUNBLHVCQUFBO0VBQ0EsYUFBQTtFQUNBLHVCQUFBO0VBQ0EsbUJBQUE7RUFDQSxjQUFBO0VBQ0EsZ0NEdFdTO0VDd1dULDREQUFBO0VBQ0EseUJBQUE7RUFDQSxXQUFBO0VBQ0Esb0JBQUE7RUFDQSxVQUFBO0VBQ0Esb0NBQUE7RUFDQSxrQkFBQTtFQUNBLDhDQUFBO0VBSUEsNkJBQUE7RUFDQSxxQkFBQTtFQUNBLG9FQUFBO0VBR0EsY0FBQTtFQUNBLHFDRHhYUztFQzRYVCx5QkFBQTtBQ2pDTjtBRHlDTTtFQUNFLGVBQUE7RUFDQSxVQUFBO0FDdkNSO0FENkNNO0VBQ0UsZ0JBQUE7RUFDQSxVQUFBO0FDM0NSO0FEaURNO0VBQ0UsbUJBQUE7RUFDQSxVQUFBO0FDL0NSO0FEbURJO0VBQ0UsWUFBQTtFQUNBLCtEQUFBO0FDakROO0FEb0RJO0VEaldGLDhCQ21XNEI7RURsVzVCLGNDa1dvRDtFRHBWcEQsaUNDc1ZNO0VEclZOLGdDQ3NWTTtFQUVGLDZCQUFBO0VBQ0EsbUJBQUE7RUFDQSxZQUFBO0VBQ0Esa0JBQUE7RUFDQSxrQkFBQTtFQUNBLGVBQUE7RUFDQSxlQUFBO0VBQ0EsNkJBQUE7RUFDQSxnQkFBQTtFQUNBLG9DQUFBO1VBQUEsNEJBQUE7RUFDQSxxQ0FBQTtFQUtBLDRCQUFBO0VBQ0EsMkJBQUE7RUFDQSx3QkFBQTtFQUNBLHFHQUFBO0FDeEROO0FEK0RNO0VBQ0UscURBQUE7QUM3RFI7QUQrRE07RUFDRSx1REFBQTtBQzdEUjtBRCtETTtFQUNFLDZEQUFBO0FDN0RSO0FEb0VNO0VBRUUseUJBQUE7RUFDQSxvQ0FBQTtFQUNBLHdQQUFBO0VBU0EscURBQUE7QUMzRVI7QUQ4RU07RUFDRSx5Q0FBQTtBQzVFUjtBRGdGSTtFQUVFLFlBQUE7RUFDQSxVQUFBO0VBQ0EsVUFBQTtBQy9FTjtBRHFGRTtFQUdFLGtCQUFBO0VBQ0Esa0JBQUE7RURuYUYsWUNvYXdCO0VEbmF4QixXQ21hOEI7RUFDNUIsc0JBQUE7QUNwRko7QURzRkk7RURqYkYsK0NBQUE7RUNvYkksZ0JBQUE7RUFDQSxvQ0FBQTtVQUFBLDRCQUFBO0VBQ0EsK0JBQUE7RUQ1YUosWUM2YTBCO0VENWExQixXQzRhZ0M7RUFDNUIsWUFBQTtBQ3BGTjtBRHdGRTtFQUNFLGFBQUE7QUN0Rko7O0FEMFFBO0VBQ0U7SUFDRSw2QkFBQTtFQ3ZRRjtFRDJRQTtJRDdtQkEsY0M4bUJ3QjtJRDdtQnhCLFdDNm1CZ0M7RUN4UWhDO0FBQ0Y7QUQ0UUE7RUFDRTtJQUNFLDZCQUFBO0VDMVFGO0VENFFBO0lEdm5CQSxjQ3duQndCO0lEdm5CeEIsV0N1bkJnQztFQ3pRaEM7QUFDRiIsImZpbGUiOiJzdHlsZS5jc3MifQ== */
