@@ -1,0 +1,96 @@
+@use "../abstract/mixins" as m;
+@use "../abstract/functions" as f;
+
+.battle-area {
+  @include m.flex(space-around, row);
+  position: relative;
+  grid-area: 1 / 1 / 2 / -1;
+  gap: 1rem;
+  z-index: 11;
+}
+
+%u-base-interaction {
+  @include m.blur(0.5px);
+  transition: 0.5s ease-in-out;
+  overflow: hidden;
+  // border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.character-movement {
+  @include m.fluid-size(90%, 45%);
+  @include m.blur(0.5px); //zwiększ wartoś by rozmyc wygld wyniku
+  @extend %u-base-interaction;
+  z-index: inherit;
+
+  &:hover {
+    @include m.glass-effect;
+    transform: translate(-0.5vw, -1vh) scale(1.01);
+  }
+
+  .character-movement__icon {
+    // @include m.fluid-size(100%, 100%);
+    // object-fit: contain;
+
+    &:hover {
+      animation: 350ms shake 2;
+    }
+  }
+}
+
+.character-movement--player {
+  @include m.glow-panel(
+    $main-color-key: "shadowsColorPalette",
+    $main-opacity: 0.9,
+    $enable-drop-shadow: false,
+    $border-opacity: 0.5
+  );
+}
+
+.character-movement--cpu {
+  @extend .character-movement--player;
+}
+
+.game-window {
+  &:hover {
+    .character-movement--player {
+      @include m.glow-panel(
+        $state: "hover",
+        $enable-drop-shadow: false,
+        $enable-border: true,
+        $box-shadow-list: (
+          (
+            x: -7px,
+            y: -7px,
+            blur: 10px,
+            spread: -5px,
+            color: "shadowsColorPalette",
+            opacity: 0.9,
+            inset: true
+          ),
+          (
+            x: 5px,
+            y: 5px,
+            blur: 0px,
+            spread: 0px,
+            color: "whiteColorPalette",
+            opacity: 0.35
+          ),
+          (
+            x: 10px,
+            y: 25px,
+            blur: 15px,
+            spread: 0px,
+            color: "shadowsColorPalette",
+            opacity: 0.5
+          ),
+        ),
+        $border-color-key: "shadowsColorPalette",
+        $border-opacity: 0.42
+      );
+    }
+    .character-movement--cpu {
+      @extend .character-movement--player;
+    }
+  }
+}

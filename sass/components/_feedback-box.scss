@@ -1,0 +1,12 @@
+@use "../abstract/functions";
+
+.game-window {
+  &:hover {
+    .feedback-box__text-primary {
+      color: functions.theme-color("infoColorPalette", 0.9);
+      text-shadow: -2px 4px 5px functions.theme-color("infoColorPalette", 0.7),
+        -4px 8px 7px functions.theme-color("darkColorPalette", 0.7);
+      transition: color 350ms;
+    }
+  }
+}

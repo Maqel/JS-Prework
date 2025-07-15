@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // 2. Find the HTML element with the class 'mainGameWindow' in the document.
   //    'const' means the variable $card cannot be reassigned to another element later.
   //    The '$' prefix is a common convention for variables holding DOM elements.
-  const $card = document.querySelector('.mainGameWindow');
+  const $card = document.querySelector('.game-window');
 
   // 3a. Prepare a variable 'bounds' to store information about the dimensions and position of the $card element.
   //     'let' means the value of this variable can be changed (updated) later.
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Check if the $card element was successfully found in the document.
   if (!$card) {
     // 4. If the element doesn't exist (e.g., due to a typo in the selector or HTML), display an error message in the developer console.
-    console.error('.mainGameWindow element not found!');
+    console.error('.game-window element not found!');
     // Stop the execution of the anonymous function passed to addEventListener to prevent further errors.
     return;
   }

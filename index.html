@@ -6,55 +6,64 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="../vendor/icon/site/round-light.png" rel="icon" media="(prefers-color-scheme: dark)">
   <link href="../vendor/icon/site/round-black.png" rel="icon" media="(prefers-color-scheme: light)">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Grey+Qo&display=swap"
+    rel="stylesheet">
+
   <title>Rock Paper Scissors</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-  <main class="wrapper">
-    <main class="mainGameWindow" container-type="inline-size">
-      <section class="mainGameWindow__imgContainer">
-        <div class="mainGameWindow__imgContainer-imgPlayerMove">
-          <img src="./images/rock/rock_left.png" alt="player movement view"
-            class="mainGameWindow__imgContainer-imgPlayerMove--icon">
+  <div class="wrapper">
+    <main class="game-window">
+      <section class="battle-area" role="region" aria-label="Battle area">
+        <div class="character-movement character-movement--player">
+          <img src="./images/rock/rock_left.png" alt="Player's move" class="character-movement__icon">
         </div>
-        <div class="mainGameWindow__imgContainer-imgComputerMove">
-          <img src="./images/rock/rock_right.png" alt="computer movement view"
-            class="mainGameWindow__imgContainer-imgComputerMove--icon">
-        </div>
-      </section>
-      <section class="mainGameWindow__scoreContainer">
-        <div class="mainGameWindow__scoreContainer-playerScore">
-          <p class="mainGameWindow__scoreContainer-playerScore-result" data-score="17">14</p>
-        </div>
-        <div class="mainGameWindow__scoreContainer-computerScore">
-          <p class="mainGameWindow__computerScore shine" data-score="27">23</p>
+
+        <div class="character-movement character-movement--cpu">
+          <img src="./images/rock/rock_right.png" alt="cpu move" class="character-movement__icon">
         </div>
       </section>
-      <section class="mainGameWindow__messageContainer">
-        <div class="mainGameWindow__messages">
-          <div class="mainGameWindow__announcement"><span class="text-part-left">ready t</span><span
-              class="text-part-right">o play?
-            </span></div>
+      <section class="score-board" role="region" aria-label="Score board" aria-atomic="true">
+        <div class="score-box score-box--player">
+          <p class="score-box__label visually-hidden">Player</p>
+          <p class="score-box__result" data-score="17" aria-live="polite">14</p>
+        </div>
+
+        <div class="score-box score-box--cpu">
+          <p class="score-box__label visually-hidden">Computer</p>
+          <p class="score-box__result" data-score="27" aria-live="polite">23</p>
         </div>
       </section>
-      <section class="mainGameWindow__gameButtons">
-        <button class="mainGameWindow__gameButtons-button mainGameWindow__gameButtons-button--rock" type="button">
-          <span class="mainGameWindow__content">rock</span>
+      <section class="feedback-messages" role="status" aria-live="polite">
+        <div class="feedback-box"><span class="feedback-box__text-primary">ready t</span><span
+            class="feedback-box__text-secondary">o play?
+          </span></div>
+      </section>
+      <section class="movement-selection-panel" role="region" aria-label="Movement selection">
+        <button class="btn btn--rock" type="button" aria-label="rock">
+          <img src="../images/rock/rock_button.png" alt="" class="btn__icon" />
+          <span class="btn__label visually-hidden">rock</span>
         </button>
-        <button class="mainGameWindow__gameButtons-button mainGameWindow__gameButtons-button--paper" type="button">
-          <span class="mainGameWindow__content">paper</span>
+
+        <button class="btn btn--paper" type="button" aria-label="paper">
+          <img src="../images/paper/paper_button.png" alt="" class="btn__icon" />
+          <span class="btn__label visually-hidden">paper</span>
         </button>
-        <button class="mainGameWindow__gameButtons-button mainGameWindow__gameButtons-button--scissors" type="button">
-          <span class="mainGameWindow__content">scissors</span>
+
+        <button class="btn btn--scissors" type="button" aria-label="scissors">
+          <img src="../images/scissors/scissors_button.png" alt="" class="btn__icon" />
+          <span class="btn__label visually-hidden">scissors</span>
         </button>
       </section>
     </main>
-  </main>
+  </div>
   <script src="js/functions.js"></script>
-  <!-- <script src="vanilla-tilt.js"></script> -->
   <script src="js/script.js"></script>
-  <audio id="themeSong">
+  <audio id="themeSong" aria-hidden="true">
     <source src="../vendor/sounds/retro.mp3" type="audio/mp3">
   </audio>
 </body>

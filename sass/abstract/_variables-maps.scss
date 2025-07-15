@@ -1,0 +1,21 @@
+/* ---------- COLOR MAP ---------- */
+$theme-colors: (
+  "darkColorPalette": oklch(0 0 0),
+  "whiteColorPalette": oklch(100% 0.00011 271.152),
+  "winningColorPalette": oklch(0.89 0.22 86.3),
+  "lossColorPalette": oklch(0.61 0.21 17.5),
+  "infoColorPalette": oklch(0.93 0.23 115),
+  "shadowsColorPalette": oklch(0.46 0.03 274),
+);
+
+/* ---------- TYPOGRAPHY ---------- */
+$font-heading: "Anton", sans-serif;
+$font-body: "Bebas Neue", sans-serif;
+$font-fancy: "Grey Qo", cursive;
+
+/* ---------- FONT MAP ---------- */
+$fonts: (
+  heading: $font-heading,
+  body: $font-body,
+  fancy: $font-fancy,
+);

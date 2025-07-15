@@ -1,0 +1,37 @@
+// // @use "../abstract/variables" as *;
+// @use "../abstract/functions";
+
+// .game-window {
+//   &:hover {
+  
+
+//      .game-button,
+//     .character-movement--player .character-movement__icon {
+//       // transform: translate(-0.5vw, -1vh) scale(1.01);
+//       // box-shadow: -2px -2px 13px -5px functions.theme-color("whiteColorPalette", 0.56)
+//       //     inset,
+//       //   0px 8px 32px functions.theme-color("whiteColorPalette", 0.37),
+//       //   5px 5px 0 functions.theme-color("darkColorPalette"),
+//       //   // 7px 7px 7px theme-color("whiteColorPalette", 0.15),
+//       //   // 12px 12px 0 theme-color("darkColorPalette"),
+//       //   // 18px 18px 10px theme-color("whiteColorPalette", 0.15),
+//       //   20px 20px 20px functions.theme-color("whiteColorPalette", 0.1);
+//       // border: 2px solid theme-color("darkColorPalette", 0.18);
+//       // @include glass-effect;
+
+//       // &::before {
+//       //   transform: skewX(45deg) translateX(-40vw);
+//       // }
+//       // &--shake {
+//       //   animation: 350ms shake 2;
+//       // }
+//     }
+
+//     .game-window__gameButtons,
+//     .game-window__feedback .feedback-box {
+//       transition: 0.4s ease-in-out;
+
+//       transform: scale(1.1);
+//     } // PRZENIEŚ W ODPOWIEDNI
+//   }
+// }

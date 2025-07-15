@@ -1,0 +1,42 @@
+@use "../abstract/mixins" as m;
+@use "../abstract/functions" as f;
+
+.score-board {
+  @include m.fluid-size(60%, 100%);
+  @include m.flex(space-between, row, start);
+  grid-area: 1 / 1 / 2 / -1;
+  // font-size: clamp(1rem, -0.25rem + 3.333vw, 2.75rem);
+  // align-items: start;
+  border: 2px solid red;
+  z-index: -11;
+}
+
+.score-box {
+  font-size: 10em;
+  color: white;
+  // @include m.fluid-size(100%, 100%);
+  // filter: drop-shadow(0px 7px 4px f.theme-color("shadowsColorPalette", 0.7));
+  border: 2px solid green;
+  color: transparent;
+  background: f.theme-color("darkColorPalette", 0.9);
+  background-clip: text;
+  text-shadow: -4px 8px 7px f.theme-color("whiteColorPalette", 0.7);
+  position: relative;
+  top: -2vh;
+  // left: -1vw;
+
+  &--player {
+    // color: white;
+  }
+}
+
+// game-window {
+//   :hover {
+//     .score-board {
+//     color: theme-color("infoColorPalette", 0.9);
+//     text-shadow: -2px 4px 5px f.theme-color("infoColorPalette", 0.7),
+//       -4px 8px 7px f.theme-color("darkColorPalette", 0.7);
+//     transition: color 350ms;
+//   }
+//   }
+// }

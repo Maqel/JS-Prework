@@ -1,0 +1,48 @@
+@use "../abstract/variables-maps" as *;
+
+// /* ---------- COLOR MAP ---------- */
+// $theme-colors: (
+//   "darkColorPalette": oklch(0 0 0),
+//   "whiteColorPalette": oklch(100% 0.00011 271.152),
+//   "winningColorPalette": oklch(0.89 0.22 86.3),
+//   "lossColorPalette": oklch(0.61 0.21 17.5),
+//   "infoColorPalette": oklch(0.93 0.23 115),
+//   "shadowsColorPalette": oklch(0.46 0.03 274),
+// );
+/* ---------- COLOR FUNC ---------- */
+@function theme-color($key, $opacity: 1) {
+  $color: map-get($theme-colors, $key);
+
+  @if $color {
+    @if $opacity < 1 {
+      @return oklch(from $color l c h / $opacity);
+    } @else {
+      @return $color;
+    }
+  } @else {
+    @warn "Color #{$key} not found in theme-colors map.";
+    @return null;
+  }
+}
+
+:root {
+  @each $key, $value in $theme-colors {
+    --#{$key}: #{$value};
+  }
+}
+
+/* ---------- TYPOGRAPHY ---------- */
+$font-heading: "Anton", sans-serif;
+$font-body: "Bebas Neue", sans-serif;
+$font-fancy: "Grey Qo", cursive;
+
+$fonts: (
+  heading: $font-heading,
+  body: $font-body,
+  fancy: $font-fancy,
+);
+
+/* ---------- FONT FUNC ---------- */
+@function font($key) {
+  @return map-get($fonts, $key);
+}
