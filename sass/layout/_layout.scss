@@ -3,8 +3,8 @@
 
 %o-gradient-frame {
   @include m.gradient-frame(
-    f.theme-color("whiteColorPalette", 0.53),
-    f.theme-color("darkColorPalette", 0.53)
+    oklch(from var(--whiteColorPalette) l c h / 0.53),
+    oklch(from var(--darkColorPalette) l c h / 0.53)
   );
 }
 
@@ -22,9 +22,6 @@
   );
   margin-inline: auto;
   padding-inline: max(1rem, 10%);
-  transform-style: preserve-3d;
-  perspective: 1500px;
-  border: 2px solid red;
 
   @media (min-width: 1400px) {
     max-width: 1000px;
@@ -42,10 +39,6 @@
   @include m.blur(6.5px);
   background: transparent no-repeat center / cover;
   overflow: hidden;
-  // border-radius: 10px;
-  transform: perspective(90vh) rotateX(5deg);
-  // will-change: transform;
-  backface-visibility: hidden;
   @include m.glow-panel(
     $main-color-key: "darkColorPalette",
     $main-opacity: 0.5,

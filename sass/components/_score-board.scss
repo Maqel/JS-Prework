@@ -7,7 +7,7 @@
   grid-area: 1 / 1 / 2 / -1;
   // font-size: clamp(1rem, -0.25rem + 3.333vw, 2.75rem);
   // align-items: start;
-  border: 2px solid red;
+  // border: 2px solid red;
   z-index: -11;
 }
 
@@ -16,11 +16,11 @@
   color: white;
   // @include m.fluid-size(100%, 100%);
   // filter: drop-shadow(0px 7px 4px f.theme-color("shadowsColorPalette", 0.7));
-  border: 2px solid green;
+  // border: 2px solid green;
   color: transparent;
-  background: f.theme-color("darkColorPalette", 0.9);
+  background: oklch(from var(--darkColorPalette) l c h / 0.9);
   background-clip: text;
-  text-shadow: -4px 8px 7px f.theme-color("whiteColorPalette", 0.7);
+  text-shadow: -4px 8px 7px oklch(from var(--whiteColorPalette) l c h / 0.7);
   position: relative;
   top: -2vh;
   // left: -1vw;

@@ -76,7 +76,7 @@
     position: absolute;
     top: -180px;
     left: 0;
-    background-color: f.theme-color(whiteColorPalette, 0.8);
+    background-color: oklch(from var(--whiteColorPalette) l c h / 0.8);
     opacity: 0;
     transform: rotate(45deg);
     animation: reflect 250ms ease-in-out;

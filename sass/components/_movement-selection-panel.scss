@@ -5,8 +5,8 @@
 
 %o-gradient-frame {
   @include m.gradient-frame(
-    f.theme-color("whiteColorPalette", 0.53),
-    f.theme-color("shadowsColorPalette", 0.53)
+    oklch(from var(--whiteColorPalette) l c h / 0.53),
+    oklch(from var(--shadowsColorPalette) l c h / 0.53)
   );
 }
 
@@ -70,7 +70,7 @@
     font-size: 5em; // Dostosuj rozmiar
     font-family: f.font("body"); // Użyj zmiennej fontu, jeśli chcesz
     // color: theme-color("darkColorPalette", 0.15); // Przykładowy kolor z lekką przezroczystością
-    text-shadow: -2px 2px 4px f.theme-color("whiteColorPalette", 0.5); // Opcjonalny cień
+    text-shadow: -2px 2px 4px oklch(from var(--whiteColorPalette) l c h / 0.5); // Opcjonalny cień
     text-transform: uppercase; // Dopasuj do reszty stylów
     z-index: -1; // Umieść ZA przyciskami, ale PRZED tłem kontenera
     pointer-events: none; // Ignoruj zdarzenia myszy
@@ -83,7 +83,7 @@
     ); // Ciemne tło jak w wyniku komputera
     -webkit-background-clip: text;
     background-clip: text;
-    text-shadow: -3px 4px 3px f.theme-color("infoColorPalette", 0.9); // Taki sam cień
+    text-shadow: -3px 4px 3px oklch(from var(--infoColorPalette) l c h / 0.9); // Taki sam cień
 
     // Właściwości do dostosowania
     // font-size: 6em; // <-- Dostosuj rozmiar czcionki do potrzeb

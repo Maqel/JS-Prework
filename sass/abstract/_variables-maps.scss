@@ -8,6 +8,12 @@ $theme-colors: (
   "shadowsColorPalette": oklch(0.46 0.03 274),
 );
 
+:root {
+  @each $key, $value in $theme-colors {
+    --#{$key}: #{$value};
+  }
+}
+
 /* ---------- TYPOGRAPHY ---------- */
 $font-heading: "Anton", sans-serif;
 $font-body: "Bebas Neue", sans-serif;
