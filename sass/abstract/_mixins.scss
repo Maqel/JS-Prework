@@ -36,7 +36,6 @@
   @if $max-height != null {
     max-height: $max-height;
   }
-  //Clamp
   @if $width-min != null and $width-preferred != null and $width-max != null {
     width: clamp($width-min, $width-preferred, $width-max);
   } @else if $width-min != null {
@@ -85,208 +84,6 @@
   }
 }
 
-/* ---------- BASIS STRUCTURE PSEUDO ELEMENTS ---------- */
-@mixin pseudoElement-before(
-  $height,
-  $width,
-  $top: 0,
-  $left: 0,
-  $radius: 0,
-  $z-index: 0,
-  $opacity: 0
-) {
-  &::before {
-    content: "";
-    position: absolute;
-    // @include height-width($height, $width);
-    inset: 0;
-    top: $top;
-    left: $left;
-    border-radius: $radius;
-    z-index: $z-index;
-    opacity: $opacity;
-  }
-}
-
-// @mixin pseudoElement-after(
-//   $height,
-//   $width,
-//   $top: 0,
-//   $left: 0,
-//   $radius: 0,
-//   $z-index: 0,
-//   $opacity: 0
-// ) {
-//   &::after {
-//     content: "";
-//     position: absolute;
-//     @include height-width($height, $width);
-//     inset: 0;
-//     top: $top;
-//     left: $left;
-//     border-radius: $radius;
-//     z-index: $z-index;
-//     opacity: $opacity;
-//   }
-// }
-
-// PRZENIEŚ DO FUNKCJI
-@function _generate-single-box-shadow($shadow-map) {
-  $x: map.get($shadow-map, x);
-  $y: map.get($shadow-map, y);
-  $blur: map.get($shadow-map, blur);
-  $spread: map.get($shadow-map, spread);
-  $color-key: map.get($shadow-map, color);
-  $opacity: map.get($shadow-map, opacity);
-  $inset: map.get($shadow-map, inset);
-
-  $shadow-color: f.theme-color($color-key, $opacity);
-
-  $shadow-string: #{$x} #{$y} #{$blur};
-  @if $spread != null {
-    // Spread może być 0, więc sprawdzamy null, nie 0
-    $shadow-string: #{$shadow-string} #{$spread};
-  }
-  $shadow-string: #{$shadow-string} #{$shadow-color};
-  @if $inset {
-    $shadow-string: #{$shadow-string} inset;
-  }
-  @return $shadow-string;
-}
-
-@mixin glow-panel(
-  $main-color-key: "darkColorPalette",
-  // The main color from which everything inherits
-  $main-opacity: 0.5,
-
-  // drop-shadow param
-  $drop-shadow-x: 5px,
-  $drop-shadow-y: 5px,
-  $drop-shadow-blur: 10px,
-  $drop-shadow-spread: 0px,
-  $drop-shadow-color-key: $main-color-key,
-  $drop-shadow-opacity: $main-opacity,
-
-  // Box-shadow param (single inset and single outer shadow)
-  $inset-shadow-x: -5px,
-  $inset-shadow-y: 5px,
-  $inset-shadow-blur: 15px,
-  $inset-shadow-spread: -5px,
-  $inset-shadow-color-key: $main-color-key,
-  $inset-shadow-opacity: 0.56,
-
-  $outer-shadow-x: 10px,
-  $outer-shadow-y: 10px,
-  $outer-shadow-blur: 20px,
-  $outer-shadow-spread: 0px,
-  $outer-shadow-color-key: $main-color-key,
-  $outer-shadow-opacity: 0.9,
-
-  // border param
-  $border-width: 2px,
-  $border-style: solid,
-  $border-color-key: $main-color-key,
-  $border-opacity: 0.35,
-
-  // Checking status and properties (enable/disable)
-  $state: "default",
-  // 'default' or 'hover'
-  $enable-drop-shadow: true,
-  $enable-box-shadow: true,
-  $enable-border: true,
-
-  // advanced box-shadow map list (will overwrite single shadows)
-  $box-shadow-list: null
-) {
-  // === MANAGING SHADOW VALUES FOR STATE ===
-  // creating a map for the default and hover state
-  $default-inset-shadow: (
-    x: $inset-shadow-x,
-    y: $inset-shadow-y,
-    blur: $inset-shadow-blur,
-    spread: $inset-shadow-spread,
-    color: $inset-shadow-color-key,
-    opacity: $inset-shadow-opacity,
-    inset: true,
-  );
-  $default-outer-shadow: (
-    x: $outer-shadow-x,
-    y: $outer-shadow-y,
-    blur: $outer-shadow-blur,
-    spread: $outer-shadow-spread,
-    color: $outer-shadow-color-key,
-    opacity: $outer-shadow-opacity,
-  );
-
-  // Default values for box-shadow (list of single shadows)
-  $current-box-shadow-list: ($default-inset-shadow, $default-outer-shadow);
-
-  // Defining values for the 'hover' state
-  @if $state == "hover" {
-    $current-inset-shadow: (
-      x: -8px,
-      y: 8px,
-      blur: 20px,
-      spread: -8px,
-      color: $inset-shadow-color-key,
-      opacity: 0.8,
-      inset: true,
-    );
-    $current-outer-shadow: (
-      x: 15px,
-      y: 15px,
-      blur: 30px,
-      spread: 0px,
-      color: $outer-shadow-color-key,
-      opacity: 1,
-    );
-    $current-box-shadow-list: ($current-inset-shadow, $current-outer-shadow);
-  }
-
-  @if $box-shadow-list != null {
-    $current-box-shadow-list: $box-shadow-list;
-  }
-
-  // === GENERATING CSS ===
-
-  // DROP-SHADOW
-  @if $enable-drop-shadow {
-    filter: drop-shadow(
-      $drop-shadow-x
-        $drop-shadow-y
-        $drop-shadow-blur
-        f.theme-color($drop-shadow-color-key, $drop-shadow-opacity)
-    );
-  } @else {
-    filter: none;
-  }
-
-  // BOX-SHADOW
-  @if $enable-box-shadow {
-    $shadows: ();
-    @each $shadow-map in $current-box-shadow-list {
-      $shadows: list.append(
-        $shadows,
-        _generate-single-box-shadow($shadow-map),
-        $separator: comma
-      );
-    }
-    box-shadow: $shadows;
-  } @else {
-    box-shadow: none;
-  }
-
-  // BORDER
-  @if $enable-border {
-    border: $border-width
-      $border-style
-      f.theme-color($border-color-key, $border-opacity);
-      border-radius: 0.5rem;
-  } @else {
-    border: none;
-  }
-}
-
 @mixin gradient-frame(
   $start-color,
   $end-color,
@@ -314,10 +111,71 @@
     -webkit-mask: linear-gradient(#fff 0 0) content-box,
       linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
-    mask-composite: exclude;
   }
 }
 
 @mixin blur($blur) {
   backdrop-filter: blur($blur);
+}
+
+/* ---------- COMPONENT ---------- */
+.glow-panel {
+  /* --- 1. "API" KOMPONENTU: Domyślne wartości konfiguracyjne --- */
+  --panel-border-color-base: var(--darkColorPalette);
+  --panel-inset-shadow-color-base: var(--darkColorPalette);
+  --panel-outer-shadow-color-base: var(--darkColorPalette);
+  --panel-drop-shadow-color-base: var(--darkColorPalette);
+
+  --panel-border-opacity: 0.35;
+  --panel-border-width: 2px;
+  
+  --panel-inset-shadow-x: -5px;
+  --panel-inset-shadow-y: 5px;
+  --panel-inset-shadow-blur: 15px;
+  --panel-inset-shadow-spread: -5px;
+  --panel-inset-shadow-opacity: 0.56;
+
+  --panel-outer-shadow-x: 10px;
+  --panel-outer-shadow-y: 10px;
+  --panel-outer-shadow-blur: 20px;
+  --panel-outer-shadow-spread: 0px;
+  --panel-outer-shadow-opacity: 0.9;
+  
+  --panel-drop-shadow-x: 5px;
+  --panel-drop-shadow-y: 5px;
+  --panel-drop-shadow-blur: 10px;
+  --panel-drop-shadow-opacity: 0.5;
+
+  /* --- 2. "SILNIK" KOMPONENTU: Budowanie stylów na podstawie API --- */
+  --final-border-color: oklch(from var(--panel-border-color-base) l c h / var(--panel-border-opacity));
+  --final-inset-shadow-color: oklch(from var(--panel-inset-shadow-color-base) l c h / var(--panel-inset-shadow-opacity));
+  --final-outer-shadow-color: oklch(from var(--panel-outer-shadow-color-base) l c h / var(--panel-outer-shadow-opacity));
+  --final-drop-shadow-color: oklch(from var(--panel-drop-shadow-color-base) l c h / var(--panel-drop-shadow-opacity));
+  
+  --final-border: var(--panel-border-width) solid var(--final-border-color);
+  --final-drop-shadow: drop-shadow(var(--panel-drop-shadow-x) var(--panel-drop-shadow-y) var(--panel-drop-shadow-blur) var(--final-drop-shadow-color));
+  --final-box-shadow: 
+    inset var(--panel-inset-shadow-x) var(--panel-inset-shadow-y) var(--panel-inset-shadow-blur) var(--panel-inset-shadow-spread) var(--final-inset-shadow-color),
+    var(--panel-outer-shadow-x) var(--panel-outer-shadow-y) var(--panel-outer-shadow-blur) var(--panel-outer-shadow-spread) var(--final-outer-shadow-color);
+
+  /* --- 3. APLIKACJA STYLÓW --- */
+  border: var(--final-border);
+  box-shadow: var(--final-box-shadow);
+  filter: var(--final-drop-shadow);
+
+  border-radius: 0.5rem;
+  transition: all 0.3s ease-in-out;
+}
+
+/* --- 4. OBSŁUGA STANU :HOVER --- */
+.glow-panel:hover {
+  --panel-inset-shadow-x: -8px;
+  --panel-inset-shadow-y: 8px;
+  --panel-inset-shadow-blur: 20px;
+  --panel-inset-shadow-opacity: 0.8;
+  
+  --panel-outer-shadow-x: 15px;
+  --panel-outer-shadow-y: 15px;
+  --panel-outer-shadow-blur: 30px;
+  --panel-outer-shadow-opacity: 1;
 }

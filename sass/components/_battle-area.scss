@@ -12,13 +12,12 @@
   @include m.blur(0.5px);
   transition: 0.5s ease-in-out;
   overflow: hidden;
-  // border-radius: 0.5rem;
   cursor: pointer;
 }
 
 .character-movement {
   @include m.fluid-size(90%, 45%);
-  @include m.blur(0.5px); //zwiększ wartoś by rozmyc wygld wyniku
+  @include m.blur(0.5px);
   @extend %u-base-interaction;
   z-index: inherit;
 
@@ -28,9 +27,6 @@
   }
 
   .character-movement__icon {
-    // @include m.fluid-size(100%, 100%);
-    // object-fit: contain;
-
     &:hover {
       animation: 350ms shake 2;
     }
@@ -38,12 +34,12 @@
 }
 
 .character-movement--player {
-  @include m.glow-panel(
-    $main-color-key: "shadowsColorPalette",
-    $main-opacity: 0.9,
-    $enable-drop-shadow: false,
-    $border-opacity: 0.5
-  );
+  // Domyślna konfiguracja cieni
+  --panel-border-color-base: var(--shadowsColorPalette);
+  --panel-inset-shadow-color-base: var(--shadowsColorPalette);
+  --panel-outer-shadow-color-base: var(--shadowsColorPalette);
+  --panel-border-opacity: 0.5;
+  --final-drop-shadow: none;
 }
 
 .character-movement--cpu {
@@ -52,44 +48,16 @@
 
 .game-window {
   &:hover {
-    .character-movement--player {
-      @include m.glow-panel(
-        $state: "hover",
-        $enable-drop-shadow: false,
-        $enable-border: true,
-        $box-shadow-list: (
-          (
-            x: -7px,
-            y: -7px,
-            blur: 10px,
-            spread: -5px,
-            color: "shadowsColorPalette",
-            opacity: 0.9,
-            inset: true
-          ),
-          (
-            x: 5px,
-            y: 5px,
-            blur: 0px,
-            spread: 0px,
-            color: "whiteColorPalette",
-            opacity: 0.35
-          ),
-          (
-            x: 10px,
-            y: 25px,
-            blur: 15px,
-            spread: 0px,
-            color: "shadowsColorPalette",
-            opacity: 0.5
-          ),
-        ),
-        $border-color-key: "shadowsColorPalette",
-        $border-opacity: 0.42
-      );
-    }
-    .character-movement--cpu {
-      @extend .character-movement--player;
+    .character-movement--player, .character-movement--cpu {
+      // Konfiguracja dla stanu hover z niestandardową listą cieni
+      --final-drop-shadow: none;
+      --panel-border-opacity: 0.42;
+      
+      // Bezpośrednie nadpisanie finalnego cienia, by odtworzyć złożoną listę
+      --final-box-shadow: 
+        inset -7px -7px 10px -5px oklch(from var(--shadowsColorPalette) l c h / 0.9),
+        5px 5px 0px 0px oklch(from var(--whiteColorPalette) l c h / 0.35),
+        10px 25px 15px 0px oklch(from var(--shadowsColorPalette) l c h / 0.5);
     }
   }
 }

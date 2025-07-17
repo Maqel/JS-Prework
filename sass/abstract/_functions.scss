@@ -10,20 +10,20 @@
 //   "shadowsColorPalette": oklch(0.46 0.03 274),
 // );
 /* ---------- COLOR FUNC ---------- */
-@function theme-color($key, $opacity: 1) {
-  $color: map-get($theme-colors, $key);
+// @function theme-color($key, $opacity: 1) {
+//   $color: map-get($theme-colors, $key);
 
-  @if $color {
-    @if $opacity < 1 {
-      @return oklch(from $color l c h / $opacity);
-    } @else {
-      @return $color;
-    }
-  } @else {
-    @warn "Color #{$key} not found in theme-colors map.";
-    @return null;
-  }
-}
+//   @if $color {
+//     @if $opacity < 1 {
+//       @return oklch(from $color l c h / $opacity);
+//     } @else {
+//       @return $color;
+//     }
+//   } @else {
+//     @warn "Color #{$key} not found in theme-colors map.";
+//     @return null;
+//   }
+// }
 
 :root {
   @each $key, $value in $theme-colors {

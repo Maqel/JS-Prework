@@ -1,7 +1,6 @@
 @use "../abstract/mixins" as m;
 @use "../abstract/functions" as f;
 @use "../components/battle-area";
-// @use "../abstract/variables" as *;
 
 %o-gradient-frame {
   @include m.gradient-frame(
@@ -19,92 +18,46 @@
   @include m.fluid-size(70%, 95%);
   @include m.margin-padding(0 auto 2.5vh auto, 0.25rem);
   transition: 500ms ease-in-out;
-  // border-radius: 10px;
-  // background: transparent;
-  @include m.glow-panel(
-    $enable-drop-shadow: false,
-    $enable-border: true,
-    $box-shadow-list: (
-      (
-        x: -8px,
-        y: -8px,
-        blur: 12px,
-        spread: 5px,
-        color: "whiteColorPalette",
-        opacity: 0.25,
-        inset: true
-      ),
-      (
-        x: 12px,
-        y: 12px,
-        blur: 10px,
-        spread: 5px,
-        color: "darkColorPalette",
-        opacity: 0.45,
-        inset: true
-      ),
-      (
-        x: 0px,
-        y: 0px,
-        blur: 10px,
-        spread: 15px,
-        color: "darkColorPalette",
-        opacity: 0.1,
-        inset: true
-      ),
-    ),
-    $border-color-key: "shadowsColorPalette",
-    $border-opacity: 0.45
-  );
   @extend %o-gradient-frame;
 
+  // Konfiguracja glow-panel z niestandardową listą cieni
+  --final-drop-shadow: none;
+  --panel-border-color-base: var(--shadowsColorPalette);
+  --panel-border-opacity: 0.45;
+  
+  // Bezpośrednie nadpisanie finalnego cienia
+  --final-box-shadow: 
+    inset -8px -8px 12px 5px oklch(from var(--whiteColorPalette) l c h / 0.25),
+    inset 12px 12px 10px 5px oklch(from var(--darkColorPalette) l c h / 0.45),
+    inset 0px 0px 10px 15px oklch(from var(--darkColorPalette) l c h / 0.1);
+
   &::after {
-    content: ""; // Pusty domyślnie
+    content: ""; 
     position: absolute;
-    // width: inherit;
-    inset: 0; // Rozciągnij na cały kontener
+    inset: 0;
     margin: 0 0.5em 0 0.5em;
-    display: flex; // Do centrowania tekstu
+    display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 5em; // Dostosuj rozmiar
-    font-family: f.font("body"); // Użyj zmiennej fontu, jeśli chcesz
-    // color: theme-color("darkColorPalette", 0.15); // Przykładowy kolor z lekką przezroczystością
-    text-shadow: -2px 2px 4px oklch(from var(--whiteColorPalette) l c h / 0.5); // Opcjonalny cień
-    text-transform: uppercase; // Dopasuj do reszty stylów
-    z-index: -1; // Umieść ZA przyciskami, ale PRZED tłem kontenera
-    pointer-events: none; // Ignoruj zdarzenia myszy
-    opacity: 0; // Ukryty domyślnie
-    transition: opacity 0.3s ease-in-out; // Płynne pojawianie się
+    font-size: 5em;
+    font-family: f.font("body");
+    text-shadow: -2px 2px 4px oklch(from var(--whiteColorPalette) l c h / 0.5);
+    text-transform: uppercase;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
     color: transparent;
-    background: theme-color(
-      "darkColorPalette",
-      0.9
-    ); // Ciemne tło jak w wyniku komputera
+    // Poprawione wywołanie koloru
+    background: oklch(from var(--darkColorPalette) l c h / 0.9);
     -webkit-background-clip: text;
     background-clip: text;
-    text-shadow: -3px 4px 3px oklch(from var(--infoColorPalette) l c h / 0.9); // Taki sam cień
-
-    // Właściwości do dostosowania
-    // font-size: 6em; // <-- Dostosuj rozmiar czcionki do potrzeb
-    // font-family: f.font(
-    //   "body"
-    // ); // <-- Wybierz odpowiedni font (np. ten sam co w wyniku)
-    // position: ...; // <-- Dostosuj pozycjonowanie, jeśli potrzebne
-    // top: ...;
-    // left: ...;
-    // text-transform: uppercase;
-
-    // text-stroke: 1px theme-color("whiteColorPalette", 0.6); // Standardowa właściwość
+    text-shadow: -3px 4px 3px oklch(from var(--infoColorPalette) l c h / 0.9);
   }
 }
 
 .btn {
   @include m.margin-padding(2vmin min(0.5vmin, 1%), 1vmin);
-  // @include m.fluid-size(
-  //   clamp(100px, 15vw, 150px),
-  //   clamp(100px, 15vw, 150px)
-  // );
   position: relative;
   color: transparent;
   font-size: 16px;
@@ -112,97 +65,7 @@
   @extend .character-movement--player;
   @extend %u-base-interaction;
 
-  // &--rock {
-  //   background-image: url(../images/rock/rock_button.png);
-  // }
-  // &--paper {
-  //  @extend .gradient-frame;
-  // }
-  // &--scissors {
-  //   background-image: url(../images/scissors/scissors_button.png);
-  // }
-
-  // &::before {
-  //   @include glass-effect(50vw);
-  // }
-
-  &:focus-visible,
-  &:hover {
-    // background-color: inherit;
-    // transform: translate(-0.5vw, -1.2vh);
-    // @include m.glow-panel(
-    //   $enable-drop-shadow: false,
-    //   $enable-border: false,
-    //   $box-shadow-list: (
-    //     (x: -2px, y: -2px, blur: 13px, spread: -5px, color: "darkColorPalette", opacity: 0.56, inset: true),
-    //     (x: 0px, y: 8px, blur: 32px, spread: 0px, color: "darkColorPalette", opacity: 0.37),
-    //     (x: 2px, y: 2px, blur: 30px, spread: 0px, color: "whiteColorPalette", opacity: 0.56),
-    //     (x: 4px, y: 4px, blur: 0px, spread: 0px, color: "whiteColorPalette", opacity: 1), // Opacity 1
-    //     (x: 12px, y: 12px, blur: 12px, spread: 0px, color: "darkColorPalette", opacity: 0.1)
-    //   )
-    // );
-    // border: 2px solid f.theme-color("whiteColorPalette", 0.18);
-  }
-
   &:hover::before {
     // transform: skewX(45deg) translateX(-30vw);
   }
-  &__icon {
-    // @extend .character-movement__icon
-  }
 }
-
-.game-window {
-  &:focus-visible,
-  &:hover {
-    .btn--rock {
-      // @extend .character-movement--player;
-    }
-    .btn--scissors {
-      // @extend .character-movement--cpu;
-    }
-
-    .btn--paper {
-      // @extend %o-gradient-frame;
-      // position: relative;
-      // padding: 2rem;
-      // border: 2px solid rgba(255, 255, 255, 0.25);
-      // border-radius: 16px;
-      // backdrop-filter: blur(12px);
-      // background-color: rgba(255, 255, 255, 0.1);
-      // overflow: hidden;
-
-      //     &::before {
-      //   content: '';
-      //   position: absolute;
-      //   inset: 0;
-      //   pointer-events: none;
-      //   z-index: 1;
-      //   box-shadow:
-      //     inset 20px 0 40px f.theme-color("whiteColorPalette", 0.9),
-      //     inset -20px 0 40px f.theme-color("darkColorPalette", 0.9);
-      // }
-    }
-  }
-}
-
-// .btn--paper {
-//     &::before {
-//     content: "";
-//     position: absolute;
-//     inset: 0;
-//     padding: 2px; // grubość ramki
-//     background: linear-gradient(
-//       to left,
-//       f.theme-color("darkColorPalette", 0.4),
-//       f.theme-color("whiteColorPalette", 0.4)
-//     );
-//     border-radius: inherit;
-//     -webkit-mask: linear-gradient(#fff 0 0) content-box,
-//       linear-gradient(#fff 0 0);
-//     -webkit-mask-composite: xor;
-//     mask-composite: exclude;
-//     pointer-events: none;
-//     z-index: -1;
-//   }
-//   }
